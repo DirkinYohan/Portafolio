@@ -1,5 +1,5 @@
 "use client";
-import { Sun, Moon, Globe, Briefcase, User, Code2, MessageSquare, Mail, ChevronDown, Sparkles } from "lucide-react";
+import { Sun, Moon, Globe, Briefcase, User, Code2, MessageSquare, Mail, ChevronDown, Sparkles, Menu, X } from "lucide-react";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useState, useEffect } from "react";
@@ -19,6 +19,7 @@ export default function Hero({
 }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeNav, setActiveNav] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -149,7 +150,7 @@ export default function Hero({
         {/* Enhanced Logo */}
         <div className="relative group">
           <div className="absolute transition-all duration-500 rounded-lg opacity-0 -inset-2 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 group-hover:opacity-100 blur-lg"></div>
-          <span className="relative text-3xl font-black text-transparent cursor-pointer bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text">
+          <span className={`relative text-3xl font-black bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent cursor-pointer`}>
             D
           </span>
           <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-green-400 to-purple-400 group-hover:w-full transition-all duration-500"></div>
@@ -176,13 +177,31 @@ export default function Hero({
               </div>
               
               {/* Animated background */}
-              <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-green-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-all duration-300 blur-sm`}></div>
+              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 blur-sm ${
+                darkMode ? 'bg-gradient-to-r from-green-500/10 to-blue-500/10' : 'bg-gradient-to-r from-green-400/20 to-blue-400/20'
+              }`}></div>
               
               {/* Bottom indicator */}
               <div className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-green-400 to-blue-400 rounded-full transition-all duration-300 ${activeNav === i ? 'w-full' : 'group-hover:w-3/4'}`}></div>
             </li>
           ))}
         </ul>
+
+        {/* Mobile Menu Button */}
+        <button 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className={`lg:hidden relative p-3 rounded-full backdrop-blur-sm border transition-all duration-300 hover:scale-110 ${
+            darkMode 
+              ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' 
+              : 'bg-white/50 border-gray-300/50 hover:bg-gray-100/50'
+          }`}
+        >
+          {mobileMenuOpen ? (
+            <X size={20} className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} transition-transform duration-300 rotate-90`} />
+          ) : (
+            <Menu size={20} className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} transition-transform duration-300`} />
+          )}
+        </button>
 
         {/* Enhanced Controls */}
         <div className="flex items-center space-x-3">
@@ -216,6 +235,88 @@ export default function Hero({
         </div>
       </nav>
 
+      {/* Mobile Menu Overlay */}
+      <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
+        mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+      }`}>
+        {/* Backdrop */}
+        <div 
+          className={`absolute inset-0 backdrop-blur-xl transition-all duration-300 ${
+            darkMode ? 'bg-gray-900/90' : 'bg-white/90'
+          }`}
+          onClick={() => setMobileMenuOpen(false)}
+        />
+        
+        {/* Mobile Menu */}
+        <div className={`absolute top-24 left-4 right-4 rounded-2xl border backdrop-blur-xl transition-all duration-300 transform ${
+          mobileMenuOpen ? 'translate-y-0 scale-100' : '-translate-y-10 scale-95'
+        } ${darkMode ? 'bg-gray-800/90 border-gray-700/50' : 'bg-white/90 border-gray-300/50'}`}>
+          <div className="p-6">
+            <ul className="space-y-4">
+              {texts[lang].nav.map((item, i) => (
+                <li key={i}>
+                  <button 
+                    className={`w-full flex items-center space-x-4 py-4 px-6 rounded-xl transition-all duration-300 ${
+                      darkMode 
+                        ? 'hover:bg-gray-700/50 text-gray-300 hover:text-white' 
+                        : 'hover:bg-gray-100/50 text-gray-700 hover:text-gray-900'
+                    }`}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      // Aquí puedes agregar la lógica de navegación
+                    }}
+                  >
+                    <div className={`transition-all duration-300 ${
+                      darkMode ? 'text-green-400' : 'text-blue-500'
+                    }`}>
+                      {item.icon}
+                    </div>
+                    <span className="text-lg font-medium">{item.name}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+            
+            {/* Mobile Menu Footer */}
+            <div className={`mt-6 pt-6 border-t flex justify-center space-x-4 ${
+              darkMode ? 'border-gray-700/50' : 'border-gray-300/50'
+            }`}>
+              <button 
+                onClick={() => {
+                  setDarkMode(!darkMode);
+                  setMobileMenuOpen(false);
+                }}
+                className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
+                  darkMode 
+                    ? 'bg-gray-700/50 hover:bg-gray-600/50' 
+                    : 'bg-gray-100/50 hover:bg-gray-200/50'
+                }`}
+              >
+                {darkMode ? (
+                  <Sun size={20} className="text-yellow-400" />
+                ) : (
+                  <Moon size={20} className="text-gray-700" />
+                )}
+              </button>
+              
+              <button 
+                onClick={() => {
+                  setLang(lang === "es" ? "en" : "es");
+                  setMobileMenuOpen(false);
+                }}
+                className={`p-3 rounded-full transition-all duration-300 hover:scale-110 ${
+                  darkMode 
+                    ? 'bg-gray-700/50 hover:bg-gray-600/50' 
+                    : 'bg-gray-100/50 hover:bg-gray-200/50'
+                }`}
+              >
+                <Globe size={20} className={`${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* HERO CONTENT */}
       <div className="relative z-10 flex flex-col items-center justify-center flex-grow px-8 pt-40 space-y-12 text-center lg:flex-row lg:text-left lg:pt-48 lg:space-y-0 lg:space-x-16">
         
@@ -224,19 +325,28 @@ export default function Hero({
           
           {/* Main Profile Image */}
           <div className="relative group">
-            {/* Animated rings */}
-            <div className="absolute -inset-8 rounded-full border-2 border-green-500/30 animate-spin duration-[8s]"></div>
-            <div className="absolute -inset-12 rounded-full border border-blue-500/20 animate-spin duration-[12s] animation-direction-reverse"></div>
-            <div className="absolute -inset-16 rounded-full border border-purple-500/10 animate-spin duration-[16s]"></div>
+            <div className={`absolute -inset-8 rounded-full border-2 animate-spin duration-[8s] ${
+              darkMode ? 'border-green-500/30' : 'border-blue-500/40'
+            }`}></div>
+            <div className={`absolute -inset-12 rounded-full border animate-spin duration-[12s] animation-direction-reverse ${
+              darkMode ? 'border-blue-500/20' : 'border-green-500/30'
+            }`}></div>
+            <div className={`absolute -inset-16 rounded-full border animate-spin duration-[16s] ${
+              darkMode ? 'border-purple-500/10' : 'border-purple-500/20'
+            }`}></div>
             
             {/* Profile container */}
             <div className="relative w-56 h-56 lg:w-72 lg:h-72">
               {/* Glow effect */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-500/30 via-blue-500/30 to-purple-500/30 blur-xl animate-pulse"></div>
+              <div className={`absolute inset-0 rounded-full blur-xl animate-pulse ${
+                darkMode 
+                  ? 'bg-gradient-to-r from-green-500/30 via-blue-500/30 to-purple-500/30' 
+                  : 'bg-gradient-to-r from-green-400/20 via-blue-400/20 to-purple-400/20'
+              }`}></div>
               
               {/* Image container */}
-              <div className="relative w-full h-full p-1 overflow-hidden transition-transform duration-500 border-4 border-transparent rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 group-hover:scale-105">
-                <div className="w-full h-full overflow-hidden bg-gray-900 rounded-full">
+              <div className={`relative w-full h-full rounded-full overflow-hidden border-4 border-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 p-1 group-hover:scale-105 transition-transform duration-500`}>
+                <div className={`w-full h-full rounded-full overflow-hidden ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
                   <Image 
                     src="/avatar.png" 
                     alt="Dirkin Developer" 
@@ -248,9 +358,15 @@ export default function Hero({
             </div>
             
             {/* Floating particles */}
-            <div className="absolute w-4 h-4 delay-100 bg-green-400 rounded-full -top-6 -right-6 animate-bounce"></div>
-            <div className="absolute w-3 h-3 delay-300 bg-blue-400 rounded-full -bottom-4 -left-4 animate-bounce"></div>
-            <div className="absolute w-2 h-2 delay-500 bg-purple-400 rounded-full top-1/2 -right-8 animate-ping"></div>
+            <div className={`absolute -top-6 -right-6 w-4 h-4 rounded-full animate-bounce delay-100 ${
+              darkMode ? 'bg-green-400' : 'bg-green-500'
+            }`}></div>
+            <div className={`absolute -bottom-4 -left-4 w-3 h-3 rounded-full animate-bounce delay-300 ${
+              darkMode ? 'bg-blue-400' : 'bg-blue-500'
+            }`}></div>
+            <div className={`absolute top-1/2 -right-8 w-2 h-2 rounded-full animate-ping delay-500 ${
+              darkMode ? 'bg-purple-400' : 'bg-purple-500'
+            }`}></div>
           </div>
         </div>
 
@@ -259,7 +375,7 @@ export default function Hero({
           
           {/* Animated greeting */}
           <div className="flex items-center justify-center mb-6 lg:justify-start">
-            <Sparkles className="mr-3 text-yellow-400 animate-pulse" size={24} />
+            <Sparkles className={`mr-3 animate-pulse ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
             <span className={`text-lg font-light tracking-wide ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Welcome to my digital universe</span>
           </div>
 
@@ -283,7 +399,7 @@ export default function Hero({
             <span className="text-transparent bg-gradient-to-r from-green-400 via-cyan-400 to-blue-400 bg-clip-text">
               {texts[lang].subtitle}
             </span>
-            <span className="ml-2 text-green-400 animate-pulse">|</span>
+            <span className={`animate-pulse ml-2 ${darkMode ? 'text-green-400' : 'text-blue-500'}`}>|</span>
           </h2>
           
           {/* Description */}
