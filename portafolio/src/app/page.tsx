@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import LetterSlices from "./components/LetterSlices";
 import Hero from "./components/Hero";
 import About from "./components/About";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
 // (más secciones después)
 export default function Page() {
   const [showContent, setShowContent] = useState(false);
@@ -41,6 +43,8 @@ export default function Page() {
             setDarkMode={setDarkMode}
           />
           <About lang={lang} darkMode={darkMode} />
+          <Skills lang={lang} darkMode={darkMode} />
+          <Projects lang={lang} darkMode={darkMode} />
         </>
       )}
     </main>
