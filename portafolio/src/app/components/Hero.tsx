@@ -1,8 +1,9 @@
-"use client";
-import { Sun, Moon, Globe, Briefcase, User, Code2, MessageSquare, Mail, ChevronDown, Sparkles, Menu, X } from "lucide-react";
+"use client"; 
+import { Sun, Moon, Globe, Briefcase, User, Code2, MessageSquare, Mail, ChevronDown, Sparkles, Menu, X, Download } from "lucide-react";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useState, useEffect } from "react";
+import About from "./About";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,13 +43,15 @@ export default function Hero({
       subtitle: "Arquitecto de Soluciones Digitales",
       desc: "Transformando ideas en experiencias digitales excepcionales con tecnología de vanguardia y diseño innovador.",
       cta1: "Explorar Proyectos",
-      cta2: "Colaboremos",
+      cta2: "Descargar CV",
       nav: [
-        { name: "Proyectos", icon: <Briefcase size={18} /> },
         { name: "Perfil", icon: <User size={18} /> },
-        { name: "Stack Tech", icon: <Code2 size={18} /> },
-        { name: "Reviews", icon: <MessageSquare size={18} /> },
-        { name: "Conectar", icon: <Mail size={18} /> },
+        { name: "Sobre mí", icon: <User size={18} /> },
+        { name: "Habilidades", icon: <Code2 size={18} /> },
+        { name: "Proyectos", icon: <Briefcase size={18} /> },
+        { name: "Experiencia", icon: <Briefcase size={18} /> },
+        { name: "Testimonios", icon: <MessageSquare size={18} /> },
+        { name: "Contacto", icon: <Mail size={18} /> },
       ],
     },
     en: {
@@ -56,13 +59,15 @@ export default function Hero({
       subtitle: "Digital Solutions Architect",
       desc: "Transforming ideas into exceptional digital experiences with cutting-edge technology and innovative design.",
       cta1: "Explore Projects",
-      cta2: "Let's Collaborate",
+      cta2: "Download CV",
       nav: [
-        { name: "Projects", icon: <Briefcase size={18} /> },
         { name: "Profile", icon: <User size={18} /> },
-        { name: "Tech Stack", icon: <Code2 size={18} /> },
-        { name: "Reviews", icon: <MessageSquare size={18} /> },
-        { name: "Connect", icon: <Mail size={18} /> },
+        { name: "About me", icon: <User size={18} /> },
+        { name: "Skills", icon: <Code2 size={18} /> },
+        { name: "Projects", icon: <Briefcase size={18} /> },
+        { name: "Experience", icon: <Briefcase size={18} /> },
+        { name: "Testimonials", icon: <MessageSquare size={18} /> },
+        { name: "Contact", icon: <Mail size={18} /> },
       ],
     },
   };
@@ -425,7 +430,7 @@ export default function Hero({
             }`}>
               <span className={`relative z-10 flex items-center justify-center gap-3 ${darkMode ? 'group-hover:text-white' : 'group-hover:text-gray-900'}`}>
                 {texts[lang].cta2}
-                <Mail className="group-hover:animate-bounce" size={20} />
+                <Download className="group-hover:animate-bounce" size={20} />
               </span>
               <div className="absolute inset-0 transition-opacity duration-300 opacity-0 bg-gradient-to-r from-green-500/10 via-blue-500/10 to-purple-500/10 group-hover:opacity-100"></div>
               <div className="absolute inset-0 transition-opacity duration-300 border-2 border-transparent opacity-0 bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 rounded-2xl group-hover:opacity-100"></div>

@@ -3,22 +3,27 @@
 import { useState, useEffect } from "react";
 import LetterSlices from "./components/LetterSlices";
 import Hero from "./components/Hero";
-
+import About from "./components/About";
+// (más secciones después)
 export default function Page() {
-  const [showHero, setShowHero] = useState(false);
+  const [showContent, setShowContent] = useState(false);
   const [lang, setLang] = useState<"es" | "en">("es");
   const [darkMode, setDarkMode] = useState(true);
 
-  // ⏳ Mostrar Hero después de la animación
+  // ⏳ Mostrar contenido después de la animación
   useEffect(() => {
-    const timer = setTimeout(() => setShowHero(true), 3500); // dura 3.5s aprox
+    const timer = setTimeout(() => setShowContent(true), 3500); // dura 3.5s aprox
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <main className={darkMode ? "bg-gray-900 text-white" : "bg-white text-black"}>
-      {!showHero ? (
-        // 🔥 Animación del nombre sola
+    <main
+      className={`transition-colors duration-500 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+      }`}
+    >
+      {!showContent ? (
+        // 🔥 Intro animada con tu nombre
         <div className="flex items-center justify-center min-h-screen">
           <div className="flex space-x-2">
             {"DIRKIN".split("").map((letter, index) => (
@@ -27,9 +32,18 @@ export default function Page() {
           </div>
         </div>
       ) : (
-        // 👇 Hero aparece después
-        <Hero lang={lang} setLang={setLang} darkMode={darkMode} setDarkMode={setDarkMode} />
+        // 👇 Contenido del portafolio con scroll
+        <>
+          <Hero
+            lang={lang}
+            setLang={setLang}
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+          />
+          <About lang={lang} darkMode={darkMode} />
+        </>
       )}
     </main>
   );
 }
+
