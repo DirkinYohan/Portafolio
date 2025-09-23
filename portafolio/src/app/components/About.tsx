@@ -10,29 +10,27 @@ export default function About({
   lang: "es" | "en";
   darkMode: boolean;
 }) {
-  const [isVisible, setIsVisible] = useState(false);
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 } // Reducido el threshold para que se active antes
-    );
+    // Manejar el scroll cuando la página se carga con #about en la URL
+    const handleHashScroll = () => {
+      if (window.location.hash === '#about' && sectionRef.current) {
+        setTimeout(() => {
+          sectionRef.current?.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }, 300);
+      }
+    };
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    // Ejecutar inmediatamente y también después de un pequeño delay
+    handleHashScroll();
+    window.addEventListener('load', handleHashScroll);
 
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (sectionRef.current) {
         const rect = sectionRef.current.getBoundingClientRect();
@@ -45,20 +43,11 @@ export default function About({
 
     if (sectionRef.current) {
       sectionRef.current.addEventListener('mousemove', handleMouseMove);
-      return () => sectionRef.current?.removeEventListener('mousemove', handleMouseMove);
+      return () => {
+        sectionRef.current?.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('load', handleHashScroll);
+      };
     }
-  }, []);
-
-  // Función para manejar el scroll suave si es necesario
-  useEffect(() => {
-    const handleHashChange = () => {
-      if (window.location.hash === '#about' && sectionRef.current) {
-        sectionRef.current.scrollIntoView({ behavior: 'smooth' });
-      }
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   const texts = {
@@ -128,17 +117,20 @@ export default function About({
     <section
       ref={sectionRef}
       id="about"
-      className={`min-h-screen relative overflow-hidden transition-all duration-500 font-sans scroll-mt-20 ${
+      className={`min-h-screen relative overflow-hidden font-sans ${
         darkMode 
           ? "bg-gradient-to-br from-gray-900 via-gray-800 to-black" 
           : "bg-gradient-to-br from-slate-50 via-white to-gray-100"
       }`}
+      style={{ 
+        scrollMarginTop: '80px' // Compensación para navbar fijo
+      }}
     >
       
       {/* Dynamic Background Grid - Estilo Hero */}
-      <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-20' : 'opacity-10'}`}>
+      <div className={`absolute inset-0 ${darkMode ? 'opacity-20' : 'opacity-10'}`}>
         <div 
-          className="absolute inset-0 transition-all duration-1000 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10"
+          className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10"
           style={{
             transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
           }}
@@ -162,7 +154,7 @@ export default function About({
               darkMode 
                 ? 'bg-gray-800/60 border-gray-700/50 text-green-400' 
                 : 'bg-white/80 border-gray-300/50 text-blue-600'
-            } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            }`}
             style={{
               left: `${logo.x}%`,
               top: `${logo.y}%`,
@@ -193,10 +185,8 @@ export default function About({
 
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 py-20">
         
-        {/* Enhanced Header - Estilo Hero */}
-        <div className={`max-w-6xl w-full text-center mb-16 transition-all duration-1000 ${
-          isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-        }`}>
+        {/* Enhanced Header */}
+        <div className="max-w-6xl w-full text-center mb-16">
           
           {/* Sparkle icon - Estilo Hero */}
           <div className="flex items-center justify-center mb-6">
@@ -215,13 +205,11 @@ export default function About({
           </h2>
         </div>
 
-        {/* Main Content - Layout similar al Hero */}
+        {/* Main Content */}
         <div className="flex flex-col lg:flex-row items-center gap-16 max-w-6xl w-full">
           
-          {/* Enhanced Image Section - Estilo Hero */}
-          <div className={`flex-1 flex justify-center transition-all duration-1000 delay-300 ${
-            isVisible ? 'translate-x-0 opacity-100' : '-translate-x-32 opacity-0'
-          }`}>
+          {/* Enhanced Image Section */}
+          <div className="flex-1 flex justify-center">
             <div className="relative group">
               
               {/* Animated rings - Estilo Hero */}
@@ -248,7 +236,7 @@ export default function About({
                 <div className={`relative w-full h-full rounded-full overflow-hidden border-4 border-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 p-1 group-hover:scale-105 transition-transform duration-500`}>
                   <div className={`w-full h-full rounded-full overflow-hidden ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
                     <Image
-                      src="/about.png"
+                      src="/avatar.png"
                       alt="About me"
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -280,10 +268,8 @@ export default function About({
             </div>
           </div>
 
-          {/* Enhanced Text Content - Estilo Hero */}
-          <div className={`flex-1 space-y-8 transition-all duration-1000 delay-500 ${
-            isVisible ? 'translate-x-0 opacity-100' : 'translate-x-32 opacity-0'
-          }`}>
+          {/* Enhanced Text Content */}
+          <div className="flex-1 space-y-8">
             
             {/* Main description with Hero typography */}
             <div className="relative">
@@ -297,7 +283,7 @@ export default function About({
               }`}>"</div>
             </div>
 
-            {/* Enhanced Cards Grid - Estilo Hero */}
+            {/* Enhanced Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {texts[lang].cards.map((card, i) => (
                 <div
@@ -306,8 +292,7 @@ export default function About({
                     darkMode
                       ? "bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/70"
                       : "bg-white/80 border-gray-200/50 hover:bg-white/90"
-                  } ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
-                  style={{ animationDelay: `${(i + 1) * 150}ms` }}
+                  }`}
                   onMouseEnter={() => setActiveCard(i)}
                   onMouseLeave={() => setActiveCard(null)}
                 >
@@ -363,6 +348,16 @@ export default function About({
       <style jsx global>{`
         .font-sans {
           font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        /* Asegurar que el scroll funcione correctamente */
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        /* Compensación adicional para el navbar fijo */
+        #about {
+          scroll-margin-top: 80px;
         }
       `}</style>
     </section>

@@ -3,7 +3,6 @@ import { Sun, Moon, Globe, Briefcase, User, Code2, MessageSquare, Mail, ChevronD
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useState, useEffect } from "react";
-import About from "./About";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,6 +36,29 @@ export default function Hero({
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Función para manejar el scroll suave a las secciones
+  const scrollToSection = (sectionId: string) => {
+    if (sectionId === "hero") {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const offset = 80; // Ajuste para el navbar fijo
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+    setMobileMenuOpen(false);
+  };
+
   const texts = {
     es: {
       title: "Dirkin Developer",
@@ -45,13 +67,13 @@ export default function Hero({
       cta1: "Explorar Proyectos",
       cta2: "Descargar CV",
       nav: [
-        { name: "Perfil", icon: <User size={18} /> },
-        { name: "Sobre mí", icon: <User size={18} /> },
-        { name: "Habilidades", icon: <Code2 size={18} /> },
-        { name: "Proyectos", icon: <Briefcase size={18} /> },
-        { name: "Experiencia", icon: <Briefcase size={18} /> },
-        { name: "Testimonios", icon: <MessageSquare size={18} /> },
-        { name: "Contacto", icon: <Mail size={18} /> },
+        { name: "Inicio", icon: <User size={18} />, id: "hero" },
+        { name: "Sobre mí", icon: <User size={18} />, id: "about" },
+        { name: "Habilidades", icon: <Code2 size={18} />, id: "skills" },
+        { name: "Proyectos", icon: <Briefcase size={18} />, id: "projects" },
+        { name: "Experiencia", icon: <Briefcase size={18} />, id: "experience" },
+        { name: "Testimonios", icon: <MessageSquare size={18} />, id: "testimonials" },
+        { name: "Contacto", icon: <Mail size={18} />, id: "contact" },
       ],
     },
     en: {
@@ -61,13 +83,13 @@ export default function Hero({
       cta1: "Explore Projects",
       cta2: "Download CV",
       nav: [
-        { name: "Profile", icon: <User size={18} /> },
-        { name: "About me", icon: <User size={18} /> },
-        { name: "Skills", icon: <Code2 size={18} /> },
-        { name: "Projects", icon: <Briefcase size={18} /> },
-        { name: "Experience", icon: <Briefcase size={18} /> },
-        { name: "Testimonials", icon: <MessageSquare size={18} /> },
-        { name: "Contact", icon: <Mail size={18} /> },
+        { name: "Home", icon: <User size={18} />, id: "hero" },
+        { name: "About me", icon: <User size={18} />, id: "about" },
+        { name: "Skills", icon: <Code2 size={18} />, id: "skills" },
+        { name: "Projects", icon: <Briefcase size={18} />, id: "projects" },
+        { name: "Experience", icon: <Briefcase size={18} />, id: "experience" },
+        { name: "Testimonials", icon: <MessageSquare size={18} />, id: "testimonials" },
+        { name: "Contact", icon: <Mail size={18} />, id: "contact" },
       ],
     },
   };
@@ -83,11 +105,14 @@ export default function Hero({
   ];
 
   return (
-    <section className={`min-h-screen flex flex-col ${inter.className} relative overflow-hidden transition-all duration-500 ${
-      darkMode 
-        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
-        : 'bg-gradient-to-br from-slate-50 via-white to-gray-100'
-    }`}>
+    <section 
+      id="hero"
+      className={`min-h-screen flex flex-col ${inter.className} relative overflow-hidden transition-all duration-500 ${
+        darkMode 
+          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
+          : 'bg-gradient-to-br from-slate-50 via-white to-gray-100'
+      }`}
+    >
       
       {/* Dynamic Background Grid */}
       <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-20' : 'opacity-10'}`}>
@@ -170,16 +195,19 @@ export default function Hero({
               onMouseEnter={() => setActiveNav(i)}
               onMouseLeave={() => setActiveNav(null)}
             >
-              <div className={`flex items-center space-x-2 cursor-pointer py-3 px-5 rounded-xl transition-all duration-300 relative z-10 ${
-                darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-100/50'
-              }`}>
+              <button
+                onClick={() => scrollToSection(item.id)}
+                className={`flex items-center space-x-2 cursor-pointer py-3 px-5 rounded-xl transition-all duration-300 relative z-10 ${
+                  darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-100/50'
+                }`}
+              >
                 <div className={`transition-all duration-300 ${activeNav === i ? 'text-green-400 scale-125 rotate-12' : `${darkMode ? 'text-gray-500' : 'text-gray-600'} group-hover:text-green-400`}`}>
                   {item.icon}
                 </div>
                 <span className={`font-medium transition-all duration-300 ${activeNav === i ? 'text-green-400' : `${darkMode ? 'text-gray-400 group-hover:text-white' : 'text-gray-700 group-hover:text-gray-900'}`}`}>
                   {item.name}
                 </span>
-              </div>
+              </button>
               
               {/* Animated background */}
               <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 blur-sm ${
@@ -266,10 +294,7 @@ export default function Hero({
                         ? 'hover:bg-gray-700/50 text-gray-300 hover:text-white' 
                         : 'hover:bg-gray-100/50 text-gray-700 hover:text-gray-900'
                     }`}
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      // Aquí puedes agregar la lógica de navegación
-                    }}
+                    onClick={() => scrollToSection(item.id)}
                   >
                     <div className={`transition-all duration-300 ${
                       darkMode ? 'text-green-400' : 'text-blue-500'
@@ -381,7 +406,9 @@ export default function Hero({
           {/* Animated greeting */}
           <div className="flex items-center justify-center mb-6 lg:justify-start">
             <Sparkles className={`mr-3 animate-pulse ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
-            <span className={`text-lg font-light tracking-wide ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Welcome to my digital universe</span>
+            <span className={`text-lg font-light tracking-wide ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              {lang === "es" ? "Bienvenido a mi universo digital" : "Welcome to my digital universe"}
+            </span>
           </div>
 
           {/* Main title */}
@@ -414,7 +441,10 @@ export default function Hero({
 
           {/* Premium CTA Buttons */}
           <div className="flex flex-col justify-center gap-6 sm:flex-row lg:justify-start">
-            <button className="relative px-10 py-5 overflow-hidden font-bold text-white transition-all duration-500 group bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 rounded-2xl hover:shadow-2xl hover:shadow-green-500/25 hover:scale-105">
+            <button 
+              onClick={() => scrollToSection('projects')}
+              className="relative px-10 py-5 overflow-hidden font-bold text-white transition-all duration-500 group bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 rounded-2xl hover:shadow-2xl hover:shadow-green-500/25 hover:scale-105"
+            >
               <span className="relative z-10 flex items-center justify-center gap-3">
                 {texts[lang].cta1}
                 <Code2 className="transition-transform duration-300 group-hover:rotate-90" size={20} />
@@ -442,9 +472,9 @@ export default function Hero({
             darkMode ? 'border-gray-800/50' : 'border-gray-300/50'
           }`}>
             {[
-              { number: "50+", label: "Proyectos" },
-              { number: "3+", label: "Años Exp." },
-              { number: "100%", label: "Satisfacción" }
+              { number: "50+", label: lang === "es" ? "Proyectos" : "Projects" },
+              { number: "3+", label: lang === "es" ? "Años Exp." : "Years Exp." },
+              { number: "100%", label: lang === "es" ? "Satisfacción" : "Satisfaction" }
             ].map((stat, index) => (
               <div key={index} className="text-center group">
                 <div className="text-3xl font-black text-transparent transition-transform duration-300 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text group-hover:scale-110">
@@ -459,7 +489,9 @@ export default function Hero({
 
       {/* Enhanced Scroll Indicator */}
       <div className="absolute flex flex-col items-center transform -translate-x-1/2 bottom-8 left-1/2 animate-bounce">
-        <div className={`text-xs mb-2 tracking-wider ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>SCROLL</div>
+        <div className={`text-xs mb-2 tracking-wider ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+          {lang === "es" ? "DESPLAZAR" : "SCROLL"}
+        </div>
         <div className={`w-6 h-10 border-2 rounded-full flex justify-center relative overflow-hidden ${
           darkMode ? 'border-gray-600' : 'border-gray-400'
         }`}>
