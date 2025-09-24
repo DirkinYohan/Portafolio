@@ -77,10 +77,10 @@ export default function Experience({
         en: "Software Engineering",
       },
       institution: {
-        es: "Universidad Nacional",
-        en: "National University",
+        es: "Universidad Cooperetiva de colombia",
+        en: "Cooperative University of Colombia",
       },
-      period: "2017 - 2022",
+      period: "2022 - 2025",
       description: {
         es: "Formación integral en desarrollo de software, estructuras de datos, bases de datos, ingeniería de requisitos y arquitecturas modernas. Enfoque en metodologías ágiles y buenas prácticas de programación.",
         en: "Comprehensive training in software development, data structures, databases, requirements engineering, and modern architectures. Focus on agile methodologies and programming best practices.",
