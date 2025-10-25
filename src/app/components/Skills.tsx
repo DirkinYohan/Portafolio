@@ -73,7 +73,6 @@ export default function Skills({
   const skills: Record<string, { 
     name: string; 
     icon: React.ReactNode; 
-    level: number; 
     gradient: string;
     description: string;
   }[]> = {
@@ -81,49 +80,42 @@ export default function Skills({
       { 
         name: "HTML5", 
         icon: <Code2 size={20} />, 
-        level: 92, 
         gradient: "from-orange-500 to-red-500",
         description: "Semantic markup"
       },
       { 
         name: "CSS3", 
         icon: <Palette size={20} />, 
-        level: 90, 
         gradient: "from-blue-500 to-cyan-500",
         description: "Modern styling"
       },
       { 
         name: "Tailwind CSS", 
         icon: <Palette size={20} />, 
-        level: 88, 
         gradient: "from-cyan-500 to-teal-500",
         description: "Utility-first CSS"
       },
       { 
         name: "JavaScript", 
         icon: <Terminal size={20} />, 
-        level: 94, 
         gradient: "from-yellow-500 to-amber-500",
         description: "Dynamic programming"
       },
       { 
         name: "TypeScript", 
         icon: <Terminal size={20} />, 
-        level: 87, 
         gradient: "from-blue-600 to-indigo-600",
         description: "Type-safe JS"
       },
       { 
         name: "React", 
         icon: <Code2 size={20} />, 
-        level: 93, 
         gradient: "from-cyan-400 to-blue-400",
         description: "Component library"
       },
       { 
         name: "Next.js", 
         icon: <Code2 size={20} />, 
-        level: 90, 
         gradient: "from-gray-800 to-black",
         description: "React framework"
       },
@@ -132,35 +124,30 @@ export default function Skills({
       { 
         name: "Node.js", 
         icon: <Server size={20} />, 
-        level: 86, 
         gradient: "from-green-500 to-emerald-500",
         description: "Server-side JS"
       },
       { 
         name: "Spring Boot", 
         icon: <Server size={20} />, 
-        level: 80, 
         gradient: "from-green-600 to-lime-600",
         description: "Java framework"
       },
       { 
         name: "Python", 
         icon: <Terminal size={20} />, 
-        level: 82, 
         gradient: "from-blue-500 to-yellow-400",
         description: "Versatile language"
       },
       { 
         name: "MongoDB", 
         icon: <Database size={20} />, 
-        level: 80, 
         gradient: "from-green-500 to-green-600",
         description: "NoSQL database"
       },
       { 
         name: "MySQL", 
         icon: <Database size={20} />, 
-        level: 78, 
         gradient: "from-blue-600 to-orange-500",
         description: "Relational DB"
       },
@@ -169,35 +156,30 @@ export default function Skills({
       { 
         name: "Git", 
         icon: <Wrench size={20} />, 
-        level: 94, 
         gradient: "from-orange-500 to-red-500",
         description: "Version control"
       },
       { 
         name: "GitHub", 
         icon: <Code2 size={20} />, 
-        level: 93, 
         gradient: "from-gray-700 to-gray-900",
         description: "Code hosting"
       },
       { 
         name: "Docker", 
         icon: <Server size={20} />, 
-        level: 82, 
         gradient: "from-blue-500 to-cyan-500",
         description: "Containerization"
       },
       { 
         name: "Jenkins", 
         icon: <Wrench size={20} />, 
-        level: 72, 
         gradient: "from-blue-600 to-gray-600",
         description: "CI/CD automation"
       },
       { 
         name: "Figma", 
         icon: <Palette size={20} />, 
-        level: 76, 
         gradient: "from-purple-500 to-pink-500",
         description: "UI/UX design"
       },
@@ -310,7 +292,7 @@ export default function Skills({
           </div>
 
           {/* Skills Grid */}
-          <div className="grid gap-8 md:gap-12 lg:grid-cols-3">
+          <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {skillCategories.map((category, categoryIndex) => (
               <SkillCard
                 key={category.key}
@@ -367,7 +349,6 @@ function SkillCard({
   skills: { 
     name: string; 
     icon: React.ReactNode; 
-    level: number; 
     gradient: string;
     description: string;
   }[];
@@ -389,7 +370,7 @@ function SkillCard({
       onMouseLeave={() => setActiveCard(null)}
     >
       {/* Glow effect */}
-      <div className={`absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl bg-gradient-to-r ${category.gradient}`}></div>
+      <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-70 transition-all duration-500 blur-lg bg-gradient-to-r ${category.gradient}`}></div>
       
       {/* Card container */}
       <div className={`relative rounded-3xl p-8 backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
@@ -454,41 +435,9 @@ function SkillCard({
                     </div>
                   </div>
                 </div>
-
-                {/* Progress bar */}
-                <div className="flex items-center gap-3">
-                  <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all duration-700 bg-gradient-to-r ${skill.gradient}`}
-                      style={{ 
-                        width: hoveredSkill === skillIndex ? `${skill.level}%` : '0%',
-                        transitionDelay: hoveredSkill === skillIndex ? `${skillIndex * 100}ms` : '0ms'
-                      }}
-                    />
-                  </div>
-                  <div className={`text-sm font-bold min-w-[3rem] text-right transition-colors duration-300 ${
-                    hoveredSkill === skillIndex
-                      ? `text-transparent bg-gradient-to-r ${skill.gradient} bg-clip-text`
-                      : darkMode ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
-                    {skill.level}%
-                  </div>
-                </div>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Category stats */}
-        <div className={`mt-6 pt-6 border-t flex justify-between items-center ${
-          darkMode ? 'border-gray-700/50' : 'border-gray-300/50'
-        }`}>
-          <div className={`text-sm ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-            Promedio de dominio
-          </div>
-          <div className={`text-lg font-bold text-transparent bg-gradient-to-r ${category.gradient} bg-clip-text`}>
-            {Math.round(skills.reduce((acc, skill) => acc + skill.level, 0) / skills.length)}%
-          </div>
         </div>
       </div>
     </div>
