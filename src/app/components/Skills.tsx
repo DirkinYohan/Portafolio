@@ -262,7 +262,7 @@ export default function Skills({
         }`}></div>
       </div>
 
-      <div className="relative z-10 px-8 py-20">
+      <div className="relative z-10 px-4 sm:px-8 py-20">
         <div className="max-w-7xl mx-auto">
           
           {/* Enhanced Header */}
@@ -291,8 +291,8 @@ export default function Skills({
             </p>
           </div>
 
-          {/* Skills Grid */}
-          <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Skills Grid - CORREGIDO: 2 columnas en móvil, 2 en tablet, 3 en desktop */}
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
             {skillCategories.map((category, categoryIndex) => (
               <SkillCard
                 key={category.key}
@@ -359,9 +359,11 @@ function SkillCard({
   setActiveCard: (index: number | null) => void;
 }) {
   const [hoveredSkill, setHoveredSkill] = useState<number | null>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
+      ref={cardRef}
       className={`relative group transition-all duration-700 ${
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
       }`}
@@ -369,61 +371,61 @@ function SkillCard({
       onMouseEnter={() => setActiveCard(categoryIndex)}
       onMouseLeave={() => setActiveCard(null)}
     >
-      {/* Glow effect */}
-      <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-70 transition-all duration-500 blur-lg bg-gradient-to-r ${category.gradient}`}></div>
+      {/* Glow effect - CORREGIDO: Tamaño exacto del card */}
+      <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-md bg-gradient-to-r ${category.gradient}`}></div>
       
       {/* Card container */}
-      <div className={`relative rounded-3xl p-8 backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
+      <div className={`relative rounded-3xl p-4 sm:p-6 md:p-8 backdrop-blur-sm border transition-all duration-500 ${
         darkMode
           ? "bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/70"
           : "bg-white/80 border-gray-200/50 hover:bg-white/90"
       }`}>
         
         {/* Card header */}
-        <div className="flex items-center gap-4 mb-8">
-          <div className={`p-4 rounded-2xl bg-gradient-to-r ${category.gradient} text-white group-hover:rotate-12 transition-transform duration-300 shadow-lg`}>
+        <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
+          <div className={`p-2 sm:p-3 md:p-4 rounded-2xl bg-gradient-to-r ${category.gradient} text-white group-hover:rotate-12 transition-transform duration-300 shadow-lg`}>
             {category.icon}
           </div>
           <div>
-            <h3 className={`text-2xl font-bold transition-colors duration-300 ${
+            <h3 className={`text-lg sm:text-xl md:text-2xl font-bold transition-colors duration-300 ${
               activeCard === categoryIndex 
                 ? `text-transparent bg-gradient-to-r ${category.gradient} bg-clip-text` 
                 : darkMode ? 'text-white' : 'text-gray-800'
             }`}>
               {category.title}
             </h3>
-            <div className={`text-sm mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+            <div className={`text-xs sm:text-sm mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
               {skills.length} tecnologías
             </div>
           </div>
         </div>
 
         {/* Skills list */}
-        <div className="space-y-4">
+        <div className="space-y-2 sm:space-y-3 md:space-y-4">
           {skills.map((skill, skillIndex) => (
             <div
               key={skill.name}
-              className={`group/skill relative p-4 rounded-xl transition-all duration-300 cursor-pointer ${
+              className={`group/skill relative p-2 sm:p-3 md:p-4 rounded-xl transition-all duration-300 cursor-pointer ${
                 darkMode 
                   ? 'bg-gray-700/30 hover:bg-gray-700/50 border border-gray-600/20' 
                   : 'bg-gray-50/50 hover:bg-gray-100/80 border border-gray-200/30'
-              } ${hoveredSkill === skillIndex ? 'scale-105 shadow-lg' : ''}`}
+              }`}
               onMouseEnter={() => setHoveredSkill(skillIndex)}
               onMouseLeave={() => setHoveredSkill(null)}
             >
-              {/* Skill glow */}
-              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover/skill:opacity-100 transition-opacity duration-300 blur bg-gradient-to-r ${skill.gradient}/20`}></div>
+              {/* Skill glow - CORREGIDO: Tamaño exacto del skill item */}
+              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover/skill:opacity-100 transition-opacity duration-300 blur-sm bg-gradient-to-r ${skill.gradient}/20`}></div>
               
               <div className="relative flex items-center justify-between">
-                <div className="flex items-center gap-4 flex-1">
+                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1">
                   {/* Skill icon */}
-                  <div className={`p-2 rounded-lg bg-gradient-to-r ${skill.gradient} text-white group-hover/skill:rotate-12 transition-transform duration-300`}>
+                  <div className={`p-1 sm:p-2 rounded-lg bg-gradient-to-r ${skill.gradient} text-white group-hover/skill:rotate-12 transition-transform duration-300`}>
                     {skill.icon}
                   </div>
                   
                   {/* Skill info */}
                   <div className="flex-1">
-                    <div className={`font-semibold mb-1 transition-colors duration-300 ${
+                    <div className={`font-semibold text-xs sm:text-sm md:text-base mb-1 transition-colors duration-300 ${
                       hoveredSkill === skillIndex
                         ? `text-transparent bg-gradient-to-r ${skill.gradient} bg-clip-text`
                         : darkMode ? 'text-white' : 'text-gray-800'
