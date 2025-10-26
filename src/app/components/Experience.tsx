@@ -262,37 +262,38 @@ export default function Experience({
                     onMouseEnter={() => setActiveCard(index)}
                     onMouseLeave={() => setActiveCard(null)}
                   >
-                    {/* Lateral glow effects */}
-                    <div className="absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    {/* Lateral glow effects - Solo en desktop */}
+                    <div className="hidden lg:block absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className="w-full h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg animate-pulse"></div>
                     </div>
-                    <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="hidden lg:block absolute -right-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className="w-full h-full bg-gradient-to-l from-purple-500 to-pink-500 rounded-full blur-lg animate-pulse"></div>
                     </div>
 
-                    <div className={`relative p-8 rounded-3xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
+                    {/* Card Container - Simplificado en móvil */}
+                    <div className={`relative p-6 lg:p-8 rounded-3xl backdrop-blur-sm border transition-all duration-500 lg:hover:scale-105 ${
                       darkMode
                         ? "bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/70"
                         : "bg-white/80 border-gray-200/50 hover:bg-white/90"
                     }`}>
                       
-                      <div className="flex items-start gap-6">
-                        {/* Academic icon */}
-                        <div className={`p-3 rounded-xl transition-all duration-300 ${
-                          activeCard === index 
+                      <div className="flex items-start gap-4 lg:gap-6">
+                        {/* Academic icon - Simplificado en móvil */}
+                        <div className={`p-2 lg:p-3 rounded-xl transition-all duration-300 ${
+                          activeCard === index
                             ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white rotate-12 scale-110' 
                             : darkMode 
                               ? 'bg-purple-500/20 text-purple-400' 
                               : 'bg-purple-100 text-purple-600'
                         }`}>
-                          <GraduationCap size={24} />
+                          <GraduationCap size={20} className="lg:w-6 lg:h-6" />
                         </div>
                         
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                           {/* Header */}
-                          <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+                          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 lg:gap-4 mb-4">
                             <div className="flex-1 min-w-0">
-                              <h4 className={`text-xl font-bold mb-2 transition-colors duration-300 ${
+                              <h4 className={`text-lg lg:text-xl font-bold mb-2 transition-colors duration-300 ${
                                 activeCard === index
                                   ? 'text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text'
                                   : darkMode ? 'text-white' : 'text-gray-800'
@@ -300,20 +301,8 @@ export default function Experience({
                                 {exp.degree[lang]}
                               </h4>
                               
-                              {/* Institution and period - Desktop layout */}
-                              <div className="hidden lg:flex items-center gap-4 text-sm">
-                                <span className={`flex items-center gap-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                                  <Building size={16} />
-                                  {exp.institution[lang]}
-                                </span>
-                                <span className={`flex items-center gap-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                                  <Calendar size={16} />
-                                  {exp.period}
-                                </span>
-                              </div>
-
-                              {/* Institution and period - Mobile layout */}
-                              <div className="lg:hidden flex flex-col gap-2 text-sm">
+                              {/* Institution and period */}
+                              <div className="flex flex-col gap-2 text-sm">
                                 <span className={`flex items-center gap-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                   <Building size={16} />
                                   {exp.institution[lang]}
@@ -325,13 +314,13 @@ export default function Experience({
                               </div>
                             </div>
                             
-                            <div className="text-right">
+                            <div className="flex lg:flex-col lg:items-end lg:text-right gap-2 lg:gap-1">
                               <div className={`px-3 py-1 rounded-full text-xs font-medium ${
                                 darkMode ? 'bg-purple-500/20 text-purple-400' : 'bg-purple-100 text-purple-700'
                               }`}>
                                 {exp.level}
                               </div>
-                              <div className={`mt-1 text-xs flex items-center gap-1 ${darkMode ? 'text-yellow-400' : 'text-yellow-600'}`}>
+                              <div className={`text-xs flex items-center gap-1 ${darkMode ? 'text-yellow-400' : 'text-yellow-600'}`}>
                                 <Award size={12} />
                                 {exp.grade}
                               </div>
@@ -339,7 +328,7 @@ export default function Experience({
                           </div>
 
                           {/* Description */}
-                          <p className={`mb-4 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                          <p className={`mb-4 leading-relaxed text-sm lg:text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                             {exp.description[lang]}
                           </p>
 
@@ -397,44 +386,45 @@ export default function Experience({
                     onMouseEnter={() => setActiveCard(index + 100)}
                     onMouseLeave={() => setActiveCard(null)}
                   >
-                    {/* Lateral glow effects */}
-                    <div className="absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    {/* Lateral glow effects - Solo en desktop */}
+                    <div className="hidden lg:block absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className="w-full h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-lg animate-pulse"></div>
                     </div>
-                    <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="hidden lg:block absolute -right-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className="w-full h-full bg-gradient-to-l from-indigo-500 to-purple-500 rounded-full blur-lg animate-pulse"></div>
                     </div>
 
-                    <div className={`relative p-8 rounded-3xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
+                    {/* Card Container - Simplificado en móvil */}
+                    <div className={`relative p-6 lg:p-8 rounded-3xl backdrop-blur-sm border transition-all duration-500 lg:hover:scale-105 ${
                       darkMode
                         ? "bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/70"
                         : "bg-white/80 border-gray-200/50 hover:bg-white/90"
                     }`}>
                       
-                      <div className="flex items-start gap-6">
-                        {/* Work icon */}
-                        <div className={`p-3 rounded-xl transition-all duration-300 ${
+                      <div className="flex items-start gap-4 lg:gap-6">
+                        {/* Work icon - Simplificado en móvil */}
+                        <div className={`p-2 lg:p-3 rounded-xl transition-all duration-300 ${
                           activeCard === index + 100
                             ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white rotate-12 scale-110'
                             : darkMode 
                               ? 'bg-indigo-500/20 text-indigo-400' 
                               : 'bg-indigo-100 text-indigo-600'
                         }`}>
-                          <Briefcase size={24} />
+                          <Briefcase size={20} className="lg:w-6 lg:h-6" />
                         </div>
                         
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                           {/* Header */}
-                          <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+                          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 lg:gap-4 mb-4">
                             <div className="flex-1 min-w-0">
-                              <h4 className={`text-xl font-bold mb-2 transition-colors duration-300 ${
+                              <h4 className={`text-lg lg:text-xl font-bold mb-2 transition-colors duration-300 ${
                                 activeCard === index + 100
                                   ? 'text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text'
                                   : darkMode ? 'text-white' : 'text-gray-800'
                               }`}>
                                 {exp.role[lang]}
                               </h4>
-                              <div className="flex flex-wrap items-center gap-4 text-sm">
+                              <div className="flex flex-col gap-2 text-sm">
                                 <span className={`flex items-center gap-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                   <Building size={16} />
                                   {exp.company[lang]}
@@ -460,7 +450,7 @@ export default function Experience({
                           </div>
 
                           {/* Description */}
-                          <p className={`mb-4 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                          <p className={`mb-4 leading-relaxed text-sm lg:text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                             {exp.description[lang]}
                           </p>
 

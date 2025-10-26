@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Github, ExternalLink, Code2, Sparkles, ChevronLeft, ChevronRight, Zap, Globe, Play } from "lucide-react";
+import { Github, Sparkles, ChevronLeft, ChevronRight, Globe, Play } from "lucide-react";
 
 type Lang = "es" | "en";
 
@@ -52,15 +52,15 @@ const projects = [
     category: "Ecommerce"
   },
   {
-    title: "Ecommerce Fullstack",
-    descEs: "Plataforma de comercio electrónico completa con carrito de compras, pasarela de pago segura y panel de administración.",
-    descEn: "Complete e-commerce platform with shopping cart, secure payment gateway and admin dashboard.",
+    title: "Dashboard Analytics",
+    descEs: "Panel de análisis con visualización de datos en tiempo real y métricas avanzadas para negocios.",
+    descEn: "Analytics dashboard with real-time data visualization and advanced business metrics.",
     image: "/projects/ecommerce.png",
-    live: "https://ecommerce-fullstack.vercel.app",
+    live: "https://dashboard-analytics.vercel.app",
     code: "#",
-    gradient: "from-indigo-400 to-cyan-500",
-    tech: ["React", "Node.js", "MongoDB"],
-    category: "Ecommerce"
+    gradient: "from-rose-400 to-orange-500",
+    tech: ["Vue.js", "D3.js", "Firebase"],
+    category: "Analytics"
   },
 ];
 
@@ -75,6 +75,8 @@ export default function ProjectsCarousel({
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -113,6 +115,27 @@ export default function ProjectsCarousel({
 
   const next = () => setCurrent((prev) => (prev + 1) % projects.length);
   const prev = () => setCurrent((prev) => (prev - 1 + projects.length) % projects.length);
+
+  // Touch handlers for swipe functionality
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 75) {
+      // Swipe left
+      next();
+    }
+
+    if (touchStart - touchEnd < -75) {
+      // Swipe right
+      prev();
+    }
+  };
 
   const texts = {
     es: {
@@ -187,31 +210,31 @@ export default function ProjectsCarousel({
         }`}></div>
       </div>
 
-      <div className="relative z-10 px-8 py-20">
+      <div className="relative z-10 px-4 md:px-8 py-12 md:py-20">
         <div className="max-w-7xl mx-auto">
           
           {/* Enhanced Header */}
-          <div className={`text-center mb-16 transition-all duration-1000 ${
+          <div className={`text-center mb-8 md:mb-16 transition-all duration-1000 ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}>
             {/* Sparkle decorations */}
-            <div className="flex items-center justify-center mb-6">
-              <Sparkles className={`mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
-              <span className={`text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <div className="flex items-center justify-center mb-4 md:mb-6">
+              <Sparkles className={`mr-2 md:mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={20} />
+              <span className={`text-sm md:text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                 {texts[lang].subtitle}
               </span>
-              <Sparkles className={`ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
+              <Sparkles className={`ml-2 md:ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={20} />
             </div>
 
             {/* Main title */}
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight">
               <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient bg-size-200">
                 {texts[lang].title}
               </span>
             </h2>
 
             {/* Description */}
-            <p className={`text-lg max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            <p className={`text-base md:text-lg max-w-2xl mx-auto px-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               {texts[lang].desc}
             </p>
           </div>
@@ -242,15 +265,20 @@ export default function ProjectsCarousel({
               <ChevronRight className="group-hover:translate-x-1 transition-transform duration-300" size={24} />
             </button>
 
-            {/* Carousel Container */}
-            <div className="flex items-center justify-center w-full h-[520px] overflow-hidden relative">
+            {/* Carousel Container with Touch Support */}
+            <div 
+              className="flex items-center justify-center w-full h-[600px] md:h-[520px] overflow-hidden relative"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
               {projects.map((project, index) => {
                 const position = (index - current + projects.length) % projects.length;
                 const isActive = position === 0;
                 const isAdjacent = position === 1 || position === projects.length - 1;
 
                 let scale = 0.7;
-                let opacity = 0.4;
+                let opacity = 0;
                 let zIndex = 0;
                 let translateX = position === 1 ? 280 : position === projects.length - 1 ? -280 : 0;
                 let blur = 'blur-sm';
@@ -271,7 +299,7 @@ export default function ProjectsCarousel({
                 return (
                   <div
                     key={index}
-                    className={`absolute transition-all duration-700 ${blur}`}
+                    className={`absolute transition-all duration-700 ${blur} ${isActive ? 'block' : 'hidden md:block'}`}
                     style={{
                       transform: `translateX(${translateX}px) scale(${scale})`,
                       opacity,
@@ -281,7 +309,7 @@ export default function ProjectsCarousel({
                     onMouseLeave={() => setHoveredProject(null)}
                   >
                     {/* Project Card */}
-                    <div className={`relative w-[400px] h-[520px] rounded-3xl overflow-hidden backdrop-blur-sm border group cursor-pointer ${
+                    <div className={`relative w-[340px] md:w-[400px] h-auto md:h-[520px] rounded-3xl overflow-hidden backdrop-blur-sm border group cursor-pointer ${
                       darkMode
                         ? "bg-gray-800/50 border-gray-700/50"
                         : "bg-white/80 border-gray-200/50"
@@ -293,7 +321,7 @@ export default function ProjectsCarousel({
                       )}
 
                       {/* Image Section */}
-                      <div className="relative h-64 overflow-hidden">
+                      <div className="relative h-48 md:h-64 overflow-hidden">
                         <Image
                           src={project.image}
                           alt={project.title}
@@ -304,29 +332,29 @@ export default function ProjectsCarousel({
                         <div className={`absolute inset-0 bg-gradient-to-t ${project.gradient}/70 opacity-80`} />
                         
                         {/* Category Badge */}
-                        <div className={`absolute top-4 left-4 px-3 py-1 rounded-full backdrop-blur-sm text-xs font-medium text-white border border-white/20`}>
+                        <div className={`absolute top-3 md:top-4 left-3 md:left-4 px-2 md:px-3 py-1 rounded-full backdrop-blur-sm text-xs font-medium text-white border border-white/20`}>
                           {project.category}
                         </div>
                         
                         {/* Play button overlay for active card */}
                         {isActive && (
                           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div className="p-4 rounded-full bg-white/20 backdrop-blur-sm border border-white/30">
-                              <Play className="text-white ml-1" size={32} />
+                            <div className="p-3 md:p-4 rounded-full bg-white/20 backdrop-blur-sm border border-white/30">
+                              <Play className="text-white ml-1" size={28} />
                             </div>
                           </div>
                         )}
                       </div>
 
                       {/* Content Section */}
-                      <div className="p-6 h-56 flex flex-col justify-between relative">
+                      <div className="p-4 md:p-6 flex flex-col justify-between relative">
                         
                         {/* Tech Stack */}
-                        <div className="flex flex-wrap gap-2 mb-3">
+                        <div className="flex flex-wrap gap-1.5 md:gap-2 mb-2 md:mb-3">
                           {project.tech.map((tech, techIndex) => (
                             <span
                               key={techIndex}
-                              className={`px-2 py-1 text-xs rounded-lg ${
+                              className={`px-2 py-0.5 md:py-1 text-xs rounded-lg ${
                                 darkMode 
                                   ? 'bg-gray-700/50 text-gray-300' 
                                   : 'bg-gray-100/80 text-gray-600'
@@ -338,7 +366,7 @@ export default function ProjectsCarousel({
                         </div>
 
                         {/* Title */}
-                        <h3 className={`text-xl font-bold mb-3 transition-colors duration-300 ${
+                        <h3 className={`text-lg md:text-xl font-bold mb-2 md:mb-3 transition-colors duration-300 ${
                           isActive && hoveredProject === index
                             ? `text-transparent bg-gradient-to-r ${project.gradient} bg-clip-text`
                             : darkMode ? 'text-white' : 'text-gray-800'
@@ -347,23 +375,23 @@ export default function ProjectsCarousel({
                         </h3>
 
                         {/* Description */}
-                        <p className={`text-sm leading-relaxed flex-grow ${
+                        <p className={`text-xs md:text-sm leading-relaxed mb-3 md:mb-4 ${
                           darkMode ? 'text-gray-400' : 'text-gray-600'
                         }`}>
                           {lang === "es" ? project.descEs : project.descEn}
                         </p>
 
-                        {/* Action Buttons - Only show for active card */}
+                        {/* Action Buttons - Always show for active card */}
                         {isActive && (
-                          <div className="flex gap-3 mt-4 transition-all duration-300 opacity-100">
+                          <div className="flex gap-2 md:gap-3 transition-all duration-300 opacity-100">
                             {project.live && project.live !== "#" && (
                               <a
                                 href={project.live}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium transition-all duration-300 text-white bg-gradient-to-r ${project.gradient} hover:shadow-lg hover:scale-105`}
+                                className={`flex-1 flex items-center justify-center gap-1.5 md:gap-2 py-2.5 md:py-3 px-3 md:px-4 rounded-xl text-sm font-medium transition-all duration-300 text-white bg-gradient-to-r ${project.gradient} hover:shadow-lg hover:scale-105`}
                               >
-                                <Globe size={16} />
+                                <Globe size={14} />
                                 {texts[lang].viewDemo}
                               </a>
                             )}
@@ -372,13 +400,13 @@ export default function ProjectsCarousel({
                                 href={project.code}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium transition-all duration-300 border ${
+                                className={`flex-1 flex items-center justify-center gap-1.5 md:gap-2 py-2.5 md:py-3 px-3 md:px-4 rounded-xl text-sm font-medium transition-all duration-300 border ${
                                   darkMode
                                     ? "bg-gray-700/50 border-gray-600/50 text-gray-300 hover:bg-gray-700/70"
                                     : "bg-gray-100/80 border-gray-200/50 text-gray-700 hover:bg-gray-200/80"
                                 }`}
                               >
-                                <Github size={16} />
+                                <Github size={14} />
                                 {texts[lang].viewCode}
                               </a>
                             )}
@@ -393,12 +421,12 @@ export default function ProjectsCarousel({
           </div>
 
           {/* Progress Indicators */}
-          <div className="flex justify-center gap-3 mt-12">
+          <div className="flex justify-center gap-2 md:gap-3 mt-8 md:mt-12">
             {projects.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrent(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-2.5 h-2.5 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
                   index === current
                     ? `bg-gradient-to-r ${projects[current].gradient} scale-125`
                     : darkMode 

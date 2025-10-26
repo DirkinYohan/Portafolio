@@ -93,31 +93,35 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
       </div>
 
       {/* Header with avatar */}
-      <div className="flex items-center mb-6 relative z-10">
+      <div className="flex items-start mb-6 relative z-10">
         <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg bg-gradient-to-r ${testimonial.gradient} shadow-lg group-hover:rotate-6 transition-transform duration-300`}>
           {testimonial.avatar}
         </div>
-        <div className="ml-4 flex-1">
-          <h3 className={`font-bold text-lg transition-colors duration-300 ${
-            activeCard === index
-              ? `text-transparent bg-gradient-to-r ${testimonial.gradient} bg-clip-text`
-              : darkMode ? 'text-white' : 'text-gray-800'
-          }`}>
-            {testimonial.name}
-          </h3>
-          <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-            {testimonial.role[lang]}
-          </p>
-          <p className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
-            {testimonial.company}
-          </p>
-        </div>
-        
-        {/* Project badge */}
-        <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-          darkMode ? 'bg-gray-700/50 text-gray-300' : 'bg-gray-100 text-gray-600'
-        }`}>
-          {testimonial.project}
+        <div className="ml-4 flex-1 min-w-0">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
+            <div className="flex-1 min-w-0">
+              <h3 className={`font-bold text-lg transition-colors duration-300 ${
+                activeCard === index
+                  ? `text-transparent bg-gradient-to-r ${testimonial.gradient} bg-clip-text`
+                  : darkMode ? 'text-white' : 'text-gray-800'
+              }`}>
+                {testimonial.name}
+              </h3>
+              <p className={`text-sm whitespace-nowrap ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                {testimonial.role[lang]}
+              </p>
+              <p className={`text-xs whitespace-nowrap ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+                {testimonial.company}
+              </p>
+            </div>
+            
+            {/* Project badge - Ahora aparece debajo del nombre en móvil/tablet y al lado en desktop */}
+            <div className={`px-3 py-1 rounded-full text-xs font-medium self-start sm:self-auto whitespace-nowrap ${
+              darkMode ? 'bg-gray-700/50 text-gray-300' : 'bg-gray-100 text-gray-600'
+            }`}>
+              {testimonial.project}
+            </div>
+          </div>
         </div>
       </div>
 

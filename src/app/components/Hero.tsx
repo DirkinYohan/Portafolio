@@ -220,24 +220,9 @@ export default function Hero({
           ))}
         </ul>
 
-        {/* Mobile Menu Button */}
-        <button 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className={`lg:hidden relative p-3 rounded-full backdrop-blur-sm border transition-all duration-300 hover:scale-110 ${
-            darkMode 
-              ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' 
-              : 'bg-white/50 border-gray-300/50 hover:bg-gray-100/50'
-          }`}
-        >
-          {mobileMenuOpen ? (
-            <X size={20} className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} transition-transform duration-300 rotate-90`} />
-          ) : (
-            <Menu size={20} className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} transition-transform duration-300`} />
-          )}
-        </button>
-
-        {/* Enhanced Controls */}
+        {/* Enhanced Controls - ORDEN CORREGIDO */}
         <div className="flex items-center space-x-3">
+          {/* 🌙/☀️ Botón de Tema (Dark/Light Mode) - PRIMERO */}
           <button 
             onClick={() => setDarkMode(!darkMode)}
             className={`relative p-3 rounded-full backdrop-blur-sm border transition-all duration-300 hover:scale-110 hover:rotate-180 group ${
@@ -253,7 +238,8 @@ export default function Hero({
               <Moon size={20} className="relative z-10 text-gray-700" />
             )}
           </button>
-          
+
+          {/* 🌍 Botón de Idioma (Globe) - SEGUNDO */}
           <button 
             onClick={() => setLang(lang === "es" ? "en" : "es")}
             className={`relative p-3 rounded-full backdrop-blur-sm border transition-all duration-300 hover:scale-110 group ${
@@ -264,6 +250,22 @@ export default function Hero({
           >
             <div className="absolute inset-0 transition-opacity duration-300 rounded-full opacity-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 group-hover:opacity-100"></div>
             <Globe size={20} className={`group-hover:rotate-180 transition-transform duration-500 relative z-10 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+          </button>
+
+          {/* 🍔 Botón Hamburguesa (Menu) - TERCERO (último, solo visible en móvil) */}
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className={`lg:hidden relative p-3 rounded-full backdrop-blur-sm border transition-all duration-300 hover:scale-110 ${
+              darkMode 
+                ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-700/50' 
+                : 'bg-white/50 border-gray-300/50 hover:bg-gray-100/50'
+            }`}
+          >
+            {mobileMenuOpen ? (
+              <X size={20} className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} transition-transform duration-300 rotate-90`} />
+            ) : (
+              <Menu size={20} className={`${darkMode ? 'text-gray-300' : 'text-gray-700'} transition-transform duration-300`} />
+            )}
           </button>
         </div>
       </nav>
