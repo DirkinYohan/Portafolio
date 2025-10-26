@@ -219,10 +219,10 @@ export default function ProjectsCarousel({
           {/* Enhanced Carousel */}
           <div className="relative flex items-center justify-center">
             
-            {/* Navigation Buttons */}
+            {/* Navigation Buttons - Hidden on mobile */}
             <button
               onClick={prev}
-              className={`absolute left-4 z-30 p-4 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-110 group ${
+              className={`hidden md:block absolute left-4 z-30 p-4 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-110 group ${
                 darkMode 
                   ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/70 text-white' 
                   : 'bg-white/80 border-gray-200/50 hover:bg-white/90 text-gray-800'
@@ -233,7 +233,7 @@ export default function ProjectsCarousel({
 
             <button
               onClick={next}
-              className={`absolute right-4 z-30 p-4 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-110 group ${
+              className={`hidden md:block absolute right-4 z-30 p-4 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-110 group ${
                 darkMode 
                   ? 'bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/70 text-white' 
                   : 'bg-white/80 border-gray-200/50 hover:bg-white/90 text-gray-800'
@@ -281,7 +281,7 @@ export default function ProjectsCarousel({
                     onMouseLeave={() => setHoveredProject(null)}
                   >
                     {/* Project Card */}
-                    <div className={`relative w-[400px] h-[480px] rounded-3xl overflow-hidden backdrop-blur-sm border group cursor-pointer ${
+                    <div className={`relative w-[400px] h-[520px] rounded-3xl overflow-hidden backdrop-blur-sm border group cursor-pointer ${
                       darkMode
                         ? "bg-gray-800/50 border-gray-700/50"
                         : "bg-white/80 border-gray-200/50"
@@ -355,9 +355,7 @@ export default function ProjectsCarousel({
 
                         {/* Action Buttons - Only show for active card */}
                         {isActive && (
-                          <div className={`flex gap-3 mt-4 transition-all duration-300 ${
-                            hoveredProject === index ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-80'
-                          }`}>
+                          <div className="flex gap-3 mt-4 transition-all duration-300 opacity-100">
                             {project.live && project.live !== "#" && (
                               <a
                                 href={project.live}

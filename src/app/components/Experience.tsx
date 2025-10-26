@@ -77,7 +77,7 @@ export default function Experience({
         en: "Software Engineering",
       },
       institution: {
-        es: "Universidad Cooperetiva de colombia",
+        es: "Universidad Cooperativa de Colombia",
         en: "Cooperative University of Colombia",
       },
       period: "2022 - 2025",
@@ -291,7 +291,7 @@ export default function Experience({
                         <div className="flex-1">
                           {/* Header */}
                           <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                            <div>
+                            <div className="flex-1 min-w-0">
                               <h4 className={`text-xl font-bold mb-2 transition-colors duration-300 ${
                                 activeCard === index
                                   ? 'text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text'
@@ -299,7 +299,21 @@ export default function Experience({
                               }`}>
                                 {exp.degree[lang]}
                               </h4>
-                              <div className="flex items-center gap-4 text-sm">
+                              
+                              {/* Institution and period - Desktop layout */}
+                              <div className="hidden lg:flex items-center gap-4 text-sm">
+                                <span className={`flex items-center gap-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                  <Building size={16} />
+                                  {exp.institution[lang]}
+                                </span>
+                                <span className={`flex items-center gap-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                                  <Calendar size={16} />
+                                  {exp.period}
+                                </span>
+                              </div>
+
+                              {/* Institution and period - Mobile layout */}
+                              <div className="lg:hidden flex flex-col gap-2 text-sm">
                                 <span className={`flex items-center gap-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                   <Building size={16} />
                                   {exp.institution[lang]}
@@ -412,7 +426,7 @@ export default function Experience({
                         <div className="flex-1">
                           {/* Header */}
                           <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                            <div>
+                            <div className="flex-1 min-w-0">
                               <h4 className={`text-xl font-bold mb-2 transition-colors duration-300 ${
                                 activeCard === index + 100
                                   ? 'text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text'
