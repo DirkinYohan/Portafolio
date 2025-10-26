@@ -301,22 +301,28 @@ export default function About({
                   
                   {/* Card content */}
                   <div className="relative z-10">
-                    <div className={`flex items-center gap-4 mb-4 transition-all duration-300 ${
+                    {/* Icono centrado arriba */}
+                    <div className={`flex justify-center mb-4 transition-all duration-300 ${
                       activeCard === i ? 'scale-110' : ''
                     }`}>
                       <div className={`p-3 rounded-xl bg-gradient-to-r ${card.gradient} text-white group-hover:rotate-12 transition-transform duration-300`}>
                         {card.icon}
                       </div>
-                      <h3 className={`text-lg font-medium transition-colors duration-300 ${
-                        activeCard === i 
-                          ? `text-transparent bg-gradient-to-r ${card.gradient} bg-clip-text` 
-                          : darkMode ? 'text-white' : 'text-gray-800'
-                      }`}>
-                        {card.title}
-                      </h3>
                     </div>
                     
-                    <p className={`text-sm leading-relaxed font-normal transition-colors duration-300 ${
+                    {/* Título centrado - MODIFICADO */}
+                    <h3 className={`text-lg font-medium text-center mb-4 transition-colors duration-300 ${
+                      activeCard === i 
+                        ? darkMode 
+                          ? "text-white"  // En modo dark, mantener blanco al hover
+                          : "text-black"  // En modo light, mantener negro al hover
+                        : darkMode ? 'text-white' : 'text-gray-800'
+                    }`}>
+                      {card.title}
+                    </h3>
+                    
+                    {/* Texto descriptivo */}
+                    <p className={`text-sm leading-relaxed font-normal text-center transition-colors duration-300 ${
                       darkMode ? 'text-gray-400 group-hover:text-gray-300' : 'text-gray-600 group-hover:text-gray-700'
                     }`}>
                       {card.text}
