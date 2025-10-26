@@ -59,6 +59,7 @@ export default function Skills({
       frontend: "Frontend",
       backend: "Backend",
       tools: "Herramientas",
+      technologies: "tecnologías"
     },
     en: {
       title: "Skills",
@@ -67,6 +68,7 @@ export default function Skills({
       frontend: "Frontend",
       backend: "Backend",
       tools: "Tools",
+      technologies: "technologies"
     },
   } as const;
 
@@ -303,6 +305,8 @@ export default function Skills({
                 categoryIndex={categoryIndex}
                 activeCard={activeCard}
                 setActiveCard={setActiveCard}
+                lang={lang}
+                texts={texts}
               />
             ))}
           </div>
@@ -338,6 +342,8 @@ function SkillCard({
   categoryIndex,
   activeCard,
   setActiveCard,
+  lang,
+  texts
 }: {
   category: {
     key: string;
@@ -357,6 +363,8 @@ function SkillCard({
   categoryIndex: number;
   activeCard: number | null;
   setActiveCard: (index: number | null) => void;
+  lang: Lang;
+  texts: any;
 }) {
   const [hoveredSkill, setHoveredSkill] = useState<number | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -371,7 +379,7 @@ function SkillCard({
       onMouseEnter={() => setActiveCard(categoryIndex)}
       onMouseLeave={() => setActiveCard(null)}
     >
-      {/* Glow effect - CORREGIDO: Tamaño exacto del card */}
+      {/* Glow effect */}
       <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-md bg-gradient-to-r ${category.gradient}`}></div>
       
       {/* Card container */}
@@ -381,9 +389,9 @@ function SkillCard({
           : "bg-white/80 border-gray-200/50 hover:bg-white/90"
       }`}>
         
-        {/* Card header */}
-        <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
-          <div className={`p-2 sm:p-3 md:p-4 rounded-2xl bg-gradient-to-r ${category.gradient} text-white group-hover:rotate-12 transition-transform duration-300 shadow-lg`}>
+        {/* Card header - CORREGIDO: Estructura mejorada para 2 columnas en móvil */}
+        <div className="flex flex-col items-center text-center mb-4 sm:mb-6 md:mb-8">
+          <div className={`p-2 sm:p-3 md:p-4 rounded-2xl bg-gradient-to-r ${category.gradient} text-white group-hover:rotate-12 transition-transform duration-300 shadow-lg mb-3`}>
             {category.icon}
           </div>
           <div>
@@ -395,7 +403,7 @@ function SkillCard({
               {category.title}
             </h3>
             <div className={`text-xs sm:text-sm mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-              {skills.length} tecnologías
+              {skills.length} {texts[lang].technologies}
             </div>
           </div>
         </div>
@@ -413,26 +421,26 @@ function SkillCard({
               onMouseEnter={() => setHoveredSkill(skillIndex)}
               onMouseLeave={() => setHoveredSkill(null)}
             >
-              {/* Skill glow - CORREGIDO: Tamaño exacto del skill item */}
+              {/* Skill glow */}
               <div className={`absolute inset-0 rounded-xl opacity-0 group-hover/skill:opacity-100 transition-opacity duration-300 blur-sm bg-gradient-to-r ${skill.gradient}/20`}></div>
               
               <div className="relative flex items-center justify-between">
                 <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1">
                   {/* Skill icon */}
-                  <div className={`p-1 sm:p-2 rounded-lg bg-gradient-to-r ${skill.gradient} text-white group-hover/skill:rotate-12 transition-transform duration-300`}>
+                  <div className={`p-1 sm:p-2 rounded-lg bg-gradient-to-r ${skill.gradient} text-white group-hover/skill:rotate-12 transition-transform duration-300 flex-shrink-0`}>
                     {skill.icon}
                   </div>
                   
-                  {/* Skill info */}
-                  <div className="flex-1">
-                    <div className={`font-semibold text-xs sm:text-sm md:text-base mb-1 transition-colors duration-300 ${
+                  {/* Skill info - Optimizado para 2 columnas en móvil */}
+                  <div className="flex-1 min-w-0">
+                    <div className={`font-semibold text-xs sm:text-sm md:text-base mb-1 transition-colors duration-300 truncate ${
                       hoveredSkill === skillIndex
                         ? `text-transparent bg-gradient-to-r ${skill.gradient} bg-clip-text`
                         : darkMode ? 'text-white' : 'text-gray-800'
                     }`}>
                       {skill.name}
                     </div>
-                    <div className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                    <div className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-600'} truncate`}>
                       {skill.description}
                     </div>
                   </div>
