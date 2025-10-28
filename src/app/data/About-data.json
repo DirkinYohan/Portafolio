@@ -1,0 +1,121 @@
+{
+  "About": {
+    "metadata": {
+      "name": "Dirkin Developer",
+      "title": "Digital Solutions Architect",
+      "technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+      "framework": "Next.js",
+      "type": "React Component",
+      "images": {
+        "avatar": "/avatar.png",
+        "background": "/background.jpg"
+      }
+    },
+    "sections": {
+      "about": {
+        "name": "About Me",
+        "description": "Personal introduction and philosophy section",
+        "component": "About.tsx",
+        "dependencies": {
+          "lucide-react": ["Code2", "Target", "Heart", "Sparkles", "Award"],
+          "next": ["Image"]
+        },
+        "states": {
+          "activeCard": "number | null",
+          "mousePosition": "{ x: number, y: number }"
+        },
+        "content": {
+          "es": {
+            "title": "Sobre mí",
+            "subtitle": "Descubre mi historia",
+            "description": "Soy Dirkin, un arquitecto digital apasionado por transformar ideas complejas en soluciones elegantes y funcionales. Con una mentalidad innovadora, me especializo en crear experiencias digitales que no solo cumplen objetivos técnicos, sino que también inspiran y conectan con las personas.",
+            "cards": [
+              {
+                "icon": "Code2",
+                "title": "Tecnología",
+                "text": "Dominio avanzado en tecnologías emergentes y frameworks modernos para crear soluciones robustas y escalables.",
+                "gradient": "from-blue-500 to-cyan-500"
+              },
+              {
+                "icon": "Target",
+                "title": "Precisión",
+                "text": "Enfoque meticuloso en cada detalle, garantizando resultados que superan expectativas y estándares de calidad.",
+                "gradient": "from-green-500 to-emerald-500"
+              },
+              {
+                "icon": "Heart",
+                "title": "Pasión",
+                "text": "Cada proyecto es una oportunidad de innovar y crear impacto positivo a través del código y el diseño.",
+                "gradient": "from-purple-500 to-pink-500"
+              }
+            ],
+            "achievement": "Desarrollador"
+          },
+          "en": {
+            "title": "About Me",
+            "subtitle": "Discover my journey",
+            "description": "I'm Dirkin, a digital architect passionate about transforming complex ideas into elegant and functional solutions. With an innovative mindset, I specialize in creating digital experiences that not only meet technical objectives but also inspire and connect with people.",
+            "cards": [
+              {
+                "icon": "Code2",
+                "title": "Technology",
+                "text": "Advanced expertise in emerging technologies and modern frameworks to create robust and scalable solutions.",
+                "gradient": "from-blue-500 to-cyan-500"
+              },
+              {
+                "icon": "Target",
+                "title": "Precision",
+                "text": "Meticulous focus on every detail, ensuring results that exceed expectations and quality standards.",
+                "gradient": "from-green-500 to-emerald-500"
+              },
+              {
+                "icon": "Heart",
+                "title": "Passion",
+                "text": "Every project is an opportunity to innovate and create positive impact through code and design.",
+                "gradient": "from-purple-500 to-pink-500"
+              }
+            ],
+            "achievement": "Developer"
+          }
+        },
+        "techLogos": [
+          { "name": "React", "delay": 0, "x": 10, "y": 20 },
+          { "name": "Next.js", "delay": 500, "x": 85, "y": 15 },
+          { "name": "TypeScript", "delay": 1000, "x": 15, "y": 75 },
+          { "name": "Node.js", "delay": 1500, "x": 80, "y": 80 },
+          { "name": "Python", "delay": 2000, "x": 25, "y": 45 },
+          { "name": "Docker", "delay": 2500, "x": 75, "y": 50 }
+        ],
+        "animations": {
+          "gradient": "animate-gradient",
+          "floating": "animate-bounce",
+          "pulse": "animate-pulse",
+          "spin": "animate-spin",
+          "ping": "animate-ping"
+        },
+        "colors": {
+          "darkMode": {
+            "background": "bg-gradient-to-br from-gray-900 via-gray-800 to-black",
+            "text": "text-gray-300",
+            "borders": "border-gray-700/50",
+            "accent": "text-green-400, text-blue-400, text-purple-400"
+          },
+          "lightMode": {
+            "background": "bg-gradient-to-br from-slate-50 via-white to-gray-100",
+            "text": "text-gray-700",
+            "borders": "border-gray-300/50",
+            "accent": "text-blue-600, text-green-500, text-purple-500"
+          }
+        }
+      }
+    },
+    "functionalities": {
+      "languageChange": true,
+      "darkMode": true,
+      "smoothNavigation": true,
+      "mobileMenu": true,
+      "mouseEffects": true,
+      "backgroundAnimations": true
+    }
+  }
+}

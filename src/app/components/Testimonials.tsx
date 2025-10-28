@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Star, Quote, Sparkles, ThumbsUp, Heart } from "lucide-react";
 
 // Import JSON data
-import portfolioData from '../data/portfolio-data.json';
+import portfolioData from '../data/Testimonials-data.json';
 
 // Componente para tarjeta de testimonio
 const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveCard, darkMode, lang }: any) => (
@@ -135,7 +135,7 @@ export default function Testimonials({
   const sectionRef = useRef<HTMLElement>(null);
 
   // Extract data from JSON
-  const { sections } = portfolioData.portfolio;
+  const { sections } = portfolioData.Testimonials;
   const testimonialsSection = sections.testimonials;
   const currentContent = testimonialsSection.content[lang];
   const testimonialsData = testimonialsSection.testimonials;

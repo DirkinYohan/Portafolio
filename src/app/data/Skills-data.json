@@ -1,196 +1,211 @@
 {
-  "skills": {
-    "name": "Skills",
-    "description": "Technical skills and technologies section",
-    "component": "Skills.tsx",
-    "dependencies": {
-      "lucide-react": ["Code2", "Server", "Wrench", "Sparkles", "Database", "Palette", "Terminal"]
-    },
-    "states": {
-      "isVisible": "boolean",
-      "activeCard": "number | null",
-      "mousePosition": "{ x: number, y: number }",
-      "hoveredSkill": "number | null"
-    },
-    "content": {
-      "es": {
-        "title": "Habilidades",
-        "subtitle": "Mi arsenal tecnológico",
-        "description": "Domino un amplio stack de tecnologías modernas para crear soluciones completas y escalables.",
-        "frontend": "Frontend",
-        "backend": "Backend",
-        "tools": "Herramientas",
-        "technologies": "tecnologías"
-      },
-      "en": {
-        "title": "Skills",
-        "subtitle": "My technology arsenal",
-        "description": "I master a wide stack of modern technologies to create complete and scalable solutions.",
-        "frontend": "Frontend",
-        "backend": "Backend",
-        "tools": "Tools",
-        "technologies": "technologies"
+  "Skills": {
+    "metadata": {
+      "name": "Dirkin Developer", 
+      "title": "Digital Solutions Architect",
+      "technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+      "framework": "Next.js",
+      "type": "React Component",
+      "images": {
+        "avatar": "/avatar.png",
+        "background": "/background.jpg"
       }
     },
-    "skillCategories": [
-      {
-        "key": "frontend",
-        "icon": "Code2",
-        "gradient": "from-blue-500 to-cyan-500",
-        "bgGradient": "from-blue-500/10 to-cyan-500/10"
-      },
-      {
-        "key": "backend",
-        "icon": "Server",
-        "gradient": "from-green-500 to-emerald-500",
-        "bgGradient": "from-green-500/10 to-emerald-500/10"
-      },
-      {
-        "key": "tools",
-        "icon": "Wrench",
-        "gradient": "from-purple-500 to-pink-500",
-        "bgGradient": "from-purple-500/10 to-pink-500/10"
+    "sections": {
+      "skills": {
+        "name": "Skills",
+        "description": "Technical skills and technologies section", 
+        "component": "Skills.tsx",
+        "dependencies": {
+          "lucide-react": ["Code2", "Server", "Wrench", "Sparkles", "Database", "Palette", "Terminal"]
+        },
+        "states": {
+          "isVisible": "boolean",
+          "activeCard": "number | null", 
+          "mousePosition": "{ x: number, y: number }",
+          "hoveredSkill": "number | null"
+        },
+        "content": {
+          "es": {
+            "title": "Habilidades",
+            "subtitle": "Mi arsenal tecnológico", 
+            "description": "Domino un amplio stack de tecnologías modernas para crear soluciones completas y escalables.",
+            "frontend": "Frontend",
+            "backend": "Backend", 
+            "tools": "Herramientas",
+            "technologies": "tecnologías"
+          },
+          "en": {
+            "title": "Skills",
+            "subtitle": "My technology arsenal",
+            "description": "I master a wide stack of modern technologies to create complete and scalable solutions.", 
+            "frontend": "Frontend",
+            "backend": "Backend",
+            "tools": "Tools",
+            "technologies": "technologies"
+          }
+        },
+        "skillCategories": [
+          {
+            "key": "frontend",
+            "icon": "Code2", 
+            "gradient": "from-blue-500 to-cyan-500",
+            "bgGradient": "from-blue-500/10 to-cyan-500/10"
+          },
+          {
+            "key": "backend",
+            "icon": "Server",
+            "gradient": "from-green-500 to-emerald-500", 
+            "bgGradient": "from-green-500/10 to-emerald-500/10"
+          },
+          {
+            "key": "tools",
+            "icon": "Wrench",
+            "gradient": "from-purple-500 to-pink-500",
+            "bgGradient": "from-purple-500/10 to-pink-500/10"
+          }
+        ],
+        "skills": {
+          "frontend": [
+            {
+              "name": "HTML5",
+              "icon": "Code2", 
+              "gradient": "from-orange-500 to-red-500",
+              "description": "Semantic markup"
+            },
+            {
+              "name": "CSS3",
+              "icon": "Palette",
+              "gradient": "from-blue-500 to-cyan-500",
+              "description": "Modern styling" 
+            },
+            {
+              "name": "Tailwind CSS",
+              "icon": "Palette",
+              "gradient": "from-cyan-500 to-teal-500",
+              "description": "Utility-first CSS"
+            },
+            {
+              "name": "JavaScript", 
+              "icon": "Terminal",
+              "gradient": "from-yellow-500 to-amber-500",
+              "description": "Dynamic programming"
+            },
+            {
+              "name": "TypeScript",
+              "icon": "Terminal", 
+              "gradient": "from-blue-600 to-indigo-600",
+              "description": "Type-safe JS"
+            },
+            {
+              "name": "React",
+              "icon": "Code2",
+              "gradient": "from-cyan-400 to-blue-400", 
+              "description": "Component library"
+            },
+            {
+              "name": "Next.js",
+              "icon": "Code2",
+              "gradient": "from-gray-800 to-black",
+              "description": "React framework"
+            }
+          ],
+          "backend": [
+            {
+              "name": "Node.js", 
+              "icon": "Server",
+              "gradient": "from-green-500 to-emerald-500",
+              "description": "Server-side JS"
+            },
+            {
+              "name": "Spring Boot",
+              "icon": "Server",
+              "gradient": "from-green-600 to-lime-600", 
+              "description": "Java framework"
+            },
+            {
+              "name": "Python",
+              "icon": "Terminal",
+              "gradient": "from-blue-500 to-yellow-400",
+              "description": "Versatile language"
+            },
+            {
+              "name": "MongoDB", 
+              "icon": "Database",
+              "gradient": "from-green-500 to-green-600",
+              "description": "NoSQL database"
+            },
+            {
+              "name": "MySQL",
+              "icon": "Database",
+              "gradient": "from-blue-600 to-orange-500", 
+              "description": "Relational DB"
+            }
+          ],
+          "tools": [
+            {
+              "name": "Git",
+              "icon": "Wrench",
+              "gradient": "from-orange-500 to-red-500",
+              "description": "Version control" 
+            },
+            {
+              "name": "GitHub",
+              "icon": "Code2",
+              "gradient": "from-gray-700 to-gray-900",
+              "description": "Code hosting"
+            },
+            {
+              "name": "Docker",
+              "icon": "Server", 
+              "gradient": "from-blue-500 to-cyan-500",
+              "description": "Containerization"
+            },
+            {
+              "name": "Jenkins",
+              "icon": "Wrench",
+              "gradient": "from-blue-600 to-gray-600",
+              "description": "CI/CD automation" 
+            },
+            {
+              "name": "Figma",
+              "icon": "Palette",
+              "gradient": "from-purple-500 to-pink-500",
+              "description": "UI/UX design"
+            }
+          ]
+        },
+        "animations": {
+          "gradient": "animate-gradient", 
+          "floating": "animate-bounce",
+          "pulse": "animate-pulse",
+          "spin": "animate-spin", 
+          "ping": "animate-ping"
+        },
+        "colors": {
+          "darkMode": {
+            "background": "bg-gradient-to-br from-gray-900 via-gray-800 to-black",
+            "text": "text-gray-300", 
+            "borders": "border-gray-700/50",
+            "accent": "text-green-400, text-blue-400, text-purple-400"
+          },
+          "lightMode": {
+            "background": "bg-gradient-to-br from-slate-50 via-white to-gray-100",
+            "text": "text-gray-700", 
+            "borders": "border-gray-300/50",
+            "accent": "text-blue-600, text-green-500, text-purple-500"
+          }
+        }
       }
-    ],
-    "skills": {
-      "frontend": [
-        {
-          "name": "HTML5",
-          "icon": "Code2",
-          "gradient": "from-orange-500 to-red-500",
-          "description": "Semantic markup"
-        },
-        {
-          "name": "CSS3",
-          "icon": "Palette",
-          "gradient": "from-blue-500 to-cyan-500",
-          "description": "Modern styling"
-        },
-        {
-          "name": "Tailwind CSS",
-          "icon": "Palette",
-          "gradient": "from-cyan-500 to-teal-500",
-          "description": "Utility-first CSS"
-        },
-        {
-          "name": "JavaScript",
-          "icon": "Terminal",
-          "gradient": "from-yellow-500 to-amber-500",
-          "description": "Dynamic programming"
-        },
-        {
-          "name": "TypeScript",
-          "icon": "Terminal",
-          "gradient": "from-blue-600 to-indigo-600",
-          "description": "Type-safe JS"
-        },
-        {
-          "name": "React",
-          "icon": "Code2",
-          "gradient": "from-cyan-400 to-blue-400",
-          "description": "Component library"
-        },
-        {
-          "name": "Next.js",
-          "icon": "Code2",
-          "gradient": "from-gray-800 to-black",
-          "description": "React framework"
-        }
-      ],
-      "backend": [
-        {
-          "name": "Node.js",
-          "icon": "Server",
-          "gradient": "from-green-500 to-emerald-500",
-          "description": "Server-side JS"
-        },
-        {
-          "name": "Spring Boot",
-          "icon": "Server",
-          "gradient": "from-green-600 to-lime-600",
-          "description": "Java framework"
-        },
-        {
-          "name": "Python",
-          "icon": "Terminal",
-          "gradient": "from-blue-500 to-yellow-400",
-          "description": "Versatile language"
-        },
-        {
-          "name": "MongoDB",
-          "icon": "Database",
-          "gradient": "from-green-500 to-green-600",
-          "description": "NoSQL database"
-        },
-        {
-          "name": "MySQL",
-          "icon": "Database",
-          "gradient": "from-blue-600 to-orange-500",
-          "description": "Relational DB"
-        }
-      ],
-      "tools": [
-        {
-          "name": "Git",
-          "icon": "Wrench",
-          "gradient": "from-orange-500 to-red-500",
-          "description": "Version control"
-        },
-        {
-          "name": "GitHub",
-          "icon": "Code2",
-          "gradient": "from-gray-700 to-gray-900",
-          "description": "Code hosting"
-        },
-        {
-          "name": "Docker",
-          "icon": "Server",
-          "gradient": "from-blue-500 to-cyan-500",
-          "description": "Containerization"
-        },
-        {
-          "name": "Jenkins",
-          "icon": "Wrench",
-          "gradient": "from-blue-600 to-gray-600",
-          "description": "CI/CD automation"
-        },
-        {
-          "name": "Figma",
-          "icon": "Palette",
-          "gradient": "from-purple-500 to-pink-500",
-          "description": "UI/UX design"
-        }
-      ]
     },
-    "animations": {
-      "gradient": "animate-gradient",
-      "floating": "animate-bounce",
-      "pulse": "animate-pulse",
-      "spin": "animate-spin",
-      "ping": "animate-ping"
-    },
-    "colors": {
-      "darkMode": {
-        "background": "bg-gradient-to-br from-gray-900 via-gray-800 to-black",
-        "text": "text-gray-300",
-        "borders": "border-gray-700/50",
-        "accent": "text-green-400, text-blue-400, text-purple-400"
-      },
-      "lightMode": {
-        "background": "bg-gradient-to-br from-slate-50 via-white to-gray-100",
-        "text": "text-gray-700",
-        "borders": "border-gray-300/50",
-        "accent": "text-blue-600, text-green-500, text-purple-500"
-      }
+    "functionalities": {
+      "languageChange": true,
+      "darkMode": true, 
+      "smoothNavigation": true,
+      "mobileMenu": true,
+      "mouseEffects": true,
+      "backgroundAnimations": true,
+      "intersectionObserver": true
     }
-  },
-  "functionalities": {
-    "languageChange": true,
-    "darkMode": true,
-    "smoothNavigation": true,
-    "mobileMenu": true,
-    "mouseEffects": true,
-    "backgroundAnimations": true,
-    "intersectionObserver": true
   }
 }

@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 // Import JSON data
-import portfolioData from '../data/portfolio-data.json';
+import portfolioData from '../data/Contact-data.json';
 
 // Icon mapping function
 const getIcon = (iconName: string) => {
@@ -50,7 +50,7 @@ export default function Contact({
   const sectionRef = useRef<HTMLElement>(null);
 
   // Extract data from JSON
-  const { sections, functionalities } = portfolioData.portfolio;
+  const { sections, functionalities } = portfolioData.Contact;
   const contactSection = sections.contact;
   const currentContent = contactSection.content[lang];
   const contactInfo = contactSection.contactInfo;

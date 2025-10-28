@@ -7,7 +7,7 @@ import { useState, useEffect, JSX } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 // Import JSON data
-import portfolioData from '../data/portfolio-data.json';
+import portfolioData from '../data/Hero-data.json';
 
 export default function Hero({
   lang,
@@ -26,7 +26,7 @@ export default function Hero({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Extract data from JSON
-  const { metadata, sections } = portfolioData.portfolio;
+  const { metadata, sections } = portfolioData.Hero;
   const heroSection = sections.hero;
   const currentContent = heroSection.content[lang];
   const currentStats = heroSection.statistics[lang];

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Github, Sparkles, ChevronLeft, ChevronRight, Globe, Play } from "lucide-react";
 
 // Import JSON data
-import portfolioData from '../data/portfolio-data.json';
+import portfolioData from '../data/Projects-data.json';
 
 type Lang = "es" | "en";
 
@@ -25,7 +25,7 @@ export default function ProjectsCarousel({
   const sectionRef = useRef<HTMLElement>(null);
 
   // Extract data from JSON
-  const { sections } = portfolioData.portfolio;
+  const { sections } = portfolioData.Projects;
   const projectsSection = sections.projects;
   const currentContent = projectsSection.content[lang];
   const projects = projectsSection.projects;

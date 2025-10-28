@@ -1,0 +1,158 @@
+{
+  "Contact": {
+    "metadata": {
+      "name": "Dirkin Developer",
+      "title": "Digital Solutions Architect",
+      "technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+      "framework": "Next.js",
+      "type": "React Component",
+      "images": {
+        "avatar": "/avatar.png",
+        "background": "/background.jpg"
+      }
+    },
+    "sections": {
+      "contact": {
+        "name": "Contact",
+        "description": "Contact information and communication section",
+        "component": "Contact.tsx",
+        "dependencies": {
+          "lucide-react": ["Mail", "Linkedin", "Github", "Send", "MapPin", "Phone", "Calendar", "Sparkles", "ExternalLink", "Copy", "Check"]
+        },
+        "states": {
+          "isVisible": "boolean",
+          "mousePosition": "{ x: number, y: number }",
+          "hoveredCard": "number | null",
+          "copiedEmail": "boolean"
+        },
+        "content": {
+          "es": {
+            "title": "Contacto",
+            "subtitle": "Conectemos y creemos algo increíble juntos",
+            "description": "¿Tienes una idea innovadora o un proyecto desafiante? Me encanta colaborar en soluciones digitales que marquen la diferencia. Hablemos sobre cómo puedo ayudarte a transformar tu visión en realidad.",
+            "email": "Correo Electrónico",
+            "linkedin": "LinkedIn",
+            "github": "GitHub",
+            "location": "Ubicación",
+            "availability": "Disponibilidad",
+            "schedule": "Agendar Reunión",
+            "copyEmail": "Copiar email",
+            "emailCopied": "Email copiado",
+            "locationText": "Pasto, Colombia",
+            "availabilityText": "Disponible para proyectos",
+            "cta": "Iniciar Conversación",
+            "ctaDesc": "Estoy aquí para ayudarte a convertir tus ideas en soluciones digitales exitosas.",
+            "sendMessage": "Enviar Mensaje",
+            "response": "Respuesta",
+            "commitment": "Compromiso"
+          },
+          "en": {
+            "title": "Contact",
+            "subtitle": "Let's connect and create something amazing together",
+            "description": "Do you have an innovative idea or a challenging project? I love collaborating on digital solutions that make a difference. Let's talk about how I can help you transform your vision into reality.",
+            "email": "Email Address",
+            "linkedin": "LinkedIn",
+            "github": "GitHub",
+            "location": "Location",
+            "availability": "Availability",
+            "schedule": "Schedule Meeting",
+            "copyEmail": "Copy email",
+            "emailCopied": "Email copied",
+            "locationText": "Pasto, Colombia",
+            "availabilityText": "Available for projects",
+            "cta": "Start Conversation",
+            "ctaDesc": "I'm here to help you turn your ideas into successful digital solutions.",
+            "sendMessage": "Send Message",
+            "response": "Response",
+            "commitment": "Commitment"
+          }
+        },
+        "contactInfo": {
+          "email": "dirkinojedarodriguez@gmail.com",
+          "linkedin": "https://www.linkedin.com/in/johan-ojeda-rodr%C3%ADguez-987625368/",
+          "github": "https://github.com/DirkinYohan/Portafolio.git",
+          "location": "Pasto, Colombia",
+          "availability": "Available for projects"
+        },
+        "contactMethods": [
+          {
+            "type": "email",
+            "icon": "Mail",
+            "color": "from-red-500 to-pink-500",
+            "hasCopyAction": true
+          },
+          {
+            "type": "linkedin",
+            "icon": "Linkedin",
+            "color": "from-blue-600 to-blue-500",
+            "hasCopyAction": false
+          },
+          {
+            "type": "github",
+            "icon": "Github",
+            "color": "from-gray-700 to-gray-600",
+            "hasCopyAction": false
+          }
+        ],
+        "additionalInfo": [
+          {
+            "type": "location",
+            "icon": "MapPin",
+            "color": "from-green-500 to-emerald-500"
+          },
+          {
+            "type": "availability",
+            "icon": "Calendar",
+            "color": "from-purple-500 to-violet-500"
+          }
+        ],
+        "stats": [
+          {
+            "value": "24h",
+            "labelKey": "response"
+          },
+          {
+            "value": "100%",
+            "labelKey": "commitment"
+          }
+        ],
+        "animations": {
+          "gradient": "animate-gradient",
+          "floating": "animate-bounce",
+          "pulse": "animate-pulse",
+          "spin": "animate-spin",
+          "ping": "animate-ping"
+        },
+        "colors": {
+          "darkMode": {
+            "background": "bg-gradient-to-br from-gray-900 via-gray-800 to-black",
+            "text": "text-gray-300",
+            "borders": "border-gray-700/50",
+            "accent": "text-green-400, text-blue-400, text-purple-400"
+          },
+          "lightMode": {
+            "background": "bg-gradient-to-br from-slate-50 via-white to-gray-100",
+            "text": "text-gray-700",
+            "borders": "border-gray-300/50",
+            "accent": "text-blue-600, text-green-500, text-purple-500"
+          }
+        }
+      }
+    },
+    "functionalities": {
+      "languageChange": true,
+      "darkMode": true,
+      "smoothNavigation": true,
+      "mobileMenu": true,
+      "mouseEffects": true,
+      "backgroundAnimations": true,
+      "intersectionObserver": true,
+      "touchSwipe": true,
+      "carousel": true,
+      "experienceTimeline": true,
+      "testimonialsGrid": true,
+      "emailCopy": true,
+      "contactForm": false
+    }
+  }
+}

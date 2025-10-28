@@ -1,0 +1,121 @@
+{
+  "Hero": {
+    "metadata": {
+      "name": "Dirkin Developer",
+      "title": "Digital Solutions Architect",
+      "technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+      "framework": "Next.js",
+      "type": "React Component",
+      "images": {
+        "avatar": "/avatar.png",
+        "background": "/background.jpg"
+      }
+    },
+    "sections": {
+      "hero": {
+        "name": "Hero/Home",
+        "description": "Main portfolio section with navigation and presentation",
+        "component": "Hero.tsx",
+        "dependencies": {
+          "lucide-react": ["Sun", "Moon", "Globe", "Briefcase", "User", "Code2", "MessageSquare", "Mail", "ChevronDown", "Sparkles", "Menu", "X", "Download"],
+          "next": ["Image", "Inter"]
+        },
+        "states": {
+          "lang": ["es", "en"],
+          "darkMode": "boolean",
+          "isLoaded": "boolean",
+          "activeNav": "number | null",
+          "mobileMenuOpen": "boolean",
+          "mousePosition": "{ x: number, y: number }"
+        },
+        "content": {
+          "es": {
+            "title": "Dirkin Developer",
+            "subtitle": "Arquitecto de Soluciones Digitales",
+            "description": "Transformando ideas en experiencias digitales excepcionales con tecnología de vanguardia y diseño innovador.",
+            "cta1": "Explorar Proyectos",
+            "cta2": "Descargar CV",
+            "welcome": "Bienvenido a mi universo digital",
+            "scroll": "DESPLAZAR",
+            "navigation": [
+              { "name": "Inicio", "icon": "User", "id": "hero" },
+              { "name": "Sobre mí", "icon": "User", "id": "about" },
+              { "name": "Habilidades", "icon": "Code2", "id": "skills" },
+              { "name": "Proyectos", "icon": "Briefcase", "id": "projects" },
+              { "name": "Experiencia", "icon": "Briefcase", "id": "experience" },
+              { "name": "Testimonios", "icon": "MessageSquare", "id": "testimonials" },
+              { "name": "Contacto", "icon": "Mail", "id": "contact" }
+            ]
+          },
+          "en": {
+            "title": "Dirkin Developer",
+            "subtitle": "Digital Solutions Architect",
+            "description": "Transforming ideas into exceptional digital experiences with cutting-edge technology and innovative design.",
+            "cta1": "Explore Projects",
+            "cta2": "Download CV",
+            "welcome": "Welcome to my digital universe",
+            "scroll": "SCROLL",
+            "navigation": [
+              { "name": "Home", "icon": "User", "id": "hero" },
+              { "name": "About me", "icon": "User", "id": "about" },
+              { "name": "Skills", "icon": "Code2", "id": "skills" },
+              { "name": "Projects", "icon": "Briefcase", "id": "projects" },
+              { "name": "Experience", "icon": "Briefcase", "id": "experience" },
+              { "name": "Testimonials", "icon": "MessageSquare", "id": "testimonials" },
+              { "name": "Contact", "icon": "Mail", "id": "contact" }
+            ]
+          }
+        },
+        "techLogos": [
+          { "name": "React", "delay": 0, "x": 10, "y": 20 },
+          { "name": "Next.js", "delay": 500, "x": 85, "y": 15 },
+          { "name": "TypeScript", "delay": 1000, "x": 15, "y": 75 },
+          { "name": "Node.js", "delay": 1500, "x": 80, "y": 80 },
+          { "name": "Python", "delay": 2000, "x": 25, "y": 45 },
+          { "name": "Docker", "delay": 2500, "x": 75, "y": 50 }
+        ],
+        "statistics": {
+          "es": [
+            { "number": "50+", "label": "Proyectos" },
+            { "number": "3+", "label": "Años Exp." },
+            { "number": "100%", "label": "Satisfacción" }
+          ],
+          "en": [
+            { "number": "50+", "label": "Projects" },
+            { "number": "3+", "label": "Years Exp." },
+            { "number": "100%", "label": "Satisfaction" }
+          ]
+        },
+        "animations": {
+          "gradient": "animate-gradient",
+          "floating": "animate-bounce",
+          "pulse": "animate-pulse",
+          "spin": "animate-spin",
+          "ping": "animate-ping"
+        },
+        "colors": {
+          "darkMode": {
+            "background": "bg-gradient-to-br from-gray-900 via-gray-800 to-black",
+            "text": "text-gray-300",
+            "borders": "border-gray-700/50",
+            "accent": "text-green-400, text-blue-400, text-purple-400"
+          },
+          "lightMode": {
+            "background": "bg-gradient-to-br from-slate-50 via-white to-gray-100",
+            "text": "text-gray-700",
+            "borders": "border-gray-300/50",
+            "accent": "text-blue-600, text-green-500, text-purple-500"
+          }
+        }
+      }
+    },
+    "functionalities": {
+      "languageChange": true,
+      "darkMode": true,
+      "smoothNavigation": true,
+      "mobileMenu": true,
+      "mouseEffects": true,
+      "backgroundAnimations": true
+    }
+  }
+}

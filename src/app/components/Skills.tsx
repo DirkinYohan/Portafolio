@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, JSX } from "react";
 import { Code2, Server, Wrench, Sparkles, Database, Palette, Terminal } from "lucide-react";
 
 // Import JSON data
-import portfolioData from '../data/portfolio-data.json';
+import portfolioData from '../data/Skills-data.json';
 
 type Lang = "es" | "en";
 
@@ -21,7 +21,7 @@ export default function Skills({
   const sectionRef = useRef<HTMLElement>(null);
 
   // Extract data from JSON
-  const { sections } = portfolioData.portfolio;
+  const { sections } = portfolioData.Skills;
   const skillsSection = sections.skills;
   const currentContent = skillsSection.content[lang];
 

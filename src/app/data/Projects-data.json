@@ -1,0 +1,150 @@
+{
+  "Projects": {
+    "metadata": {
+      "name": "Dirkin Developer",
+      "title": "Digital Solutions Architect", 
+      "technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+      "framework": "Next.js",
+      "type": "React Component",
+      "images": {
+        "avatar": "/avatar.png",
+        "background": "/background.jpg"
+      }
+    },
+    "sections": {
+      "projects": {
+        "name": "Projects",
+        "description": "Projects showcase with carousel functionality",
+        "component": "ProjectsCarousel.tsx", 
+        "dependencies": {
+          "lucide-react": ["Github", "Sparkles", "ChevronLeft", "ChevronRight", "Globe", "Play"]
+        },
+        "states": {
+          "current": "number",
+          "isVisible": "boolean",
+          "mousePosition": "{ x: number, y: number }",
+          "hoveredProject": "number | null", 
+          "touchStart": "number",
+          "touchEnd": "number"
+        },
+        "content": {
+          "es": {
+            "title": "Proyectos",
+            "subtitle": "Mis creaciones digitales",
+            "description": "Una selección de proyectos que muestran mi experiencia en diferentes tecnologías y dominios.",
+            "viewDemo": "Ver Demo", 
+            "viewCode": "Ver Código",
+            "category": "Categoría",
+            "technologies": "Tecnologías"
+          },
+          "en": {
+            "title": "Projects",
+            "subtitle": "My digital creations", 
+            "description": "A selection of projects showcasing my experience across different technologies and domains.",
+            "viewDemo": "View Demo",
+            "viewCode": "View Code",
+            "category": "Category",
+            "technologies": "Technologies"
+          }
+        },
+        "projects": [
+          {
+            "title": "Portafolio Web",
+            "description": {
+              "es": "Portafolio personal construido con Next.js, TypeScript y Tailwind CSS, con animaciones modernas y diseño responsivo.",
+              "en": "Personal portfolio built with Next.js, TypeScript and Tailwind CSS, featuring modern animations and responsive design."
+            },
+            "image": "/avion.png",
+            "live": "https://boleto-avion.vercel.app/", 
+            "code": "https://github.com/DirkinYohan/BoletoAvion.git",
+            "gradient": "from-pink-500 to-purple-600",
+            "technologies": ["Next.js", "TypeScript", "Tailwind"],
+            "category": "Frontend"
+          },
+          {
+            "title": "Simulador de Tráfico", 
+            "description": {
+              "es": "Aplicación avanzada en Python que simula patrones de tráfico urbano utilizando algoritmos de inteligencia artificial.",
+              "en": "Advanced Python application that simulates urban traffic patterns using artificial intelligence algorithms."
+            },
+            "image": "/projects/traffic.png", 
+            "live": "https://simulador-trafico-demo.vercel.app",
+            "code": "https://github.com/tuusuario/simulador-trafico",
+            "gradient": "from-green-400 to-blue-500",
+            "technologies": ["Python", "AI", "Simulation"],
+            "category": "AI/ML"
+          },
+          {
+            "title": "App Rastreo de Perros", 
+            "description": {
+              "es": "Sistema completo de rastreo de mascotas con Angular frontend y Spring Boot backend, incluyendo geolocalización en tiempo real.",
+              "en": "Complete pet tracking system with Angular frontend and Spring Boot backend, including real-time geolocation."
+            },
+            "image": "/projects/dogs.png", 
+            "live": "https://app-perros-demo.vercel.app",
+            "code": "https://github.com/tuusuario/app-perros",
+            "gradient": "from-yellow-400 to-orange-500",
+            "technologies": ["Angular", "Spring Boot", "GPS"],
+            "category": "Fullstack"
+          },
+          {
+            "title": "Ecommerce Fullstack", 
+            "description": {
+              "es": "Plataforma de comercio electrónico completa con carrito de compras, pasarela de pago segura y panel de administración.",
+              "en": "Complete e-commerce platform with shopping cart, secure payment gateway and admin dashboard."
+            },
+            "image": "/projects/ecommerce.png", 
+            "live": "https://ecommerce-fullstack-demo.vercel.app",
+            "code": "https://github.com/tuusuario/ecommerce-fullstack",
+            "gradient": "from-indigo-400 to-cyan-500",
+            "technologies": ["React", "Node.js", "MongoDB"],
+            "category": "Ecommerce"
+          },
+          {
+            "title": "Dashboard Analytics", 
+            "description": {
+              "es": "Panel de análisis con visualización de datos en tiempo real y métricas avanzadas para negocios.",
+              "en": "Analytics dashboard with real-time data visualization and advanced business metrics."
+            },
+            "image": "/projects/analytics.png", 
+            "live": "https://dashboard-analytics-demo.vercel.app",
+            "code": "https://github.com/tuusuario/dashboard-analytics",
+            "gradient": "from-rose-400 to-orange-500",
+            "technologies": ["Vue.js", "D3.js", "Firebase"],
+            "category": "Analytics"
+          }
+        ],
+        "animations": {
+          "gradient": "animate-gradient", 
+          "floating": "animate-bounce",
+          "pulse": "animate-pulse",
+          "spin": "animate-spin",
+          "ping": "animate-ping"
+        },
+        "colors": {
+          "darkMode": {
+            "background": "bg-gradient-to-br from-gray-900 via-gray-800 to-black", 
+            "text": "text-gray-300",
+            "borders": "border-gray-700/50",
+            "accent": "text-green-400, text-blue-400, text-purple-400"
+          },
+          "lightMode": {
+            "background": "bg-gradient-to-br from-slate-50 via-white to-gray-100", 
+            "text": "text-gray-700",
+            "borders": "border-gray-300/50",
+            "accent": "text-blue-600, text-green-500, text-purple-500"
+          }
+        }
+      }
+    },
+    "functionalities": {
+      "languageChange": true,
+      "darkMode": true, 
+      "smoothNavigation": true,
+      "mobileMenu": true,
+      "mouseEffects": true,
+      "backgroundAnimations": true,
+      "intersectionObserver": true
+    }
+  }
+}

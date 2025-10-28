@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Briefcase, Calendar, Building, GraduationCap, Sparkles, Trophy, MapPin, Clock, Award } from "lucide-react";
 
 // Import JSON data
-import portfolioData from '../data/portfolio-data.json';
+import portfolioData from '../data/Experience-data.json';
 
 export default function Experience({
   lang,
@@ -19,7 +19,7 @@ export default function Experience({
   const sectionRef = useRef<HTMLElement>(null);
 
   // Extract data from JSON
-  const { sections } = portfolioData.portfolio;
+  const { sections } = portfolioData.Experience;
   const experienceSection = sections.experience;
   const currentContent = experienceSection.content[lang];
   const academicExperience = experienceSection.academicExperience;

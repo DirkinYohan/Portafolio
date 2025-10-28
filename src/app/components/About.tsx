@@ -4,7 +4,7 @@ import { Code2, Target, Heart, Sparkles, Award } from "lucide-react";
 import { useState, useEffect, useRef, JSX } from "react";
 
 // Import JSON data
-import portfolioData from '../data/portfolio-data.json';
+import portfolioData from '../data/About-data.json';
 
 export default function About({
   lang,
@@ -18,7 +18,7 @@ export default function About({
   const sectionRef = useRef<HTMLElement>(null);
 
   // Extract data from JSON
-  const { metadata, sections } = portfolioData.portfolio;
+  const { metadata, sections } = portfolioData.About;
   const aboutSection = sections.about;
   const currentContent = aboutSection.content[lang];
 

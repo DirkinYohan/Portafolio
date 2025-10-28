@@ -1,0 +1,125 @@
+{
+  "Testimonials": {
+    "metadata": {
+      "name": "Dirkin Developer",
+      "title": "Digital Solutions Architect",
+      "technologies": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+      "framework": "Next.js",
+      "type": "React Component",
+      "images": {
+        "avatar": "/avatar.png",
+        "background": "/background.jpg"
+      }
+    },
+    "sections": {
+      "testimonials": {
+        "name": "Testimonials",
+        "description": "Client testimonials and reviews section",
+        "component": "Testimonials.tsx",
+        "dependencies": {
+          "lucide-react": ["Star", "Quote", "Sparkles", "ThumbsUp", "Heart"]
+        },
+        "states": {
+          "isVisible": "boolean",
+          "mousePosition": "{ x: number, y: number }",
+          "activeCard": "number | null"
+        },
+        "content": {
+          "es": {
+            "title": "Testimonios",
+            "subtitle": "Lo que dicen mis clientes",
+            "description": "La satisfacción de mis clientes es mi mayor logro. Aquí algunas experiencias de quienes han confiado en mi trabajo."
+          },
+          "en": {
+            "title": "Testimonials",
+            "subtitle": "What my clients say",
+            "description": "My clients' satisfaction is my greatest achievement. Here are some experiences from those who have trusted my work."
+          }
+        },
+        "testimonials": [
+          {
+            "name": "Juan Pérez",
+            "company": "Tech Solutions",
+            "avatar": "JP",
+            "role": {
+              "es": "CTO & Co-fundador",
+              "en": "CTO & Co-founder"
+            },
+            "message": {
+              "es": "Dirkin transformó completamente nuestra visión digital. Su enfoque innovador y atención al detalle superaron nuestras expectativas. Un profesional excepcional.",
+              "en": "Dirkin completely transformed our digital vision. His innovative approach and attention to detail exceeded our expectations. An exceptional professional."
+            },
+            "rating": 5,
+            "project": "Plataforma E-commerce",
+            "gradient": "from-blue-500 to-purple-600"
+          },
+          {
+            "name": "María Gómez",
+            "company": "Innovation Labs",
+            "avatar": "MG",
+            "role": {
+              "es": "Líder de Producto",
+              "en": "Product Lead"
+            },
+            "message": {
+              "es": "Trabajar con Dirkin fue una experiencia extraordinaria. Su capacidad para convertir ideas complejas en soluciones elegantes es impresionante. Altamente recomendado.",
+              "en": "Working with Dirkin was an extraordinary experience. His ability to turn complex ideas into elegant solutions is impressive. Highly recommended."
+            },
+            "rating": 5,
+            "project": "App Mobile",
+            "gradient": "from-purple-500 to-pink-500"
+          },
+          {
+            "name": "Carlos Rodríguez",
+            "company": "StartupX",
+            "avatar": "CR",
+            "role": {
+              "es": "CEO & Fundador",
+              "en": "CEO & Founder"
+            },
+            "message": {
+              "es": "La dedicación y expertise técnico de Dirkin fueron fundamentales para el éxito de nuestro MVP. Su comunicación clara y entregas puntuales nos dieron total confianza.",
+              "en": "Dirkin's dedication and technical expertise were fundamental to our MVP's success. His clear communication and timely deliveries gave us complete confidence."
+            },
+            "rating": 5,
+            "project": "MVP SaaS",
+            "gradient": "from-indigo-500 to-cyan-500"
+          }
+        ],
+        "animations": {
+          "gradient": "animate-gradient",
+          "floating": "animate-bounce",
+          "pulse": "animate-pulse",
+          "spin": "animate-spin",
+          "ping": "animate-ping"
+        },
+        "colors": {
+          "darkMode": {
+            "background": "bg-gradient-to-br from-gray-900 via-gray-800 to-black",
+            "text": "text-gray-300",
+            "borders": "border-gray-700/50",
+            "accent": "text-purple-400, text-indigo-400"
+          },
+          "lightMode": {
+            "background": "bg-gradient-to-br from-slate-50 via-white to-gray-100",
+            "text": "text-gray-700",
+            "borders": "border-gray-300/50",
+            "accent": "text-purple-600, text-indigo-600"
+          }
+        }
+      }
+    },
+    "functionalities": {
+      "languageChange": true,
+      "darkMode": true,
+      "smoothNavigation": true,
+      "mobileMenu": true,
+      "mouseEffects": true,
+      "backgroundAnimations": true,
+      "intersectionObserver": true,
+      "touchSwipe": true,
+      "carousel": true,
+      "experienceTimeline": true
+    }
+  }
+}
