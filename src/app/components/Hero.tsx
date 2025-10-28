@@ -2,9 +2,12 @@
 import { Sun, Moon, Globe, Briefcase, User, Code2, MessageSquare, Mail, ChevronDown, Sparkles, Menu, X, Download } from "lucide-react";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { useState, useEffect } from "react";
+import { useState, useEffect, JSX } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
+
+// Import JSON data
+import portfolioData from '../data/portfolio-data.json';
 
 export default function Hero({
   lang,
@@ -22,6 +25,12 @@ export default function Hero({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
+  // Extract data from JSON
+  const { metadata, sections } = portfolioData.portfolio;
+  const heroSection = sections.hero;
+  const currentContent = heroSection.content[lang];
+  const currentStats = heroSection.statistics[lang];
+
   useEffect(() => {
     setIsLoaded(true);
     
@@ -36,7 +45,7 @@ export default function Hero({
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Función para manejar el scroll suave a las secciones
+  // Function to handle smooth scroll to sections
   const scrollToSection = (sectionId: string) => {
     if (sectionId === "hero") {
       window.scrollTo({
@@ -46,7 +55,7 @@ export default function Hero({
     } else {
       const element = document.getElementById(sectionId);
       if (element) {
-        const offset = 80; // Ajuste para el navbar fijo
+        const offset = 80; // Adjustment for fixed navbar
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -59,58 +68,25 @@ export default function Hero({
     setMobileMenuOpen(false);
   };
 
-  const texts = {
-    es: {
-      title: "Dirkin Developer",
-      subtitle: "Arquitecto de Soluciones Digitales",
-      desc: "Transformando ideas en experiencias digitales excepcionales con tecnología de vanguardia y diseño innovador.",
-      cta1: "Explorar Proyectos",
-      cta2: "Descargar CV",
-      nav: [
-        { name: "Inicio", icon: <User size={18} />, id: "hero" },
-        { name: "Sobre mí", icon: <User size={18} />, id: "about" },
-        { name: "Habilidades", icon: <Code2 size={18} />, id: "skills" },
-        { name: "Proyectos", icon: <Briefcase size={18} />, id: "projects" },
-        { name: "Experiencia", icon: <Briefcase size={18} />, id: "experience" },
-        { name: "Testimonios", icon: <MessageSquare size={18} />, id: "testimonials" },
-        { name: "Contacto", icon: <Mail size={18} />, id: "contact" },
-      ],
-    },
-    en: {
-      title: "Dirkin Developer",
-      subtitle: "Digital Solutions Architect",
-      desc: "Transforming ideas into exceptional digital experiences with cutting-edge technology and innovative design.",
-      cta1: "Explore Projects",
-      cta2: "Download CV",
-      nav: [
-        { name: "Home", icon: <User size={18} />, id: "hero" },
-        { name: "About me", icon: <User size={18} />, id: "about" },
-        { name: "Skills", icon: <Code2 size={18} />, id: "skills" },
-        { name: "Projects", icon: <Briefcase size={18} />, id: "projects" },
-        { name: "Experience", icon: <Briefcase size={18} />, id: "experience" },
-        { name: "Testimonials", icon: <MessageSquare size={18} />, id: "testimonials" },
-        { name: "Contact", icon: <Mail size={18} />, id: "contact" },
-      ],
-    },
+  // Icon mapping function
+  const getNavIcon = (iconName: string) => {
+    const iconMap: { [key: string]: JSX.Element } = {
+      User: <User size={18} />,
+      Code2: <Code2 size={18} />,
+      Briefcase: <Briefcase size={18} />,
+      MessageSquare: <MessageSquare size={18} />,
+      Mail: <Mail size={18} />
+    };
+    return iconMap[iconName] || <User size={18} />;
   };
-
-  // Tech logos data
-  const techLogos = [
-    { name: "React", delay: 0, x: 10, y: 20 },
-    { name: "Next.js", delay: 500, x: 85, y: 15 },
-    { name: "TypeScript", delay: 1000, x: 15, y: 75 },
-    { name: "Node.js", delay: 1500, x: 80, y: 80 },
-    { name: "Python", delay: 2000, x: 25, y: 45 },
-    { name: "Docker", delay: 2500, x: 75, y: 50 },
-  ];
 
   return (
     <section 
       id="hero"
       className={`min-h-screen flex flex-col ${inter.className} relative overflow-hidden transition-all duration-500 ${
         darkMode 
-          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
-          : 'bg-gradient-to-br from-slate-50 via-white to-gray-100'
+          ? heroSection.colors.darkMode.background
+          : heroSection.colors.lightMode.background
       }`}
     >
       
@@ -150,7 +126,7 @@ export default function Hero({
 
       {/* Floating Tech Logos */}
       <div className="absolute inset-0 pointer-events-none">
-        {techLogos.map((logo, index) => (
+        {heroSection.techLogos.map((logo, index) => (
           <div
             key={logo.name}
             className={`absolute text-xs font-bold px-3 py-1 backdrop-blur-sm border rounded-full transition-all duration-1000 hover:scale-110 ${
@@ -188,7 +164,7 @@ export default function Hero({
 
         {/* Premium Navigation */}
         <ul className="hidden space-x-2 lg:flex">
-          {texts[lang].nav.map((item, i) => (
+          {currentContent.navigation.map((item, i) => (
             <li
               key={i}
               className="relative group"
@@ -202,7 +178,7 @@ export default function Hero({
                 }`}
               >
                 <div className={`transition-all duration-300 ${activeNav === i ? 'text-green-400 scale-125 rotate-12' : `${darkMode ? 'text-gray-500' : 'text-gray-600'} group-hover:text-green-400`}`}>
-                  {item.icon}
+                  {getNavIcon(item.icon)}
                 </div>
                 <span className={`font-medium transition-all duration-300 ${activeNav === i ? 'text-green-400' : `${darkMode ? 'text-gray-400 group-hover:text-white' : 'text-gray-700 group-hover:text-gray-900'}`}`}>
                   {item.name}
@@ -220,9 +196,9 @@ export default function Hero({
           ))}
         </ul>
 
-        {/* Enhanced Controls - ORDEN CORREGIDO */}
+        {/* Enhanced Controls */}
         <div className="flex items-center space-x-3">
-          {/* 🌙/☀️ Botón de Tema (Dark/Light Mode) - PRIMERO */}
+          {/* 🌙/☀️ Theme Toggle Button */}
           <button 
             onClick={() => setDarkMode(!darkMode)}
             className={`relative p-3 rounded-full backdrop-blur-sm border transition-all duration-300 hover:scale-110 hover:rotate-180 group ${
@@ -239,7 +215,7 @@ export default function Hero({
             )}
           </button>
 
-          {/* 🌍 Botón de Idioma (Globe) - SEGUNDO */}
+          {/* 🌍 Language Toggle Button */}
           <button 
             onClick={() => setLang(lang === "es" ? "en" : "es")}
             className={`relative p-3 rounded-full backdrop-blur-sm border transition-all duration-300 hover:scale-110 group ${
@@ -252,7 +228,7 @@ export default function Hero({
             <Globe size={20} className={`group-hover:rotate-180 transition-transform duration-500 relative z-10 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
           </button>
 
-          {/* 🍔 Botón Hamburguesa (Menu) - TERCERO (último, solo visible en móvil) */}
+          {/* 🍔 Mobile Menu Button */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={`lg:hidden relative p-3 rounded-full backdrop-blur-sm border transition-all duration-300 hover:scale-110 ${
@@ -288,7 +264,7 @@ export default function Hero({
         } ${darkMode ? 'bg-gray-800/90 border-gray-700/50' : 'bg-white/90 border-gray-300/50'}`}>
           <div className="p-6">
             <ul className="space-y-4">
-              {texts[lang].nav.map((item, i) => (
+              {currentContent.navigation.map((item, i) => (
                 <li key={i}>
                   <button 
                     className={`w-full flex items-center space-x-4 py-4 px-6 rounded-xl transition-all duration-300 ${
@@ -301,7 +277,7 @@ export default function Hero({
                     <div className={`transition-all duration-300 ${
                       darkMode ? 'text-green-400' : 'text-blue-500'
                     }`}>
-                      {item.icon}
+                      {getNavIcon(item.icon)}
                     </div>
                     <span className="text-lg font-medium">{item.name}</span>
                   </button>
@@ -380,8 +356,8 @@ export default function Hero({
               <div className={`relative w-full h-full rounded-full overflow-hidden border-4 border-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 p-1 group-hover:scale-105 transition-transform duration-500`}>
                 <div className={`w-full h-full rounded-full overflow-hidden ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
                   <Image 
-                    src="/avatar.png" 
-                    alt="Dirkin Developer" 
+                    src={metadata.images.avatar} 
+                    alt={metadata.name} 
                     fill 
                     className="object-cover transition-transform duration-700 group-hover:scale-110" 
                   />
@@ -409,7 +385,7 @@ export default function Hero({
           <div className="flex items-center justify-center mb-6 lg:justify-start">
             <Sparkles className={`mr-3 animate-pulse ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
             <span className={`text-lg font-light tracking-wide ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              {lang === "es" ? "Bienvenido a mi universo digital" : "Welcome to my digital universe"}
+              {currentContent.welcome}
             </span>
           </div>
 
@@ -420,25 +396,25 @@ export default function Hero({
                 ? 'bg-gradient-to-r from-white via-gray-200 to-gray-400' 
                 : 'bg-gradient-to-r from-gray-800 via-gray-600 to-gray-500'
             }`}>
-              {texts[lang].title.split(' ')[0]}
+              {currentContent.title.split(' ')[0]}
             </span>
             <br />
             <span className="text-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text bg-size-200 animate-gradient">
-              {texts[lang].title.split(' ')[1]}
+              {currentContent.title.split(' ')[1]}
             </span>
           </h1>
           
           {/* Subtitle with typewriter effect */}
           <h2 className="relative mb-8 text-2xl font-bold lg:text-4xl">
             <span className="text-transparent bg-gradient-to-r from-green-400 via-cyan-400 to-blue-400 bg-clip-text">
-              {texts[lang].subtitle}
+              {currentContent.subtitle}
             </span>
             <span className={`animate-pulse ml-2 ${darkMode ? 'text-green-400' : 'text-blue-500'}`}>|</span>
           </h2>
           
           {/* Description */}
           <p className={`text-xl leading-relaxed mb-12 max-w-2xl opacity-90 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-            {texts[lang].desc}
+            {currentContent.description}
           </p>
 
           {/* Premium CTA Buttons */}
@@ -448,7 +424,7 @@ export default function Hero({
               className="relative px-10 py-5 overflow-hidden font-bold text-white transition-all duration-500 group bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 rounded-2xl hover:shadow-2xl hover:shadow-green-500/25 hover:scale-105"
             >
               <span className="relative z-10 flex items-center justify-center gap-3">
-                {texts[lang].cta1}
+                {currentContent.cta1}
                 <Code2 className="transition-transform duration-300 group-hover:rotate-90" size={20} />
               </span>
               <div className="absolute inset-0 transition-opacity duration-300 opacity-0 bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 group-hover:opacity-100"></div>
@@ -461,7 +437,7 @@ export default function Hero({
                 : 'border-gray-400 text-gray-700 hover:border-transparent'
             }`}>
               <span className={`relative z-10 flex items-center justify-center gap-3 ${darkMode ? 'group-hover:text-white' : 'group-hover:text-gray-900'}`}>
-                {texts[lang].cta2}
+                {currentContent.cta2}
                 <Download className="group-hover:animate-bounce" size={20} />
               </span>
               <div className="absolute inset-0 transition-opacity duration-300 opacity-0 bg-gradient-to-r from-green-500/10 via-blue-500/10 to-purple-500/10 group-hover:opacity-100"></div>
@@ -473,16 +449,14 @@ export default function Hero({
           <div className={`grid grid-cols-3 gap-8 mt-16 pt-8 border-t transition-colors duration-500 ${
             darkMode ? 'border-gray-800/50' : 'border-gray-300/50'
           }`}>
-            {[
-              { number: "50+", label: lang === "es" ? "Proyectos" : "Projects" },
-              { number: "3+", label: lang === "es" ? "Años Exp." : "Years Exp." },
-              { number: "100%", label: lang === "es" ? "Satisfacción" : "Satisfaction" }
-            ].map((stat, index) => (
+            {currentStats.map((stat, index) => (
               <div key={index} className="text-center group">
                 <div className="text-3xl font-black text-transparent transition-transform duration-300 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text group-hover:scale-110">
                   {stat.number}
                 </div>
-                <div className={`text-sm mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>{stat.label}</div>
+                <div className={`text-sm mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
@@ -492,7 +466,7 @@ export default function Hero({
       {/* Enhanced Scroll Indicator */}
       <div className="absolute flex flex-col items-center transform -translate-x-1/2 bottom-8 left-1/2 animate-bounce">
         <div className={`text-xs mb-2 tracking-wider ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-          {lang === "es" ? "DESPLAZAR" : "SCROLL"}
+          {currentContent.scroll}
         </div>
         <div className={`w-6 h-10 border-2 rounded-full flex justify-center relative overflow-hidden ${
           darkMode ? 'border-gray-600' : 'border-gray-400'

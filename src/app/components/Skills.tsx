@@ -1,7 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, JSX } from "react";
 import { Code2, Server, Wrench, Sparkles, Database, Palette, Terminal } from "lucide-react";
+
+// Import JSON data
+import portfolioData from '../data/portfolio-data.json';
 
 type Lang = "es" | "en";
 
@@ -16,6 +19,11 @@ export default function Skills({
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Extract data from JSON
+  const { sections } = portfolioData.portfolio;
+  const skillsSection = sections.skills;
+  const currentContent = skillsSection.content[lang];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,166 +59,26 @@ export default function Skills({
     }
   }, []);
 
-  const texts = {
-    es: {
-      title: "Habilidades",
-      subtitle: "Mi arsenal tecnológico",
-      desc: "Domino un amplio stack de tecnologías modernas para crear soluciones completas y escalables.",
-      frontend: "Frontend",
-      backend: "Backend",
-      tools: "Herramientas",
-      technologies: "tecnologías"
-    },
-    en: {
-      title: "Skills",
-      subtitle: "My technology arsenal",
-      desc: "I master a wide stack of modern technologies to create complete and scalable solutions.",
-      frontend: "Frontend",
-      backend: "Backend",
-      tools: "Tools",
-      technologies: "technologies"
-    },
-  } as const;
-
-  const skills: Record<string, { 
-    name: string; 
-    icon: React.ReactNode; 
-    gradient: string;
-    description: string;
-  }[]> = {
-    frontend: [
-      { 
-        name: "HTML5", 
-        icon: <Code2 size={20} />, 
-        gradient: "from-orange-500 to-red-500",
-        description: "Semantic markup"
-      },
-      { 
-        name: "CSS3", 
-        icon: <Palette size={20} />, 
-        gradient: "from-blue-500 to-cyan-500",
-        description: "Modern styling"
-      },
-      { 
-        name: "Tailwind CSS", 
-        icon: <Palette size={20} />, 
-        gradient: "from-cyan-500 to-teal-500",
-        description: "Utility-first CSS"
-      },
-      { 
-        name: "JavaScript", 
-        icon: <Terminal size={20} />, 
-        gradient: "from-yellow-500 to-amber-500",
-        description: "Dynamic programming"
-      },
-      { 
-        name: "TypeScript", 
-        icon: <Terminal size={20} />, 
-        gradient: "from-blue-600 to-indigo-600",
-        description: "Type-safe JS"
-      },
-      { 
-        name: "React", 
-        icon: <Code2 size={20} />, 
-        gradient: "from-cyan-400 to-blue-400",
-        description: "Component library"
-      },
-      { 
-        name: "Next.js", 
-        icon: <Code2 size={20} />, 
-        gradient: "from-gray-800 to-black",
-        description: "React framework"
-      },
-    ],
-    backend: [
-      { 
-        name: "Node.js", 
-        icon: <Server size={20} />, 
-        gradient: "from-green-500 to-emerald-500",
-        description: "Server-side JS"
-      },
-      { 
-        name: "Spring Boot", 
-        icon: <Server size={20} />, 
-        gradient: "from-green-600 to-lime-600",
-        description: "Java framework"
-      },
-      { 
-        name: "Python", 
-        icon: <Terminal size={20} />, 
-        gradient: "from-blue-500 to-yellow-400",
-        description: "Versatile language"
-      },
-      { 
-        name: "MongoDB", 
-        icon: <Database size={20} />, 
-        gradient: "from-green-500 to-green-600",
-        description: "NoSQL database"
-      },
-      { 
-        name: "MySQL", 
-        icon: <Database size={20} />, 
-        gradient: "from-blue-600 to-orange-500",
-        description: "Relational DB"
-      },
-    ],
-    tools: [
-      { 
-        name: "Git", 
-        icon: <Wrench size={20} />, 
-        gradient: "from-orange-500 to-red-500",
-        description: "Version control"
-      },
-      { 
-        name: "GitHub", 
-        icon: <Code2 size={20} />, 
-        gradient: "from-gray-700 to-gray-900",
-        description: "Code hosting"
-      },
-      { 
-        name: "Docker", 
-        icon: <Server size={20} />, 
-        gradient: "from-blue-500 to-cyan-500",
-        description: "Containerization"
-      },
-      { 
-        name: "Jenkins", 
-        icon: <Wrench size={20} />, 
-        gradient: "from-blue-600 to-gray-600",
-        description: "CI/CD automation"
-      },
-      { 
-        name: "Figma", 
-        icon: <Palette size={20} />, 
-        gradient: "from-purple-500 to-pink-500",
-        description: "UI/UX design"
-      },
-    ],
+  // Icon mapping function
+  const getIcon = (iconName: string) => {
+    const iconMap: { [key: string]: JSX.Element } = {
+      Code2: <Code2 size={20} />,
+      Server: <Server size={20} />,
+      Wrench: <Wrench size={20} />,
+      Sparkles: <Sparkles size={20} />,
+      Database: <Database size={20} />,
+      Palette: <Palette size={20} />,
+      Terminal: <Terminal size={20} />
+    };
+    return iconMap[iconName] || <Code2 size={20} />;
   };
 
-  const skillCategories = [
-    {
-      key: 'frontend',
-      icon: <Code2 size={28} />,
-      title: texts[lang].frontend,
-      gradient: 'from-blue-500 to-cyan-500',
-      bgGradient: 'from-blue-500/10 to-cyan-500/10'
-    },
-    {
-      key: 'backend',
-      icon: <Server size={28} />,
-      title: texts[lang].backend,
-      gradient: 'from-green-500 to-emerald-500',
-      bgGradient: 'from-green-500/10 to-emerald-500/10'
-    },
-    {
-      key: 'tools',
-      icon: <Wrench size={28} />,
-      title: texts[lang].tools,
-      gradient: 'from-purple-500 to-pink-500',
-      bgGradient: 'from-purple-500/10 to-pink-500/10'
-    }
-  ];
+  // Prepare skill categories with titles
+  const skillCategories = skillsSection.skillCategories.map(category => ({
+    ...category,
+    icon: getIcon(category.icon),
+    title: currentContent[category.key as keyof typeof currentContent] as string
+  }));
 
   return (
     <section
@@ -218,8 +86,8 @@ export default function Skills({
       id="skills"
       className={`relative min-h-fit overflow-hidden transition-all duration-700 ${
         darkMode 
-          ? "bg-gradient-to-br from-gray-900 via-gray-800 to-black" 
-          : "bg-gradient-to-br from-slate-50 via-white to-gray-100"
+          ? skillsSection.colors.darkMode.background
+          : skillsSection.colors.lightMode.background
       }`}
       style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
     >
@@ -275,7 +143,7 @@ export default function Skills({
             <div className="flex items-center justify-center mb-6">
               <Sparkles className={`mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
               <span className={`text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                {texts[lang].subtitle}
+                {currentContent.subtitle}
               </span>
               <Sparkles className={`ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
             </div>
@@ -283,13 +151,13 @@ export default function Skills({
             {/* Main title */}
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
               <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient bg-size-200">
-                {texts[lang].title}
+                {currentContent.title}
               </span>
             </h2>
 
             {/* Description */}
             <p className={`text-lg max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              {texts[lang].desc}
+              {currentContent.description}
             </p>
           </div>
 
@@ -299,14 +167,15 @@ export default function Skills({
               <SkillCard
                 key={category.key}
                 category={category}
-                skills={skills[category.key]}
+                skills={skillsSection.skills[category.key as keyof typeof skillsSection.skills]}
                 darkMode={darkMode}
                 isVisible={isVisible}
                 categoryIndex={categoryIndex}
                 activeCard={activeCard}
                 setActiveCard={setActiveCard}
                 lang={lang}
-                texts={texts}
+                texts={currentContent}
+                getIcon={getIcon}
               />
             ))}
           </div>
@@ -343,18 +212,19 @@ function SkillCard({
   activeCard,
   setActiveCard,
   lang,
-  texts
+  texts,
+  getIcon
 }: {
   category: {
     key: string;
-    icon: React.ReactNode;
+    icon: JSX.Element;
     title: string;
     gradient: string;
     bgGradient: string;
   };
   skills: { 
     name: string; 
-    icon: React.ReactNode; 
+    icon: string; 
     gradient: string;
     description: string;
   }[];
@@ -365,6 +235,7 @@ function SkillCard({
   setActiveCard: (index: number | null) => void;
   lang: Lang;
   texts: any;
+  getIcon: (iconName: string) => JSX.Element;
 }) {
   const [hoveredSkill, setHoveredSkill] = useState<number | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -403,7 +274,7 @@ function SkillCard({
               {category.title}
             </h3>
             <div className={`text-xs sm:text-sm mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-              {skills.length} {texts[lang].technologies}
+              {skills.length} {texts.technologies}
             </div>
           </div>
         </div>
@@ -427,7 +298,7 @@ function SkillCard({
               <div className="relative flex flex-col items-center text-center gap-2">
                 {/* Skill icon */}
                 <div className={`p-2 sm:p-3 rounded-lg bg-gradient-to-r ${skill.gradient} text-white group-hover/skill:rotate-12 transition-transform duration-300 flex-shrink-0`}>
-                  {skill.icon}
+                  {getIcon(skill.icon)}
                 </div>
                 
                 {/* Skill info - MODIFICADO: Estructura vertical para móvil */}

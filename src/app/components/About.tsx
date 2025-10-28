@@ -1,7 +1,10 @@
 "use client";
 import Image from "next/image";
 import { Code2, Target, Heart, Sparkles, Award } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, JSX } from "react";
+
+// Import JSON data
+import portfolioData from '../data/portfolio-data.json';
 
 export default function About({
   lang,
@@ -14,8 +17,13 @@ export default function About({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
 
+  // Extract data from JSON
+  const { metadata, sections } = portfolioData.portfolio;
+  const aboutSection = sections.about;
+  const currentContent = aboutSection.content[lang];
+
   useEffect(() => {
-    // Manejar el scroll cuando la página se carga con #about en la URL
+    // Handle scroll when page loads with #about in URL
     const handleHashScroll = () => {
       if (window.location.hash === '#about' && sectionRef.current) {
         setTimeout(() => {
@@ -27,7 +35,7 @@ export default function About({
       }
     };
 
-    // Ejecutar inmediatamente y también después de un pequeño delay
+    // Execute immediately and also after a small delay
     handleHashScroll();
     window.addEventListener('load', handleHashScroll);
 
@@ -50,68 +58,17 @@ export default function About({
     }
   }, []);
 
-  const texts = {
-    es: {
-      title: "Sobre mí",
-      subtitle: "Descubre mi historia",
-      desc: "Soy Dirkin, un arquitecto digital apasionado por transformar ideas complejas en soluciones elegantes y funcionales. Con una mentalidad innovadora, me especializo en crear experiencias digitales que no solo cumplen objetivos técnicos, sino que también inspiran y conectan con las personas.",
-      cards: [
-        { 
-          icon: <Code2 size={28} />, 
-          title: "Tecnología", 
-          text: "Dominio avanzado en tecnologías emergentes y frameworks modernos para crear soluciones robustas y escalables.",
-          gradient: "from-blue-500 to-cyan-500"
-        },
-        { 
-          icon: <Target size={28} />, 
-          title: "Precisión", 
-          text: "Enfoque meticuloso en cada detalle, garantizando resultados que superan expectativas y estándares de calidad.",
-          gradient: "from-green-500 to-emerald-500"
-        },
-        { 
-          icon: <Heart size={28} />, 
-          title: "Pasión", 
-          text: "Cada proyecto es una oportunidad de innovar y crear impacto positivo a través del código y el diseño.",
-          gradient: "from-purple-500 to-pink-500"
-        },
-      ],
-    },
-    en: {
-      title: "About Me",
-      subtitle: "Discover my journey",
-      desc: "I'm Dirkin, a digital architect passionate about transforming complex ideas into elegant and functional solutions. With an innovative mindset, I specialize in creating digital experiences that not only meet technical objectives but also inspire and connect with people.",
-      cards: [
-        { 
-          icon: <Code2 size={28} />, 
-          title: "Technology", 
-          text: "Advanced expertise in emerging technologies and modern frameworks to create robust and scalable solutions.",
-          gradient: "from-blue-500 to-cyan-500"
-        },
-        { 
-          icon: <Target size={28} />, 
-          title: "Precision", 
-          text: "Meticulous focus on every detail, ensuring results that exceed expectations and quality standards.",
-          gradient: "from-green-500 to-emerald-500"
-        },
-        { 
-          icon: <Heart size={28} />, 
-          title: "Passion", 
-          text: "Every project is an opportunity to innovate and create positive impact through code and design.",
-          gradient: "from-purple-500 to-pink-500"
-        },
-      ],
-    },
+  // Icon mapping function
+  const getIcon = (iconName: string) => {
+    const iconMap: { [key: string]: JSX.Element } = {
+      Code2: <Code2 size={28} />,
+      Target: <Target size={28} />,
+      Heart: <Heart size={28} />,
+      Sparkles: <Sparkles size={28} />,
+      Award: <Award size={28} />
+    };
+    return iconMap[iconName] || <Code2 size={28} />;
   };
-
-  // Tech logos data similar al Hero
-  const techLogos = [
-    { name: "React", delay: 0, x: 10, y: 20 },
-    { name: "Next.js", delay: 500, x: 85, y: 15 },
-    { name: "TypeScript", delay: 1000, x: 15, y: 75 },
-    { name: "Node.js", delay: 1500, x: 80, y: 80 },
-    { name: "Python", delay: 2000, x: 25, y: 45 },
-    { name: "Docker", delay: 2500, x: 75, y: 50 },
-  ];
 
   return (
     <section
@@ -119,15 +76,15 @@ export default function About({
       id="about"
       className={`min-h-screen relative overflow-hidden font-sans ${
         darkMode 
-          ? "bg-gradient-to-br from-gray-900 via-gray-800 to-black" 
-          : "bg-gradient-to-br from-slate-50 via-white to-gray-100"
+          ? aboutSection.colors.darkMode.background
+          : aboutSection.colors.lightMode.background
       }`}
       style={{ 
-        scrollMarginTop: '80px' // Compensación para navbar fijo
+        scrollMarginTop: '80px' // Compensation for fixed navbar
       }}
     >
       
-      {/* Dynamic Background Grid - Estilo Hero */}
+      {/* Dynamic Background Grid - Hero Style */}
       <div className={`absolute inset-0 ${darkMode ? 'opacity-20' : 'opacity-10'}`}>
         <div 
           className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10"
@@ -145,9 +102,9 @@ export default function About({
         </svg>
       </div>
 
-      {/* Floating Tech Logos - Estilo Hero */}
+      {/* Floating Tech Logos - Hero Style */}
       <div className="absolute inset-0 pointer-events-none">
-        {techLogos.map((logo, index) => (
+        {aboutSection.techLogos.map((logo, index) => (
           <div
             key={logo.name}
             className={`absolute text-xs font-bold px-3 py-1 backdrop-blur-sm border rounded-full transition-all duration-1000 hover:scale-110 ${
@@ -167,7 +124,7 @@ export default function About({
         ))}
       </div>
 
-      {/* Floating Geometric Shapes - Estilo Hero */}
+      {/* Floating Geometric Shapes - Hero Style */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className={`absolute top-1/4 left-1/6 w-32 h-32 border rounded-full animate-spin duration-[20s] ${
           darkMode ? 'border-green-500/30' : 'border-blue-500/30'
@@ -188,11 +145,11 @@ export default function About({
         {/* Enhanced Header */}
         <div className="max-w-6xl w-full text-center mb-16">
           
-          {/* Sparkle icon - Estilo Hero */}
+          {/* Sparkle icon - Hero Style */}
           <div className="flex items-center justify-center mb-6">
             <Sparkles className={`mr-3 animate-pulse ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
             <span className={`text-lg font-normal tracking-normal ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              {texts[lang].subtitle}
+              {currentContent.subtitle}
             </span>
             <Sparkles className={`ml-3 animate-pulse ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
           </div>
@@ -200,7 +157,7 @@ export default function About({
           {/* Main title with Hero styling */}
           <h2 className="mb-8 text-5xl font-semibold leading-tight lg:text-6xl">
             <span className="text-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text bg-size-200 animate-gradient">
-              {texts[lang].title}
+              {currentContent.title}
             </span>
           </h2>
         </div>
@@ -212,7 +169,7 @@ export default function About({
           <div className="flex-1 flex justify-center">
             <div className="relative group">
               
-              {/* Animated rings - Estilo Hero */}
+              {/* Animated rings - Hero Style */}
               <div className={`absolute -inset-8 rounded-full border-2 animate-spin duration-[15s] ${
                 darkMode ? 'border-green-500/30' : 'border-blue-500/40'
               }`}></div>
@@ -232,11 +189,11 @@ export default function About({
                     : 'bg-gradient-to-r from-green-400/20 via-blue-400/20 to-purple-400/20'
                 }`}></div>
                 
-                {/* Image wrapper - Estilo Hero */}
+                {/* Image wrapper - Hero Style */}
                 <div className={`relative w-full h-full rounded-full overflow-hidden border-4 border-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 p-1 group-hover:scale-105 transition-transform duration-500`}>
                   <div className={`w-full h-full rounded-full overflow-hidden ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
                     <Image
-                      src="/avatar.png"
+                      src={metadata.images.avatar}
                       alt="About me"
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
@@ -244,7 +201,7 @@ export default function About({
                   </div>
                 </div>
                 
-                {/* Floating elements around image - Estilo Hero */}
+                {/* Floating elements around image - Hero Style */}
                 <div className={`absolute -top-6 -right-6 w-4 h-4 rounded-full animate-bounce delay-100 ${
                   darkMode ? 'bg-green-400' : 'bg-green-500'
                 }`}></div>
@@ -255,13 +212,13 @@ export default function About({
                   darkMode ? 'bg-purple-400' : 'bg-purple-500'
                 }`}></div>
                 
-                {/* Achievement badges - Estilo Hero */}
+                {/* Achievement badges - Hero Style */}
                 <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-full backdrop-blur-sm border transition-all duration-500 hover:scale-110 ${
                   darkMode ? 'bg-gray-800/80 border-gray-700/50 text-yellow-400' : 'bg-white/80 border-gray-300/50 text-yellow-500'
                 }`}>
                   <div className="flex items-center gap-2 text-sm font-medium">
                     <Award size={16} />
-                    {lang === "es" ? "Desarrollador" : "Developer"}
+                    {currentContent.achievement}
                   </div>
                 </div>
               </div>
@@ -274,7 +231,7 @@ export default function About({
             {/* Main description with Hero typography */}
             <div className="relative">
               <p className={`text-lg leading-relaxed mb-8 font-normal ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                {texts[lang].desc}
+                {currentContent.description}
               </p>
               
               {/* Quote mark decoration */}
@@ -285,7 +242,7 @@ export default function About({
 
             {/* Enhanced Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {texts[lang].cards.map((card, i) => (
+              {currentContent.cards.map((card, i) => (
                 <div
                   key={i}
                   className={`group relative p-6 rounded-2xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 hover:-translate-y-2 cursor-pointer ${
@@ -296,32 +253,32 @@ export default function About({
                   onMouseEnter={() => setActiveCard(i)}
                   onMouseLeave={() => setActiveCard(null)}
                 >
-                  {/* Glow effect - Estilo Hero */}
+                  {/* Glow effect - Hero Style */}
                   <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl bg-gradient-to-r ${card.gradient}`}></div>
                   
                   {/* Card content */}
                   <div className="relative z-10">
-                    {/* Icono centrado arriba */}
+                    {/* Centered icon at top */}
                     <div className={`flex justify-center mb-4 transition-all duration-300 ${
                       activeCard === i ? 'scale-110' : ''
                     }`}>
                       <div className={`p-3 rounded-xl bg-gradient-to-r ${card.gradient} text-white group-hover:rotate-12 transition-transform duration-300`}>
-                        {card.icon}
+                        {getIcon(card.icon)}
                       </div>
                     </div>
                     
-                    {/* Título centrado - MODIFICADO */}
+                    {/* Centered title - MODIFIED */}
                     <h3 className={`text-lg font-medium text-center mb-4 transition-colors duration-300 ${
                       activeCard === i 
                         ? darkMode 
-                          ? "text-white"  // En modo dark, mantener blanco al hover
-                          : "text-black"  // En modo light, mantener negro al hover
+                          ? "text-white"  // In dark mode, keep white on hover
+                          : "text-black"  // In light mode, keep black on hover
                         : darkMode ? 'text-white' : 'text-gray-800'
                     }`}>
                       {card.title}
                     </h3>
                     
-                    {/* Texto descriptivo */}
+                    {/* Descriptive text */}
                     <p className={`text-sm leading-relaxed font-normal text-center transition-colors duration-300 ${
                       darkMode ? 'text-gray-400 group-hover:text-gray-300' : 'text-gray-600 group-hover:text-gray-700'
                     }`}>
@@ -356,12 +313,12 @@ export default function About({
           font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
         
-        /* Asegurar que el scroll funcione correctamente */
+        /* Ensure smooth scrolling works correctly */
         html {
           scroll-behavior: smooth;
         }
         
-        /* Compensación adicional para el navbar fijo */
+        /* Additional compensation for fixed navbar */
         #about {
           scroll-margin-top: 80px;
         }
