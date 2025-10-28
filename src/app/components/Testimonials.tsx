@@ -3,59 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Star, Quote, Sparkles, ThumbsUp, Heart } from "lucide-react";
 
-// Librería para datos de testimonios
-const useTestimonialsData = (lang: "es" | "en") => {
-  return [
-    {
-      name: "Juan Pérez",
-      company: "Tech Solutions",
-      avatar: "JP",
-      role: {
-        es: "CTO & Co-fundador",
-        en: "CTO & Co-founder",
-      },
-      message: {
-        es: "Dirkin transformó completamente nuestra visión digital. Su enfoque innovador y atención al detalle superaron nuestras expectativas. Un profesional excepcional.",
-        en: "Dirkin completely transformed our digital vision. His innovative approach and attention to detail exceeded our expectations. An exceptional professional.",
-      },
-      rating: 5,
-      project: "Plataforma E-commerce",
-      gradient: "from-blue-500 to-purple-600"
-    },
-    {
-      name: "María Gómez",
-      company: "Innovation Labs",
-      avatar: "MG",
-      role: {
-        es: "Líder de Producto",
-        en: "Product Lead",
-      },
-      message: {
-        es: "Trabajar con Dirkin fue una experiencia extraordinaria. Su capacidad para convertir ideas complejas en soluciones elegantes es impresionante. Altamente recomendado.",
-        en: "Working with Dirkin was an extraordinary experience. His ability to turn complex ideas into elegant solutions is impressive. Highly recommended.",
-      },
-      rating: 5,
-      project: "App Mobile",
-      gradient: "from-purple-500 to-pink-500"
-    },
-    {
-      name: "Carlos Rodríguez",
-      company: "StartupX",
-      avatar: "CR",
-      role: {
-        es: "CEO & Fundador",
-        en: "CEO & Founder",
-      },
-      message: {
-        es: "La dedicación y expertise técnico de Dirkin fueron fundamentales para el éxito de nuestro MVP. Su comunicación clara y entregas puntuales nos dieron total confianza.",
-        en: "Dirkin's dedication and technical expertise were fundamental to our MVP's success. His clear communication and timely deliveries gave us complete confidence.",
-      },
-      rating: 5,
-      project: "MVP SaaS",
-      gradient: "from-indigo-500 to-cyan-500"
-    },
-  ];
-};
+// Import JSON data
+import portfolioData from '../data/portfolio-data.json';
 
 // Componente para tarjeta de testimonio
 const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveCard, darkMode, lang }: any) => (
@@ -185,7 +134,11 @@ export default function Testimonials({
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  const testimonialsData = useTestimonialsData(lang);
+  // Extract data from JSON
+  const { sections } = portfolioData.portfolio;
+  const testimonialsSection = sections.testimonials;
+  const currentContent = testimonialsSection.content[lang];
+  const testimonialsData = testimonialsSection.testimonials;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -221,27 +174,14 @@ export default function Testimonials({
     }
   }, []);
 
-  const texts = {
-    es: {
-      title: "Testimonios",
-      subtitle: "Lo que dicen mis clientes",
-      desc: "La satisfacción de mis clientes es mi mayor logro. Aquí algunas experiencias de quienes han confiado en mi trabajo.",
-    },
-    en: {
-      title: "Testimonials",
-      subtitle: "What my clients say",
-      desc: "My clients' satisfaction is my greatest achievement. Here are some experiences from those who have trusted my work.",
-    }
-  };
-
   return (
     <section
       ref={sectionRef}
       id="testimonials"
       className={`relative min-h-fit overflow-hidden transition-all duration-700 ${
         darkMode 
-          ? "bg-gradient-to-br from-gray-900 via-gray-800 to-black" 
-          : "bg-gradient-to-br from-slate-50 via-white to-gray-100"
+          ? testimonialsSection.colors.darkMode.background
+          : testimonialsSection.colors.lightMode.background
       }`}
       style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
     >
@@ -297,7 +237,7 @@ export default function Testimonials({
             <div className="flex items-center justify-center mb-6">
               <Sparkles className={`mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
               <span className={`text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                {texts[lang].subtitle}
+                {currentContent.subtitle}
               </span>
               <Sparkles className={`ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
             </div>
@@ -305,13 +245,13 @@ export default function Testimonials({
             {/* Main title */}
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
               <span className="bg-gradient-to-r from-purple-400 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient bg-size-200">
-                {texts[lang].title}
+                {currentContent.title}
               </span>
             </h2>
 
             {/* Description */}
             <p className={`text-lg max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              {texts[lang].desc}
+              {currentContent.description}
             </p>
           </div>
 

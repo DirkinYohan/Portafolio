@@ -15,6 +15,27 @@ import {
   Check
 } from "lucide-react";
 
+// Import JSON data
+import portfolioData from '../data/portfolio-data.json';
+
+// Icon mapping function
+const getIcon = (iconName: string) => {
+  const iconMap: { [key: string]: React.ComponentType<any> } = {
+    Mail,
+    Linkedin,
+    Github,
+    Send,
+    MapPin,
+    Phone,
+    Calendar,
+    Sparkles,
+    ExternalLink,
+    Copy,
+    Check
+  };
+  return iconMap[iconName] || Mail;
+};
+
 export default function Contact({
   lang,
   darkMode,
@@ -27,6 +48,15 @@ export default function Contact({
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Extract data from JSON
+  const { sections, functionalities } = portfolioData.portfolio;
+  const contactSection = sections.contact;
+  const currentContent = contactSection.content[lang];
+  const contactInfo = contactSection.contactInfo;
+  const contactMethods = contactSection.contactMethods;
+  const additionalInfo = contactSection.additionalInfo;
+  const stats = contactSection.stats;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -63,8 +93,10 @@ export default function Contact({
   }, []);
 
   const copyEmail = async () => {
+    if (!functionalities.emailCopy) return;
+    
     try {
-      await navigator.clipboard.writeText('dirkinojedarodriguez@gmail.com');
+      await navigator.clipboard.writeText(contactInfo.email);
       setCopiedEmail(true);
       setTimeout(() => setCopiedEmail(false), 2000);
     } catch (err) {
@@ -72,94 +104,63 @@ export default function Contact({
     }
   };
 
-  const texts = {
-    es: {
-      title: "Contacto",
-      subtitle: "Conectemos y creemos algo increíble juntos",
-      description: "¿Tienes una idea innovadora o un proyecto desafiante? Me encanta colaborar en soluciones digitales que marquen la diferencia. Hablemos sobre cómo puedo ayudarte a transformar tu visión en realidad.",
-      email: "Correo Electrónico",
-      linkedin: "LinkedIn",
-      github: "GitHub",
-      location: "Ubicación",
-      availability: "Disponibilidad",
-      schedule: "Agendar Reunión",
-      copyEmail: "Copiar email",
-      emailCopied: "Email copiado",
-      locationText: "Pasto, Colombia",
-      availabilityText: "Disponible para proyectos",
-      cta: "Iniciar Conversación",
-      ctaDesc: "Estoy aquí para ayudarte a convertir tus ideas en soluciones digitales exitosas.",
-      sendMessage: "Enviar Mensaje",
-      response: "Respuesta",
-      commitment: "Compromiso"
-    },
-    en: {
-      title: "Contact",
-      subtitle: "Let's connect and create something amazing together",
-      description: "Do you have an innovative idea or a challenging project? I love collaborating on digital solutions that make a difference. Let's talk about how I can help you transform your vision into reality.",
-      email: "Email Address",
-      linkedin: "LinkedIn",
-      github: "GitHub",
-      location: "Location",
-      availability: "Availability",
-      schedule: "Schedule Meeting",
-      copyEmail: "Copy email",
-      emailCopied: "Email copied",
-      locationText: "Pasto, Colombia",
-      availabilityText: "Available for projects",
-      cta: "Start Conversation",
-      ctaDesc: "I'm here to help you turn your ideas into successful digital solutions.",
-      sendMessage: "Send Message",
-      response: "Response",
-      commitment: "Commitment"
-    }
-  };
+  // Prepare contact methods with actual data
+  const preparedContactMethods = contactMethods.map(method => {
+    const IconComponent = getIcon(method.icon);
+    const methodData = {
+      email: {
+        label: currentContent.email,
+        value: contactInfo.email,
+        href: `mailto:${contactInfo.email}?subject=Contacto%20desde%20tu%20portafolio&body=Hola%20Dirkin,%20vi%20tu%20portafolio%20y%20me%20gustaría%20ponerme%20en%20contacto.`,
+        bgColor: darkMode ? "bg-red-500/20" : "bg-red-100",
+        textColor: "text-red-500",
+        action: method.hasCopyAction ? copyEmail : null
+      },
+      linkedin: {
+        label: currentContent.linkedin,
+        value: "@dirkin-developer",
+        href: contactInfo.linkedin,
+        bgColor: darkMode ? "bg-blue-500/20" : "bg-blue-100",
+        textColor: "text-blue-600",
+        action: null
+      },
+      github: {
+        label: currentContent.github,
+        value: "@dirkin-developer",
+        href: contactInfo.github,
+        bgColor: darkMode ? "bg-gray-500/20" : "bg-gray-100",
+        textColor: darkMode ? "text-gray-300" : "text-gray-700",
+        action: null
+      }
+    };
 
-  const contactMethods = [
-    {
-      icon: Mail,
-      label: texts[lang].email,
-      value: "dirkinojedarodriguez@gmail.com",
-      href: "mailto:dirkinojedarodriguez@gmail.com?subject=Contacto%20desde%20tu%20portafolio&body=Hola%20Dirkin,%20vi%20tu%20portafolio%20y%20me%20gustaría%20ponerme%20en%20contacto.",
-      color: "from-red-500 to-pink-500",
-      bgColor: darkMode ? "bg-red-500/20" : "bg-red-100",
-      textColor: "text-red-500",
-      action: copyEmail
-    },
-    {
-      icon: Linkedin,
-      label: texts[lang].linkedin,
-      value: "@dirkin-developer",
-      href: "https://www.linkedin.com/in/johan-ojeda-rodr%C3%ADguez-987625368/",
-      color: "from-blue-600 to-blue-500",
-      bgColor: darkMode ? "bg-blue-500/20" : "bg-blue-100",
-      textColor: "text-blue-600"
-    },
-    {
-      icon: Github,
-      label: texts[lang].github,
-      value: "@dirkin-developer",
-      href: "https://github.com/DirkinYohan/Portafolio.git",
-      color: "from-gray-700 to-gray-600",
-      bgColor: darkMode ? "bg-gray-500/20" : "bg-gray-100",
-      textColor: darkMode ? "text-gray-300" : "text-gray-700"
-    }
-  ];
+    return {
+      ...method,
+      icon: IconComponent,
+      ...methodData[method.type as keyof typeof methodData]
+    };
+  });
 
-  const additionalInfo = [
-    {
-      icon: MapPin,
-      label: texts[lang].location,
-      value: texts[lang].locationText,
-      color: "from-green-500 to-emerald-500"
-    },
-    {
-      icon: Calendar,
-      label: texts[lang].availability,
-      value: texts[lang].availabilityText,
-      color: "from-purple-500 to-violet-500"
-    }
-  ];
+  // Prepare additional info with actual data
+  const preparedAdditionalInfo = additionalInfo.map(info => {
+    const IconComponent = getIcon(info.icon);
+    const infoData = {
+      location: {
+        label: currentContent.location,
+        value: contactInfo.location
+      },
+      availability: {
+        label: currentContent.availability,
+        value: contactInfo.availability
+      }
+    };
+
+    return {
+      ...info,
+      icon: IconComponent,
+      ...infoData[info.type as keyof typeof infoData]
+    };
+  });
 
   return (
     <section
@@ -167,8 +168,8 @@ export default function Contact({
       id="contact"
       className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-all duration-700 ${
         darkMode 
-          ? "bg-gradient-to-br from-gray-900 via-gray-800 to-black" 
-          : "bg-gradient-to-br from-slate-50 via-white to-gray-100"
+          ? contactSection.colors.darkMode.background
+          : contactSection.colors.lightMode.background
       }`}
       style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
     >
@@ -223,7 +224,7 @@ export default function Contact({
           <div className="flex items-center justify-center mb-3 md:mb-4 lg:mb-6">
             <Sparkles className={`mr-2 md:mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={18} />
             <span className={`text-xs md:text-sm lg:text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-              {texts[lang].subtitle}
+              {currentContent.subtitle}
             </span>
             <Sparkles className={`ml-2 md:ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={18} />
           </div>
@@ -231,13 +232,13 @@ export default function Contact({
           {/* Main title */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 lg:mb-8 leading-tight">
             <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient bg-size-200">
-              {texts[lang].title}
+              {currentContent.title}
             </span>
           </h2>
 
           {/* Description */}
           <p className={`text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed px-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-            {texts[lang].description}
+            {currentContent.description}
           </p>
         </div>
 
@@ -251,7 +252,7 @@ export default function Contact({
             
             {/* Contact Methods Cards */}
             <div className="space-y-3 md:space-y-4 lg:space-y-6 mb-6 md:mb-8 lg:mb-12">
-              {contactMethods.map((method, index) => (
+              {preparedContactMethods.map((method, index) => (
                 <div
                   key={index}
                   className={`group relative transition-all duration-700 ${
@@ -309,7 +310,7 @@ export default function Contact({
                                 ? 'bg-gray-700/50 hover:bg-gray-700 text-gray-400 hover:text-white' 
                                 : 'bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-800'
                             }`}
-                            title={copiedEmail ? texts[lang].emailCopied : texts[lang].copyEmail}
+                            title={copiedEmail ? currentContent.emailCopied : currentContent.copyEmail}
                           >
                             {copiedEmail ? <Check className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" /> : <Copy className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />}
                           </button>
@@ -336,7 +337,7 @@ export default function Contact({
 
             {/* Additional Info */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 lg:gap-6">
-              {additionalInfo.map((info, index) => (
+              {preparedAdditionalInfo.map((info, index) => (
                 <div
                   key={index}
                   className={`p-3 sm:p-4 md:p-6 rounded-xl md:rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-105 ${
@@ -393,22 +394,22 @@ export default function Contact({
                     </div>
                     
                     <h3 className={`text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 md:mb-4 ${darkMode ? 'text-white' : 'text-gray-800'}`}>
-                      {texts[lang].cta}
+                      {currentContent.cta}
                     </h3>
                     
                     <p className={`mb-4 sm:mb-6 md:mb-8 text-xs sm:text-sm md:text-base ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                      {texts[lang].ctaDesc}
+                      {currentContent.ctaDesc}
                     </p>
                   </div>
                   
                   {/* Premium CTA Button */}
                   <a
-                    href="mailto:dirkinojedarodriguez@gmail.com?subject=Contacto%20desde%20tu%20portafolio&body=Hola%20Dirkin,%20vi%20tu%20portafolio%20y%20me%20gustaría%20ponerme%20en%20contacto."
+                    href={`mailto:${contactInfo.email}?subject=Contacto%20desde%20tu%20portafolio&body=Hola%20Dirkin,%20vi%20tu%20portafolio%20y%20me%20gustaría%20ponerme%20en%20contacto.`}
                     className="group relative inline-flex items-center gap-2 md:gap-3 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 overflow-hidden font-bold text-white transition-all duration-500 bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 rounded-xl md:rounded-2xl hover:shadow-2xl hover:shadow-blue-500/25 hover:scale-110 text-xs sm:text-sm md:text-base"
                   >
                     <span className="relative z-10 flex items-center gap-2 md:gap-3">
                       <Mail className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
-                      {texts[lang].sendMessage}
+                      {currentContent.sendMessage}
                       <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 transition-transform duration-300 group-hover:rotate-45" />
                     </span>
                     <div className="absolute inset-0 transition-opacity duration-300 opacity-0 bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 group-hover:opacity-100"></div>
@@ -420,22 +421,16 @@ export default function Contact({
                 <div className={`grid grid-cols-2 gap-4 sm:gap-6 md:gap-8 mt-6 sm:mt-8 md:mt-12 pt-4 sm:pt-6 md:pt-8 border-t ${
                   darkMode ? 'border-gray-700/50' : 'border-gray-300/50'
                 }`}>
-                  <div className="text-center">
-                    <div className="text-lg sm:text-xl md:text-2xl font-black text-transparent bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text">
-                      24h
+                  {stats.map((stat, index) => (
+                    <div key={index} className="text-center">
+                      <div className="text-lg sm:text-xl md:text-2xl font-black text-transparent bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text">
+                        {stat.value}
+                      </div>
+                      <div className={`text-xs md:text-sm ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                        {currentContent[stat.labelKey as keyof typeof currentContent]}
+                      </div>
                     </div>
-                    <div className={`text-xs md:text-sm ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-                      {texts[lang].response}
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-lg sm:text-xl md:text-2xl font-black text-transparent bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text">
-                      100%
-                    </div>
-                    <div className={`text-xs md:text-sm ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-                      {texts[lang].commitment}
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

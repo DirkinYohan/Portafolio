@@ -3,6 +3,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Briefcase, Calendar, Building, GraduationCap, Sparkles, Trophy, MapPin, Clock, Award } from "lucide-react";
 
+// Import JSON data
+import portfolioData from '../data/portfolio-data.json';
+
 export default function Experience({
   lang,
   darkMode,
@@ -14,6 +17,14 @@ export default function Experience({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Extract data from JSON
+  const { sections } = portfolioData.portfolio;
+  const experienceSection = sections.experience;
+  const currentContent = experienceSection.content[lang];
+  const academicExperience = experienceSection.academicExperience;
+  const workExperience = experienceSection.workExperience;
+  const gradients = experienceSection.gradients;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -49,114 +60,14 @@ export default function Experience({
     }
   }, []);
 
-  const texts = {
-    es: {
-      title: "Experiencia",
-      subtitle: "Mi trayectoria profesional",
-      desc: "Un recorrido por mi formación académica y experiencia profesional en el desarrollo de software.",
-      academic: "Formación Académica",
-      work: "Experiencia Laboral",
-      present: "Actualidad",
-      duration: "Duración"
-    },
-    en: {
-      title: "Experience",
-      subtitle: "My professional journey",
-      desc: "A journey through my academic background and professional experience in software development.",
-      academic: "Academic Background",
-      work: "Work Experience",
-      present: "Present",
-      duration: "Duration"
-    }
-  };
-
-  const academicExperience = [
-    {
-      degree: {
-        es: "Ingeniería de Software",
-        en: "Software Engineering",
-      },
-      institution: {
-        es: "Universidad Cooperativa de Colombia",
-        en: "Cooperative University of Colombia",
-      },
-      period: "2022 - 2025",
-      description: {
-        es: "Formación integral en desarrollo de software, estructuras de datos, bases de datos, ingeniería de requisitos y arquitecturas modernas. Enfoque en metodologías ágiles y buenas prácticas de programación.",
-        en: "Comprehensive training in software development, data structures, databases, requirements engineering, and modern architectures. Focus on agile methodologies and programming best practices.",
-      },
-      skills: ["Algoritmos", "Estructuras de Datos", "Arquitectura de Software"],
-      level: "Universitario",
-      grade: "Magna Cum Laude"
-    },
-    {
-      degree: {
-        es: "Diplomado en Desarrollo Web",
-        en: "Web Development Diploma",
-      },
-      institution: {
-        es: "Platzi",
-        en: "Platzi",
-      },
-      period: "2020",
-      description: {
-        es: "Especialización intensiva en tecnologías modernas como React, Node.js, bases de datos NoSQL y despliegues en la nube. Certificación en desarrollo full-stack.",
-        en: "Intensive specialization in modern technologies such as React, Node.js, NoSQL databases, and cloud deployments. Full-stack development certification.",
-      },
-      skills: ["React", "Node.js", "Cloud Computing"],
-      level: "Certificación",
-      grade: "Excelencia"
-    },
-  ];
-
-  const workExperience = [
-
-    {
-      role: {
-        es: "Frontend Developer",
-        en: "Frontend Developer",
-      },
-      company: {
-        es: "Tech Solutions",
-        en: "Tech Solutions",
-      },
-      period: "2021 - 2023",
-      description: {
-        es: "Desarrollo e implementación de interfaces de usuario modernas y responsivas en React y Angular. Colaboración estrecha con equipos de UX/UI para crear experiencias excepcionales.",
-        en: "Development and implementation of modern and responsive user interfaces in React and Angular. Close collaboration with UX/UI teams to create exceptional experiences.",
-      },
-      achievements: ["20+ componentes reutilizables", "100% responsive design", "Metodologías ágiles"],
-      location: "Híbrido",
-      type: "Tiempo Completo"
-    },
-    {
-      role: {
-        es: "Desarrollador Junior",
-        en: "Junior Developer",
-      },
-      company: {
-        es: "Startup Labs",
-        en: "Startup Labs",
-      },
-      period: "2020 - 2021",
-      description: {
-        es: "Desarrollo de prototipos y MVPs en un entorno startup dinámico. Experiencia en desarrollo ágil, testing automatizado y colaboración en equipos multidisciplinarios.",
-        en: "Development of prototypes and MVPs in a dynamic startup environment. Experience in agile development, automated testing, and collaboration in multidisciplinary teams.",
-      },
-      achievements: ["5 MVPs desarrollados", "Testing automatizado", "Scrum Master"],
-      location: "Presencial",
-      type: "Medio Tiempo"
-    },
-  ];
-
   return (
     <section
       ref={sectionRef}
       id="experience"
       className={`relative min-h-fit overflow-hidden transition-all duration-700 ${
         darkMode 
-          ? "bg-gradient-to-br from-gray-900 via-gray-800 to-black" 
-          : "bg-gradient-to-br from-slate-50 via-white to-gray-100"
+          ? experienceSection.colors.darkMode.background
+          : experienceSection.colors.lightMode.background
       }`}
       style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
     >
@@ -212,7 +123,7 @@ export default function Experience({
             <div className="flex items-center justify-center mb-6">
               <Sparkles className={`mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
               <span className={`text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                {texts[lang].subtitle}
+                {currentContent.subtitle}
               </span>
               <Sparkles className={`ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
             </div>
@@ -220,13 +131,13 @@ export default function Experience({
             {/* Main title */}
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
               <span className="bg-gradient-to-r from-purple-400 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient bg-size-200">
-                {texts[lang].title}
+                {currentContent.title}
               </span>
             </h2>
 
             {/* Description */}
             <p className={`text-lg max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              {texts[lang].desc}
+              {currentContent.description}
             </p>
           </div>
 
@@ -238,15 +149,15 @@ export default function Experience({
               isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
             }`}>
               <div className="flex items-center gap-4 mb-12">
-                <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg">
+                <div className={`p-4 rounded-2xl bg-gradient-to-r ${gradients.academic.icon} text-white shadow-lg`}>
                   <GraduationCap size={28} />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-transparent bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text">
-                    {texts[lang].academic}
+                  <h3 className={`text-2xl font-bold text-transparent bg-gradient-to-r ${gradients.academic.text} bg-clip-text`}>
+                    {currentContent.academic}
                   </h3>
                   <p className={`text-sm ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-                    Formación y certificaciones
+                    {currentContent.academicSubtitle}
                   </p>
                 </div>
               </div>
@@ -264,10 +175,10 @@ export default function Experience({
                   >
                     {/* Lateral glow effects - Solo en desktop */}
                     <div className="hidden lg:block absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="w-full h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg animate-pulse"></div>
+                      <div className={`w-full h-full bg-gradient-to-r ${gradients.academic.hover} rounded-full blur-lg animate-pulse`}></div>
                     </div>
                     <div className="hidden lg:block absolute -right-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="w-full h-full bg-gradient-to-l from-purple-500 to-pink-500 rounded-full blur-lg animate-pulse"></div>
+                      <div className={`w-full h-full bg-gradient-to-l ${gradients.academic.hover} rounded-full blur-lg animate-pulse`}></div>
                     </div>
 
                     {/* Card Container - Simplificado en móvil */}
@@ -281,7 +192,7 @@ export default function Experience({
                         {/* Academic icon - Simplificado en móvil */}
                         <div className={`p-2 lg:p-3 rounded-xl transition-all duration-300 ${
                           activeCard === index
-                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white rotate-12 scale-110' 
+                            ? `bg-gradient-to-r ${gradients.academic.hover} text-white rotate-12 scale-110` 
                             : darkMode 
                               ? 'bg-purple-500/20 text-purple-400' 
                               : 'bg-purple-100 text-purple-600'
@@ -295,7 +206,7 @@ export default function Experience({
                             <div className="flex-1 min-w-0">
                               <h4 className={`text-lg lg:text-xl font-bold mb-2 transition-colors duration-300 ${
                                 activeCard === index
-                                  ? 'text-transparent bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text'
+                                  ? `text-transparent bg-gradient-to-r ${gradients.academic.hover} bg-clip-text`
                                   : darkMode ? 'text-white' : 'text-gray-800'
                               }`}>
                                 {exp.degree[lang]}
@@ -339,7 +250,7 @@ export default function Experience({
                                 key={skillIndex}
                                 className={`px-3 py-1 text-xs rounded-lg transition-colors duration-300 ${
                                   activeCard === index
-                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
+                                    ? `bg-gradient-to-r ${gradients.academic.hover} text-white`
                                     : darkMode 
                                       ? 'bg-gray-700/50 text-gray-300' 
                                       : 'bg-gray-100 text-gray-600'
@@ -362,15 +273,15 @@ export default function Experience({
               isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
             }`}>
               <div className="flex items-center gap-4 mb-12">
-                <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg">
+                <div className={`p-4 rounded-2xl bg-gradient-to-r ${gradients.work.icon} text-white shadow-lg`}>
                   <Briefcase size={28} />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text">
-                    {texts[lang].work}
+                  <h3 className={`text-2xl font-bold text-transparent bg-gradient-to-r ${gradients.work.text} bg-clip-text`}>
+                    {currentContent.work}
                   </h3>
                   <p className={`text-sm ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-                    Trayectoria profesional
+                    {currentContent.workSubtitle}
                   </p>
                 </div>
               </div>
@@ -388,10 +299,10 @@ export default function Experience({
                   >
                     {/* Lateral glow effects - Solo en desktop */}
                     <div className="hidden lg:block absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="w-full h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-lg animate-pulse"></div>
+                      <div className={`w-full h-full bg-gradient-to-r ${gradients.work.hover} rounded-full blur-lg animate-pulse`}></div>
                     </div>
                     <div className="hidden lg:block absolute -right-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="w-full h-full bg-gradient-to-l from-indigo-500 to-purple-500 rounded-full blur-lg animate-pulse"></div>
+                      <div className={`w-full h-full bg-gradient-to-l ${gradients.work.hover} rounded-full blur-lg animate-pulse`}></div>
                     </div>
 
                     {/* Card Container - Simplificado en móvil */}
@@ -405,7 +316,7 @@ export default function Experience({
                         {/* Work icon - Simplificado en móvil */}
                         <div className={`p-2 lg:p-3 rounded-xl transition-all duration-300 ${
                           activeCard === index + 100
-                            ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white rotate-12 scale-110'
+                            ? `bg-gradient-to-r ${gradients.work.hover} text-white rotate-12 scale-110`
                             : darkMode 
                               ? 'bg-indigo-500/20 text-indigo-400' 
                               : 'bg-indigo-100 text-indigo-600'
@@ -419,7 +330,7 @@ export default function Experience({
                             <div className="flex-1 min-w-0">
                               <h4 className={`text-lg lg:text-xl font-bold mb-2 transition-colors duration-300 ${
                                 activeCard === index + 100
-                                  ? 'text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text'
+                                  ? `text-transparent bg-gradient-to-r ${gradients.work.hover} bg-clip-text`
                                   : darkMode ? 'text-white' : 'text-gray-800'
                               }`}>
                                 {exp.role[lang]}
@@ -457,7 +368,7 @@ export default function Experience({
                           {/* Achievements */}
                           <div className="space-y-2">
                             <h5 className={`text-sm font-semibold ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                              Logros destacados:
+                              {currentContent.achievements}:
                             </h5>
                             <div className="flex flex-wrap gap-2">
                               {exp.achievements.map((achievement, achIndex) => (
@@ -465,7 +376,7 @@ export default function Experience({
                                   key={achIndex}
                                   className={`px-3 py-1 text-xs rounded-lg transition-colors duration-300 ${
                                     activeCard === index + 100
-                                      ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white'
+                                      ? `bg-gradient-to-r ${gradients.work.hover} text-white`
                                       : darkMode 
                                         ? 'bg-gray-700/50 text-gray-300' 
                                         : 'bg-gray-100 text-gray-600'

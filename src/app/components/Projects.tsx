@@ -4,65 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Github, Sparkles, ChevronLeft, ChevronRight, Globe, Play } from "lucide-react";
 
-type Lang = "es" | "en";
+// Import JSON data
+import portfolioData from '../data/portfolio-data.json';
 
-const projects = [
-  {
-    title: "Portafolio Web",
-    descEs: "Portafolio personal construido con Next.js, TypeScript y Tailwind CSS, featuring modern animations and responsive design.",
-    descEn: "Personal portfolio built with Next.js, TypeScript and Tailwind CSS, featuring modern animations and responsive design.",
-    image: "/avion.png",
-    live: "https://boleto-avion.vercel.app/",
-    code: "https://github.com/DirkinYohan/BoletoAvion.git",
-    gradient: "from-pink-500 to-purple-600",
-    tech: ["Next.js", "TypeScript", "Tailwind"],
-    category: "Frontend"
-  },
-  {
-    title: "Simulador de Tráfico",
-    descEs: "Aplicación avanzada en Python que simula patrones de tráfico urbano utilizando algoritmos de inteligencia artificial.",
-    descEn: "Advanced Python application that simulates urban traffic patterns using artificial intelligence algorithms.",
-    image: "/projects/traffic.png",
-    live: "https://simulador-trafico.vercel.app",
-    code: "https://github.com/tuusuario/simulador-trafico",
-    gradient: "from-green-400 to-blue-500",
-    tech: ["Python", "AI", "Simulation"],
-    category: "AI/ML"
-  },
-  {
-    title: "App Rastreo de Perros",
-    descEs: "Sistema completo de rastreo de mascotas con Angular frontend y Spring Boot backend, incluyendo geolocalización en tiempo real.",
-    descEn: "Complete pet tracking system with Angular frontend and Spring Boot backend, including real-time geolocation.",
-    image: "/projects/dogs.png",
-    live: "https://app-perros.vercel.app",
-    code: "https://github.com/tuusuario/app-perros",
-    gradient: "from-yellow-400 to-orange-500",
-    tech: ["Angular", "Spring Boot", "GPS"],
-    category: "Fullstack"
-  },
-  {
-    title: "Ecommerce Fullstack",
-    descEs: "Plataforma de comercio electrónico completa con carrito de compras, pasarela de pago segura y panel de administración.",
-    descEn: "Complete e-commerce platform with shopping cart, secure payment gateway and admin dashboard.",
-    image: "/projects/ecommerce.png",
-    live: "https://ecommerce-fullstack.vercel.app",
-    code: "#",
-    gradient: "from-indigo-400 to-cyan-500",
-    tech: ["React", "Node.js", "MongoDB"],
-    category: "Ecommerce"
-  },
-  {
-    title: "Dashboard Analytics",
-    descEs: "Panel de análisis con visualización de datos en tiempo real y métricas avanzadas para negocios.",
-    descEn: "Analytics dashboard with real-time data visualization and advanced business metrics.",
-    image: "/projects/ecommerce.png",
-    live: "https://dashboard-analytics.vercel.app",
-    code: "#",
-    gradient: "from-rose-400 to-orange-500",
-    tech: ["Vue.js", "D3.js", "Firebase"],
-    category: "Analytics"
-  },
-];
+type Lang = "es" | "en";
 
 export default function ProjectsCarousel({
   lang,
@@ -78,6 +23,12 @@ export default function ProjectsCarousel({
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Extract data from JSON
+  const { sections } = portfolioData.portfolio;
+  const projectsSection = sections.projects;
+  const currentContent = projectsSection.content[lang];
+  const projects = projectsSection.projects;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -137,35 +88,14 @@ export default function ProjectsCarousel({
     }
   };
 
-  const texts = {
-    es: {
-      title: "Proyectos",
-      subtitle: "Mis creaciones digitales",
-      desc: "Una selección de proyectos que muestran mi experiencia en diferentes tecnologías y dominios.",
-      viewDemo: "Ver Demo",
-      viewCode: "Ver Código",
-      category: "Categoría",
-      technologies: "Tecnologías"
-    },
-    en: {
-      title: "Projects",
-      subtitle: "My digital creations",
-      desc: "A selection of projects showcasing my experience across different technologies and domains.",
-      viewDemo: "View Demo",
-      viewCode: "View Code",
-      category: "Category",
-      technologies: "Technologies"
-    }
-  };
-
   return (
     <section
       ref={sectionRef}
       id="projects"
       className={`relative min-h-fit overflow-hidden transition-all duration-700 ${
         darkMode 
-          ? "bg-gradient-to-br from-gray-900 via-gray-800 to-black" 
-          : "bg-gradient-to-br from-slate-50 via-white to-gray-100"
+          ? projectsSection.colors.darkMode.background
+          : projectsSection.colors.lightMode.background
       }`}
       style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
     >
@@ -221,7 +151,7 @@ export default function ProjectsCarousel({
             <div className="flex items-center justify-center mb-4 md:mb-6">
               <Sparkles className={`mr-2 md:mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={20} />
               <span className={`text-sm md:text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                {texts[lang].subtitle}
+                {currentContent.subtitle}
               </span>
               <Sparkles className={`ml-2 md:ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={20} />
             </div>
@@ -229,13 +159,13 @@ export default function ProjectsCarousel({
             {/* Main title */}
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight">
               <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient bg-size-200">
-                {texts[lang].title}
+                {currentContent.title}
               </span>
             </h2>
 
             {/* Description */}
             <p className={`text-base md:text-lg max-w-2xl mx-auto px-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              {texts[lang].desc}
+              {currentContent.description}
             </p>
           </div>
 
@@ -351,7 +281,7 @@ export default function ProjectsCarousel({
                         
                         {/* Tech Stack */}
                         <div className="flex flex-wrap gap-1.5 md:gap-2 mb-2 md:mb-3">
-                          {project.tech.map((tech, techIndex) => (
+                          {project.technologies.map((tech, techIndex) => (
                             <span
                               key={techIndex}
                               className={`px-2 py-0.5 md:py-1 text-xs rounded-lg ${
@@ -378,40 +308,41 @@ export default function ProjectsCarousel({
                         <p className={`text-xs md:text-sm leading-relaxed mb-3 md:mb-4 ${
                           darkMode ? 'text-gray-400' : 'text-gray-600'
                         }`}>
-                          {lang === "es" ? project.descEs : project.descEn}
+                          {project.description[lang]}
                         </p>
 
-                        {/* Action Buttons - Always show for active card */}
-                        {isActive && (
-                          <div className="flex gap-2 md:gap-3 transition-all duration-300 opacity-100">
-                            {project.live && project.live !== "#" && (
-                              <a
-                                href={project.live}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`flex-1 flex items-center justify-center gap-1.5 md:gap-2 py-2.5 md:py-3 px-3 md:px-4 rounded-xl text-sm font-medium transition-all duration-300 text-white bg-gradient-to-r ${project.gradient} hover:shadow-lg hover:scale-105`}
-                              >
-                                <Globe size={14} />
-                                {texts[lang].viewDemo}
-                              </a>
-                            )}
-                            {project.code && project.code !== "#" && (
-                              <a
-                                href={project.code}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`flex-1 flex items-center justify-center gap-1.5 md:gap-2 py-2.5 md:py-3 px-3 md:px-4 rounded-xl text-sm font-medium transition-all duration-300 border ${
-                                  darkMode
-                                    ? "bg-gray-700/50 border-gray-600/50 text-gray-300 hover:bg-gray-700/70"
-                                    : "bg-gray-100/80 border-gray-200/50 text-gray-700 hover:bg-gray-200/80"
-                                }`}
-                              >
-                                <Github size={14} />
-                                {texts[lang].viewCode}
-                              </a>
-                            )}
-                          </div>
-                        )}
+                        {/* Action Buttons - Always show both buttons for all cards */}
+                        <div className={`flex gap-2 md:gap-3 transition-all duration-300 ${
+                          isActive ? 'opacity-100' : 'opacity-70'
+                        }`}>
+                          {/* Demo Button */}
+                          <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`flex-1 flex items-center justify-center gap-1.5 md:gap-2 py-2.5 md:py-3 px-3 md:px-4 rounded-xl text-sm font-medium transition-all duration-300 text-white bg-gradient-to-r ${project.gradient} hover:shadow-lg ${
+                              isActive ? 'hover:scale-105' : 'hover:opacity-90'
+                            }`}
+                          >
+                            <Globe size={14} />
+                            {currentContent.viewDemo}
+                          </a>
+                          
+                          {/* Code Button */}
+                          <a
+                            href={project.code}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`flex-1 flex items-center justify-center gap-1.5 md:gap-2 py-2.5 md:py-3 px-3 md:px-4 rounded-xl text-sm font-medium transition-all duration-300 border ${
+                              darkMode
+                                ? "bg-gray-700/50 border-gray-600/50 text-gray-300 hover:bg-gray-700/70"
+                                : "bg-gray-100/80 border-gray-200/50 text-gray-700 hover:bg-gray-200/80"
+                            } ${isActive ? 'hover:scale-105' : 'hover:opacity-90'}`}
+                          >
+                            <Github size={14} />
+                            {currentContent.viewCode}
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
