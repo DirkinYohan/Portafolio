@@ -408,7 +408,7 @@ function SkillCard({
           </div>
         </div>
 
-        {/* Skills list */}
+        {/* Skills list - MODIFICADO: Descripciones debajo de los iconos */}
         <div className="space-y-2 sm:space-y-3 md:space-y-4">
           {skills.map((skill, skillIndex) => (
             <div
@@ -424,25 +424,23 @@ function SkillCard({
               {/* Skill glow */}
               <div className={`absolute inset-0 rounded-xl opacity-0 group-hover/skill:opacity-100 transition-opacity duration-300 blur-sm bg-gradient-to-r ${skill.gradient}/20`}></div>
               
-              <div className="relative flex items-center justify-between">
-                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-1">
-                  {/* Skill icon */}
-                  <div className={`p-1 sm:p-2 rounded-lg bg-gradient-to-r ${skill.gradient} text-white group-hover/skill:rotate-12 transition-transform duration-300 flex-shrink-0`}>
-                    {skill.icon}
+              <div className="relative flex flex-col items-center text-center gap-2">
+                {/* Skill icon */}
+                <div className={`p-2 sm:p-3 rounded-lg bg-gradient-to-r ${skill.gradient} text-white group-hover/skill:rotate-12 transition-transform duration-300 flex-shrink-0`}>
+                  {skill.icon}
+                </div>
+                
+                {/* Skill info - MODIFICADO: Estructura vertical para móvil */}
+                <div className="flex-1 min-w-0 w-full">
+                  <div className={`font-semibold text-xs sm:text-sm md:text-base mb-1 transition-colors duration-300 ${
+                    hoveredSkill === skillIndex
+                      ? `text-transparent bg-gradient-to-r ${skill.gradient} bg-clip-text`
+                      : darkMode ? 'text-white' : 'text-gray-800'
+                  }`}>
+                    {skill.name}
                   </div>
-                  
-                  {/* Skill info - Optimizado para 2 columnas en móvil */}
-                  <div className="flex-1 min-w-0">
-                    <div className={`font-semibold text-xs sm:text-sm md:text-base mb-1 transition-colors duration-300 truncate ${
-                      hoveredSkill === skillIndex
-                        ? `text-transparent bg-gradient-to-r ${skill.gradient} bg-clip-text`
-                        : darkMode ? 'text-white' : 'text-gray-800'
-                    }`}>
-                      {skill.name}
-                    </div>
-                    <div className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-600'} truncate`}>
-                      {skill.description}
-                    </div>
+                  <div className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                    {skill.description}
                   </div>
                 </div>
               </div>
