@@ -70,16 +70,16 @@
             "gradient": "from-purple-500 to-pink-500"
           },
           {
-            "name": "Carlos Rodríguez",
+            "name": "Juan Camilo Martinez",
             "company": "StartupX",
-            "avatar": "CR",
+            "avatar": "JC",
             "role": {
-              "es": "CEO & Fundador",
-              "en": "CEO & Founder"
+              "es": "Programador",
+              "en": "Programador"
             },
             "message": {
-              "es": "La dedicación y expertise técnico de Dirkin fueron fundamentales para el éxito de nuestro MVP. Su comunicación clara y entregas puntuales nos dieron total confianza.",
-              "en": "Dirkin's dedication and technical expertise were fundamental to our MVP's success. His clear communication and timely deliveries gave us complete confidence."
+              "es": "Es experto en sacar proyectos individuales, siempre está dispuesto a aprender y proyectarse a futuro, tiene determinación de hacer lo que se propone.",
+              "en": "He is an expert at taking individual projects forward, he is always willing to learn and project himself into the future, he is determined to do what he sets out to do."
             },
             "rating": 5,
             "project": "MVP SaaS",

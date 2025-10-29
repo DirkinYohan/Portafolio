@@ -54,9 +54,9 @@
               "es": "Portafolio personal construido con Next.js, TypeScript y Tailwind CSS, con animaciones modernas y diseño responsivo.",
               "en": "Personal portfolio built with Next.js, TypeScript and Tailwind CSS, featuring modern animations and responsive design."
             },
-            "image": "/avion.png",
-            "live": "https://boleto-avion.vercel.app/", 
-            "code": "https://github.com/DirkinYohan/BoletoAvion.git",
+            "image": "/ecommerce.png",
+            "live": "https://ecommerce-jbjh.vercel.app/", 
+            "code": "https://github.com/DirkinYohan/ecommerce.git",
             "gradient": "from-pink-500 to-purple-600",
             "technologies": ["Next.js", "TypeScript", "Tailwind"],
             "category": "Frontend"
@@ -67,9 +67,9 @@
               "es": "Aplicación avanzada en Python que simula patrones de tráfico urbano utilizando algoritmos de inteligencia artificial.",
               "en": "Advanced Python application that simulates urban traffic patterns using artificial intelligence algorithms."
             },
-            "image": "/projects/traffic.png", 
-            "live": "https://simulador-trafico-demo.vercel.app",
-            "code": "https://github.com/tuusuario/simulador-trafico",
+            "image": "/Netflix.png", 
+            "live": "https://responsive-ro3q.vercel.app/",
+            "code": "https://github.com/DirkinYohan/Responsive-.git",
             "gradient": "from-green-400 to-blue-500",
             "technologies": ["Python", "AI", "Simulation"],
             "category": "AI/ML"
@@ -80,8 +80,8 @@
               "es": "Sistema completo de rastreo de mascotas con Angular frontend y Spring Boot backend, incluyendo geolocalización en tiempo real.",
               "en": "Complete pet tracking system with Angular frontend and Spring Boot backend, including real-time geolocation."
             },
-            "image": "/projects/dogs.png", 
-            "live": "https://app-perros-demo.vercel.app",
+            "image": "/avion.png", 
+            "live": "https://boleto-avion.vercel.app/",
             "code": "https://github.com/tuusuario/app-perros",
             "gradient": "from-yellow-400 to-orange-500",
             "technologies": ["Angular", "Spring Boot", "GPS"],

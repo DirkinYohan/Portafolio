@@ -76,13 +76,13 @@
         ],
         "statistics": {
           "es": [
-            { "number": "50+", "label": "Proyectos" },
-            { "number": "3+", "label": "Años Exp." },
+            { "number": "10+", "label": "Proyectos" },
+            { "number": "2+", "label": "Años Exp." },
             { "number": "100%", "label": "Satisfacción" }
           ],
           "en": [
-            { "number": "50+", "label": "Projects" },
-            { "number": "3+", "label": "Years Exp." },
+            { "number": "10+", "label": "Projects" },
+            { "number": "2+", "label": "Years Exp." },
             { "number": "100%", "label": "Satisfaction" }
           ]
         },
