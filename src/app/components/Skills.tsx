@@ -161,7 +161,7 @@ export default function Skills({
             </p>
           </div>
 
-          {/* Skills Grid - CORREGIDO: 2 columnas en móvil, 2 en tablet, 3 en desktop */}
+          {/* Skills Grid */}
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
             {skillCategories.map((category, categoryIndex) => (
               <SkillCard
@@ -240,27 +240,47 @@ function SkillCard({
   const [hoveredSkill, setHoveredSkill] = useState<number | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
 
+  // Función para obtener colores del gradiente
+  const getGradientColors = (gradient: string) => {
+    const colorMap: { [key: string]: string } = {
+      'from-blue-500 to-cyan-500': '59, 130, 246',
+      'from-orange-500 to-red-500': '249, 115, 22',
+      'from-purple-500 to-pink-500': '168, 85, 247',
+      'from-green-500 to-emerald-500': '34, 197, 94',
+      'from-yellow-500 to-orange-500': '234, 179, 8',
+      'from-indigo-500 to-purple-500': '99, 102, 241',
+      'from-cyan-500 to-blue-500': '6, 182, 212',
+    };
+    return colorMap[gradient] || '59, 130, 246';
+  };
+
+  const cardGlowColor = getGradientColors(category.gradient);
+
   return (
     <div
       ref={cardRef}
-      className={`relative group transition-all duration-700 ${
+      className={`transition-all duration-700 ${
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
       }`}
       style={{ animationDelay: `${categoryIndex * 200}ms` }}
       onMouseEnter={() => setActiveCard(categoryIndex)}
       onMouseLeave={() => setActiveCard(null)}
     >
-      {/* Glow effect */}
-      <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-md bg-gradient-to-r ${category.gradient}`}></div>
-      
-      {/* Card container */}
-      <div className={`relative rounded-3xl p-4 sm:p-6 md:p-8 backdrop-blur-sm border transition-all duration-500 ${
-        darkMode
-          ? "bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/70"
-          : "bg-white/80 border-gray-200/50 hover:bg-white/90"
-      }`}>
+      {/* Card container con box-shadow para el glow */}
+      <div 
+        className={`rounded-3xl p-4 sm:p-6 md:p-8 backdrop-blur-sm border transition-all duration-500 ${
+          darkMode
+            ? "bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/70"
+            : "bg-white/80 border-gray-200/50 hover:bg-white/90"
+        }`}
+        style={{
+          boxShadow: activeCard === categoryIndex 
+            ? `0 0 20px rgba(${cardGlowColor}, 0.4), 0 0 40px rgba(${cardGlowColor}, 0.2)` 
+            : 'none'
+        }}
+      >
         
-        {/* Card header - CORREGIDO: Estructura mejorada para 2 columnas en móvil */}
+        {/* Card header */}
         <div className="flex flex-col items-center text-center mb-4 sm:mb-6 md:mb-8">
           <div className={`p-2 sm:p-3 md:p-4 rounded-2xl bg-gradient-to-r ${category.gradient} text-white group-hover:rotate-12 transition-transform duration-300 shadow-lg mb-3`}>
             {category.icon}
@@ -279,44 +299,50 @@ function SkillCard({
           </div>
         </div>
 
-        {/* Skills list - MODIFICADO: Descripciones debajo de los iconos */}
+        {/* Skills list */}
         <div className="space-y-2 sm:space-y-3 md:space-y-4">
-          {skills.map((skill, skillIndex) => (
-            <div
-              key={skill.name}
-              className={`group/skill relative p-2 sm:p-3 md:p-4 rounded-xl transition-all duration-300 cursor-pointer ${
-                darkMode 
-                  ? 'bg-gray-700/30 hover:bg-gray-700/50 border border-gray-600/20' 
-                  : 'bg-gray-50/50 hover:bg-gray-100/80 border border-gray-200/30'
-              }`}
-              onMouseEnter={() => setHoveredSkill(skillIndex)}
-              onMouseLeave={() => setHoveredSkill(null)}
-            >
-              {/* Skill glow */}
-              <div className={`absolute inset-0 rounded-xl opacity-0 group-hover/skill:opacity-100 transition-opacity duration-300 blur-sm bg-gradient-to-r ${skill.gradient}/20`}></div>
-              
-              <div className="relative flex flex-col items-center text-center gap-2">
-                {/* Skill icon */}
-                <div className={`p-2 sm:p-3 rounded-lg bg-gradient-to-r ${skill.gradient} text-white group-hover/skill:rotate-12 transition-transform duration-300 flex-shrink-0`}>
-                  {getIcon(skill.icon)}
-                </div>
-                
-                {/* Skill info - MODIFICADO: Estructura vertical para móvil */}
-                <div className="flex-1 min-w-0 w-full">
-                  <div className={`font-semibold text-xs sm:text-sm md:text-base mb-1 transition-colors duration-300 ${
-                    hoveredSkill === skillIndex
-                      ? `text-transparent bg-gradient-to-r ${skill.gradient} bg-clip-text`
-                      : darkMode ? 'text-white' : 'text-gray-800'
-                  }`}>
-                    {skill.name}
+          {skills.map((skill, skillIndex) => {
+            const skillGlowColor = getGradientColors(skill.gradient);
+            
+            return (
+              <div
+                key={skill.name}
+                className={`relative p-2 sm:p-3 md:p-4 rounded-xl transition-all duration-300 cursor-pointer ${
+                  darkMode 
+                    ? 'bg-gray-700/30 hover:bg-gray-700/50 border border-gray-600/20' 
+                    : 'bg-gray-50/50 hover:bg-gray-100/80 border border-gray-200/30'
+                }`}
+                style={{
+                  boxShadow: hoveredSkill === skillIndex
+                    ? `0 0 15px rgba(${skillGlowColor}, 0.3), 0 0 30px rgba(${skillGlowColor}, 0.15)`
+                    : 'none'
+                }}
+                onMouseEnter={() => setHoveredSkill(skillIndex)}
+                onMouseLeave={() => setHoveredSkill(null)}
+              >
+                <div className="relative flex flex-col items-center text-center gap-2">
+                  {/* Skill icon */}
+                  <div className={`p-2 sm:p-3 rounded-lg bg-gradient-to-r ${skill.gradient} text-white group-hover:rotate-12 transition-transform duration-300 flex-shrink-0`}>
+                    {getIcon(skill.icon)}
                   </div>
-                  <div className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
-                    {skill.description}
+                  
+                  {/* Skill info */}
+                  <div className="flex-1 min-w-0 w-full">
+                    <div className={`font-semibold text-xs sm:text-sm md:text-base mb-1 transition-colors duration-300 ${
+                      hoveredSkill === skillIndex
+                        ? `text-transparent bg-gradient-to-r ${skill.gradient} bg-clip-text`
+                        : darkMode ? 'text-white' : 'text-gray-800'
+                    }`}>
+                      {skill.name}
+                    </div>
+                    <div className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                      {skill.description}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

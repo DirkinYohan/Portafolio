@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Star, Quote, Sparkles, ThumbsUp, Heart } from "lucide-react";
+import { Star, Quote, Sparkles, ThumbsUp, Heart, X } from "lucide-react";
+import Image from "next/image";
 
 // Import JSON data
 import portfolioData from '../data/Testimonials-data.json';
 
 // Componente para tarjeta de testimonio
-const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveCard, darkMode, lang }: any) => (
+const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveCard, darkMode, lang, onImageClick }: any) => (
   <div
     className={`group relative transition-all duration-700 ${
       isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
@@ -41,10 +42,27 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
         <Quote size={32} />
       </div>
 
-      {/* Header with avatar */}
+      {/* Header with avatar - MODIFICADO PARA PERMITIR CLICK EN LA IMAGEN */}
       <div className="flex items-start mb-6 relative z-10">
-        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-white font-bold text-lg bg-gradient-to-r ${testimonial.gradient} shadow-lg group-hover:rotate-6 transition-transform duration-300`}>
-          {testimonial.avatar}
+        <div 
+          className={`w-14 h-14 rounded-2xl flex items-center justify-center overflow-hidden bg-gradient-to-r ${testimonial.gradient} shadow-lg group-hover:rotate-6 transition-transform duration-300 cursor-pointer hover:scale-110`}
+          onClick={() => onImageClick(testimonial)}
+        >
+          {testimonial.avatarImage ? (
+            // Si hay imagen, mostrarla
+            <Image
+              src={testimonial.avatarImage}
+              alt={testimonial.name}
+              width={56}
+              height={56}
+              className="w-full h-full object-cover transition-transform duration-300"
+            />
+          ) : (
+            // Fallback a las iniciales si no hay imagen
+            <span className="text-white font-bold text-lg">
+              {testimonial.avatar}
+            </span>
+          )}
         </div>
         <div className="ml-4 flex-1 min-w-0">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
@@ -64,7 +82,7 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
               </p>
             </div>
             
-            {/* Project badge - Ahora aparece debajo del nombre en móvil/tablet y al lado en desktop */}
+            {/* Project badge */}
             <div className={`px-3 py-1 rounded-full text-xs font-medium self-start sm:self-auto whitespace-nowrap ${
               darkMode ? 'bg-gray-700/50 text-gray-300' : 'bg-gray-100 text-gray-600'
             }`}>
@@ -122,6 +140,59 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
   </div>
 );
 
+// Componente para el modal de imagen ampliada (SOLO LA FOTO)
+const ImageModal = ({ testimonial, isOpen, onClose, darkMode }: any) => {
+  if (!isOpen) return null;
+
+  return (
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md"
+      onClick={onClose}
+    >
+      <div 
+        className="relative max-w-4xl max-h-full"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Botón de cerrar */}
+        <button
+          onClick={onClose}
+          className={`absolute -top-12 -right-4 z-10 p-3 rounded-full transition-colors duration-300 ${
+            darkMode 
+              ? 'bg-gray-800 hover:bg-gray-700 text-white' 
+              : 'bg-white hover:bg-gray-100 text-gray-800'
+          } shadow-lg`}
+        >
+          <X size={28} />
+        </button>
+        
+        {/* Contenedor de la imagen SOLO */}
+        <div className={`rounded-3xl overflow-hidden shadow-2xl ${
+          darkMode ? 'bg-gray-800' : 'bg-white'
+        }`}>
+          <div className="relative">
+            {testimonial.avatarImage ? (
+              <Image
+                src={testimonial.avatarImage}
+                alt={testimonial.name}
+                width={600}
+                height={600}
+                className="w-full h-auto max-h-[80vh] object-contain"
+                priority
+              />
+            ) : (
+              <div className={`w-96 h-96 flex items-center justify-center bg-gradient-to-r ${testimonial.gradient}`}>
+                <span className="text-white font-bold text-4xl">
+                  {testimonial.avatar}
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function Testimonials({
   lang,
   darkMode,
@@ -132,6 +203,8 @@ export default function Testimonials({
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [activeCard, setActiveCard] = useState<number | null>(null);
+  const [selectedImage, setSelectedImage] = useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   // Extract data from JSON
@@ -139,6 +212,18 @@ export default function Testimonials({
   const testimonialsSection = sections.testimonials;
   const currentContent = testimonialsSection.content[lang];
   const testimonialsData = testimonialsSection.testimonials;
+
+  // Función para manejar el clic en la imagen
+  const handleImageClick = (testimonial: any) => {
+    setSelectedImage(testimonial);
+    setIsModalOpen(true);
+  };
+
+  // Función para cerrar el modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedImage(null), 300);
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -174,122 +259,154 @@ export default function Testimonials({
     }
   }, []);
 
+  // Cerrar modal con tecla Escape
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleCloseModal();
+      }
+    };
+
+    if (isModalOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen]);
+
   return (
-    <section
-      ref={sectionRef}
-      id="testimonials"
-      className={`relative min-h-fit overflow-hidden transition-all duration-700 ${
-        darkMode 
-          ? testimonialsSection.colors.darkMode.background
-          : testimonialsSection.colors.lightMode.background
-      }`}
-      style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
-    >
-      {/* Dynamic Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Animated grid */}
-        <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-10' : 'opacity-5'}`}>
-          <svg className="absolute inset-0 w-full h-full">
-            <defs>
-              <pattern id="testimonials-grid" width="70" height="70" patternUnits="userSpaceOnUse">
-                <path d="M 70 0 L 0 0 0 70" fill="none" stroke={darkMode ? "rgb(34, 197, 94)" : "rgb(59, 130, 246)"} strokeWidth="0.5"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#testimonials-grid)" />
-          </svg>
+    <>
+      <section
+        ref={sectionRef}
+        id="testimonials"
+        className={`relative min-h-fit overflow-hidden transition-all duration-700 ${
+          darkMode 
+            ? testimonialsSection.colors.darkMode.background
+            : testimonialsSection.colors.lightMode.background
+        }`}
+        style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
+      >
+        {/* Dynamic Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Animated grid */}
+          <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-10' : 'opacity-5'}`}>
+            <svg className="absolute inset-0 w-full h-full">
+              <defs>
+                <pattern id="testimonials-grid" width="70" height="70" patternUnits="userSpaceOnUse">
+                  <path d="M 70 0 L 0 0 0 70" fill="none" stroke={darkMode ? "rgb(34, 197, 94)" : "rgb(59, 130, 246)"} strokeWidth="0.5"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#testimonials-grid)" />
+            </svg>
+          </div>
+
+          {/* Floating elements */}
+          <div 
+            className={`absolute top-1/5 left-1/6 w-36 h-36 rounded-full blur-3xl animate-pulse transition-all duration-1000 ${
+              darkMode ? 'bg-purple-500/15' : 'bg-purple-500/10'
+            }`}
+            style={{
+              transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
+            }}
+          />
+          <div 
+            className={`absolute bottom-1/5 right-1/6 w-28 h-28 rounded-full blur-2xl animate-bounce transition-all duration-1000 ${
+              darkMode ? 'bg-indigo-500/15' : 'bg-indigo-500/10'
+            }`}
+            style={{
+              transform: `translate(${mousePosition.x * -0.01}px, ${mousePosition.y * -0.01}px)`,
+            }}
+          />
+
+          {/* Geometric shapes */}
+          <div className={`absolute top-1/4 right-1/5 w-20 h-20 border-2 rotate-45 animate-spin duration-[40s] ${
+            darkMode ? 'border-purple-500/20' : 'border-purple-400/15'
+          }`}></div>
+          <div className={`absolute bottom-1/3 left-1/4 w-16 h-16 border rounded-full animate-pulse ${
+            darkMode ? 'border-indigo-500/25' : 'border-indigo-400/20'
+          }`}></div>
         </div>
 
-        {/* Floating elements */}
-        <div 
-          className={`absolute top-1/5 left-1/6 w-36 h-36 rounded-full blur-3xl animate-pulse transition-all duration-1000 ${
-            darkMode ? 'bg-purple-500/15' : 'bg-purple-500/10'
-          }`}
-          style={{
-            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
-          }}
-        />
-        <div 
-          className={`absolute bottom-1/5 right-1/6 w-28 h-28 rounded-full blur-2xl animate-bounce transition-all duration-1000 ${
-            darkMode ? 'bg-indigo-500/15' : 'bg-indigo-500/10'
-          }`}
-          style={{
-            transform: `translate(${mousePosition.x * -0.01}px, ${mousePosition.y * -0.01}px)`,
-          }}
-        />
+        <div className="relative z-10 px-8 py-20">
+          <div className="max-w-7xl mx-auto">
+            
+            {/* Enhanced Header */}
+            <div className={`text-center mb-16 transition-all duration-1000 ${
+              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+            }`}>
+              {/* Sparkle decorations */}
+              <div className="flex items-center justify-center mb-6">
+                <Sparkles className={`mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
+                <span className={`text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {currentContent.subtitle}
+                </span>
+                <Sparkles className={`ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
+              </div>
 
-        {/* Geometric shapes */}
-        <div className={`absolute top-1/4 right-1/5 w-20 h-20 border-2 rotate-45 animate-spin duration-[40s] ${
-          darkMode ? 'border-purple-500/20' : 'border-purple-400/15'
-        }`}></div>
-        <div className={`absolute bottom-1/3 left-1/4 w-16 h-16 border rounded-full animate-pulse ${
-          darkMode ? 'border-indigo-500/25' : 'border-indigo-400/20'
-        }`}></div>
-      </div>
+              {/* Main title */}
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                <span className="bg-gradient-to-r from-purple-400 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient bg-size-200">
+                  {currentContent.title}
+                </span>
+              </h2>
 
-      <div className="relative z-10 px-8 py-20">
-        <div className="max-w-7xl mx-auto">
-          
-          {/* Enhanced Header */}
-          <div className={`text-center mb-16 transition-all duration-1000 ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-          }`}>
-            {/* Sparkle decorations */}
-            <div className="flex items-center justify-center mb-6">
-              <Sparkles className={`mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
-              <span className={`text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                {currentContent.subtitle}
-              </span>
-              <Sparkles className={`ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
+              {/* Description */}
+              <p className={`text-lg max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                {currentContent.description}
+              </p>
             </div>
 
-            {/* Main title */}
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-              <span className="bg-gradient-to-r from-purple-400 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient bg-size-200">
-                {currentContent.title}
-              </span>
-            </h2>
-
-            {/* Description */}
-            <p className={`text-lg max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              {currentContent.description}
-            </p>
-          </div>
-
-          {/* Testimonials Grid */}
-          <div className="grid lg:grid-cols-3 gap-8">
-            {testimonialsData.map((testimonial, index) => (
-              <TestimonialCard
-                key={index}
-                testimonial={testimonial}
-                index={index}
-                isVisible={isVisible}
-                activeCard={activeCard}
-                setActiveCard={setActiveCard}
-                darkMode={darkMode}
-                lang={lang}
-              />
-            ))}
+            {/* Testimonials Grid */}
+            <div className="grid lg:grid-cols-3 gap-8">
+              {testimonialsData.map((testimonial, index) => (
+                <TestimonialCard
+                  key={index}
+                  testimonial={testimonial}
+                  index={index}
+                  isVisible={isVisible}
+                  activeCard={activeCard}
+                  setActiveCard={setActiveCard}
+                  darkMode={darkMode}
+                  lang={lang}
+                  onImageClick={handleImageClick}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Custom Styles */}
-      <style jsx>{`
-        @keyframes gradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-gradient {
-          background-size: 200% 200%;
-          animation: gradient 4s ease infinite;
-        }
-        .bg-size-200 {
-          background-size: 200% 200%;
-        }
-        .animation-delay-1000 {
-          animation-delay: 1000ms;
-        }
-      `}</style>
-    </section>
+        {/* Custom Styles */}
+        <style jsx>{`
+          @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+          }
+          .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradient 4s ease infinite;
+          }
+          .bg-size-200 {
+            background-size: 200% 200%;
+          }
+          .animation-delay-1000 {
+            animation-delay: 1000ms;
+          }
+        `}</style>
+      </section>
+
+      {/* Modal para imagen ampliada - SOLO LA FOTO */}
+      <ImageModal
+        testimonial={selectedImage}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        darkMode={darkMode}
+      />
+    </>
   );
 }

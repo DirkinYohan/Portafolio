@@ -41,6 +41,7 @@
             "name": "Juan Pérez",
             "company": "Tech Solutions",
             "avatar": "JP",
+            "avatarImage": "", 
             "role": {
               "es": "CTO & Co-fundador",
               "en": "CTO & Co-founder"
@@ -54,16 +55,17 @@
             "gradient": "from-blue-500 to-purple-600"
           },
           {
-            "name": "María Gómez",
-            "company": "Innovation Labs",
-            "avatar": "MG",
+            "name": "Gustavo Sánchez Rodríguez",
+            "company": " Universidad Cooperativa de Colombia",
+            "avatar": "GS",
+            "avatarImage": "", 
             "role": {
-              "es": "Líder de Producto",
-              "en": "Product Lead"
+              "es": "Docente",
+              "en": "Teacher"
             },
             "message": {
-              "es": "Trabajar con Dirkin fue una experiencia extraordinaria. Su capacidad para convertir ideas complejas en soluciones elegantes es impresionante. Altamente recomendado.",
-              "en": "Working with Dirkin was an extraordinary experience. His ability to turn complex ideas into elegant solutions is impressive. Highly recommended."
+              "es": "Quien no pregunta, se queda en el mismo lugar;  quien busca el porqué, abre las puertas del conocimiento.La disciplina y un plan de acción claro son el camino de quienes persiguen sus sueños con propósito.  Así es Dirkin: un apasionado digital que convierte cada reto en una oportunidad para aprender y crecer.",
+              "en": "Those who don't ask questions stay in the same place; those who seek the why open the doors to knowledge. Discipline and a clear action plan are the path for those who pursue their dreams with purpose. That's Dirkin: a digital enthusiast who turns every challenge into an opportunity to learn and grow."
             },
             "rating": 5,
             "project": "App Mobile",
@@ -73,12 +75,13 @@
             "name": "Juan Camilo Martinez",
             "company": "StartupX",
             "avatar": "JC",
+            "avatarImage": "/camilo.jpg",
             "role": {
               "es": "Programador",
-              "en": "Programador"
+              "en": "Programmer"
             },
             "message": {
-              "es": "Es experto en sacar proyectos individuales, siempre está dispuesto a aprender y proyectarse a futuro, tiene determinación de hacer lo que se propone.",
+              "es": "Es experto en sacar proyectos individuales, siempre está dispuesto a aprender y proyectarse a futuro, tiene determinación de hacer lo que se propone.",
               "en": "He is an expert at taking individual projects forward, he is always willing to learn and project himself into the future, he is determined to do what he sets out to do."
             },
             "rating": 5,

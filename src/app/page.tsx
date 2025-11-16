@@ -9,7 +9,8 @@ import Projects from "./components/Projects";
 import Experience from "./components/Experience";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
-// (más secciones después)
+import Footer from './components/Footer';
+
 export default function Page() {
   const [showContent, setShowContent] = useState(false);
   const [lang, setLang] = useState<"es" | "en">("es");
@@ -51,9 +52,10 @@ export default function Page() {
           <Experience lang={lang} darkMode={darkMode} />
           <Testimonials lang={lang} darkMode={darkMode} />
           <Contact lang={lang} darkMode={darkMode} />
+          {/* ✅ Footer añadido aquí */}
+          <Footer lang={lang} darkMode={darkMode} />
         </>
       )}
     </main>
   );
 }
-

@@ -49,10 +49,10 @@
         },
         "projects": [
           {
-            "title": "Portafolio Web",
+            "title": "E-commerce",
             "description": {
-              "es": "Portafolio personal construido con Next.js, TypeScript y Tailwind CSS, con animaciones modernas y diseño responsivo.",
-              "en": "Personal portfolio built with Next.js, TypeScript and Tailwind CSS, featuring modern animations and responsive design."
+              "es": "Tienda en línea moderna y responsiva desarrollada con Next.js, TypeScript y Tailwind CSS, que permite mostrar productos, gestionar carritos de compra y ofrecer una experiencia rápida y elegante al usuario.",
+              "en": "A modern and responsive online store developed with Next.js, TypeScript and Tailwind CSS, which allows you to display products, manage shopping carts and offer a fast and elegant user experience."
             },
             "image": "/ecommerce.png",
             "live": "https://ecommerce-jbjh.vercel.app/", 
@@ -62,30 +62,30 @@
             "category": "Frontend"
           },
           {
-            "title": "Simulador de Tráfico", 
+            "title": "template netflix", 
             "description": {
-              "es": "Aplicación avanzada en Python que simula patrones de tráfico urbano utilizando algoritmos de inteligencia artificial.",
-              "en": "Advanced Python application that simulates urban traffic patterns using artificial intelligence algorithms."
+              "es": "Plantilla moderna inspirada en Netflix, creada con Next.js, TypeScript y Tailwind CSS. Presenta un diseño responsivo y dinámico ideal para mostrar catálogos de películas o series.",
+              "en": "A modern Netflix-inspired template, built with Next.js, TypeScript, and Tailwind CSS. It features a responsive and dynamic design, ideal for showcasing movie or TV series catalogs."
             },
             "image": "/Netflix.png", 
             "live": "https://responsive-ro3q.vercel.app/",
             "code": "https://github.com/DirkinYohan/Responsive-.git",
             "gradient": "from-green-400 to-blue-500",
-            "technologies": ["Python", "AI", "Simulation"],
-            "category": "AI/ML"
+            "technologies": ["Next.js", "TypeScript", "Tailwind"],
+            "category": "Frontend"
           },
           {
             "title": "App Rastreo de Perros", 
             "description": {
-              "es": "Sistema completo de rastreo de mascotas con Angular frontend y Spring Boot backend, incluyendo geolocalización en tiempo real.",
-              "en": "Complete pet tracking system with Angular frontend and Spring Boot backend, including real-time geolocation."
+              "es": "Aplicación moderna desarrollada con Next.js y Tailwind CSS para generar y mostrar boletos de avión con un diseño limpio, responsivo y fácil de personalizar.",
+              "en": "Modern application developed with Next.js and Tailwind CSS to generate and display airline tickets with a clean, responsive and easy-to-customize design."
             },
             "image": "/avion.png", 
             "live": "https://boleto-avion.vercel.app/",
             "code": "https://github.com/tuusuario/app-perros",
             "gradient": "from-yellow-400 to-orange-500",
-            "technologies": ["Angular", "Spring Boot", "GPS"],
-            "category": "Fullstack"
+            "technologies": ["Next.js", "TypeScript", "Tailwind CSS"],
+            "category": "Frontend"
           },
           {
             "title": "Ecommerce Fullstack", 
