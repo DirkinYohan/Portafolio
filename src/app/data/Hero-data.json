@@ -35,6 +35,7 @@
             "description": "Transformando ideas en experiencias digitales excepcionales con tecnología de vanguardia y diseño innovador.",
             "cta1": "Explorar Proyectos",
             "cta2": "Descargar CV",
+            "cvUrl": "/documents/CV.pdf", 
             "welcome": "Bienvenido a mi universo digital",
             "scroll": "DESPLAZAR",
             "navigation": [
@@ -53,6 +54,7 @@
             "description": "Transforming ideas into exceptional digital experiences with cutting-edge technology and innovative design.",
             "cta1": "Explore Projects",
             "cta2": "Download CV",
+            "cvUrl": "/documents/CV.pdf",
             "welcome": "Welcome to my digital universe",
             "scroll": "SCROLL",
             "navigation": [

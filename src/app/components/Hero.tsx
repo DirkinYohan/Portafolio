@@ -68,6 +68,21 @@ export default function Hero({
     setMobileMenuOpen(false);
   };
 
+  // Function to handle CV download
+  const handleDownloadCV = () => {
+    // Usar la ruta del JSON o una por defecto
+    const cvUrl = currentContent.cvUrl || '/documents/cv.pdf';
+    
+    // Crear un enlace temporal para descargar
+    const link = document.createElement('a');
+    link.href = cvUrl;
+    link.download = `CV_${metadata.name.replace(' ', '_')}.pdf`;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // Icon mapping function
   const getNavIcon = (iconName: string) => {
     const iconMap: { [key: string]: JSX.Element } = {
@@ -431,11 +446,14 @@ export default function Hero({
               <div className="absolute transition-opacity duration-300 opacity-0 -inset-1 bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 rounded-2xl blur-lg group-hover:opacity-100 -z-10"></div>
             </button>
             
-            <button className={`group relative px-10 py-5 border-2 rounded-2xl font-bold overflow-hidden transition-all duration-500 hover:scale-105 ${
-              darkMode 
-                ? 'border-gray-600 text-gray-300 hover:border-transparent' 
-                : 'border-gray-400 text-gray-700 hover:border-transparent'
-            }`}>
+            <button 
+              onClick={handleDownloadCV}
+              className={`group relative px-10 py-5 border-2 rounded-2xl font-bold overflow-hidden transition-all duration-500 hover:scale-105 ${
+                darkMode 
+                  ? 'border-gray-600 text-gray-300 hover:border-transparent' 
+                  : 'border-gray-400 text-gray-700 hover:border-transparent'
+              }`}
+            >
               <span className={`relative z-10 flex items-center justify-center gap-3 ${darkMode ? 'group-hover:text-white' : 'group-hover:text-gray-900'}`}>
                 {currentContent.cta2}
                 <Download className="group-hover:animate-bounce" size={20} />
