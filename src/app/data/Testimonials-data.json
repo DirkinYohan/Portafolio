@@ -38,20 +38,20 @@
         },
         "testimonials": [
           {
-            "name": "Juan Pérez",
-            "company": "Tech Solutions",
-            "avatar": "JP",
+            "name": "Oscar Andrés Osorio",
+            "company": "Universidad Cooperativa de Colombia",
+            "avatar": "OA",
             "avatarImage": "", 
             "role": {
-              "es": "CTO & Co-fundador",
-              "en": "CTO & Co-founder"
+              "es": "Docente Ingeniero En Software",
+              "en": "Software Engineering Professor"
             },
             "message": {
-              "es": "Dirkin transformó completamente nuestra visión digital. Su enfoque innovador y atención al detalle superaron nuestras expectativas. Un profesional excepcional.",
-              "en": "Dirkin completely transformed our digital vision. His innovative approach and attention to detail exceeded our expectations. An exceptional professional."
+              "es": "Hoy quiero reconocer el desempeño de Dirkin, estudiante al que tuve la oportunidad de brindar clase en su tercer semestre, en la materia de Análisis de Software. Dirkin no solo destaca por su agilidad mental para comprender la lógica de programación y resolver problemas complejos, sino que lo hace guiado por unos valores y una ética admirables. Es un compañero excepcional, con una gran inteligencia emocional para relacionarse y apoyar a su equipo en todo momento. Además, su compromiso es total: su responsabilidad en la entrega puntual de actividades. Sin duda, Dirkin tiene el equilibrio perfecto entre talento técnico y calidad humana que la industria TI necesita. ¡Un futuro brillante por delante!",
+              "en": "Today I want to recognize the performance of Dirkin, a student I had the opportunity to teach in his third semester in Software Analysis. Dirkin not only stands out for his mental agility in understanding programming logic and solving complex problems, but he does so guided by admirable values ​​and ethics. He is an exceptional colleague, with great emotional intelligence for connecting with and supporting his team at all times. Furthermore, his commitment is absolute: he is always responsible for the timely delivery of assignments. Without a doubt, Dirkin has the perfect balance between technical talent and human qualities that the IT industry needs. A bright future ahead!"
             },
             "rating": 5,
-            "project": "Plataforma E-commerce",
+            "project": "",
             "gradient": "from-blue-500 to-purple-600"
           },
           {
@@ -60,32 +60,32 @@
             "avatar": "GS",
             "avatarImage": "", 
             "role": {
-              "es": "Docente",
-              "en": "Teacher"
+              "es": "Docente Ingeniero En Software",
+              "en": "Software Engineering Professor"
             },
             "message": {
               "es": "Quien no pregunta, se queda en el mismo lugar;  quien busca el porqué, abre las puertas del conocimiento.La disciplina y un plan de acción claro son el camino de quienes persiguen sus sueños con propósito.  Así es Dirkin: un apasionado digital que convierte cada reto en una oportunidad para aprender y crecer.",
               "en": "Those who don't ask questions stay in the same place; those who seek the why open the doors to knowledge. Discipline and a clear action plan are the path for those who pursue their dreams with purpose. That's Dirkin: a digital enthusiast who turns every challenge into an opportunity to learn and grow."
             },
             "rating": 5,
-            "project": "App Mobile",
+            "project": "",
             "gradient": "from-purple-500 to-pink-500"
           },
           {
             "name": "Juan Camilo Martinez",
-            "company": "StartupX",
+            "company": " Universidad Cooperativa de Colombia ",
             "avatar": "JC",
-            "avatarImage": "/camilo.jpg",
+            "avatarImage": "/Camilo.jpg",
             "role": {
-              "es": "Programador",
-              "en": "Programmer"
+              "es": "Estudiante En Ingeniero Software",
+              "en": "Software Engineering Student"
             },
             "message": {
               "es": "Es experto en sacar proyectos individuales, siempre está dispuesto a aprender y proyectarse a futuro, tiene determinación de hacer lo que se propone.",
               "en": "He is an expert at taking individual projects forward, he is always willing to learn and project himself into the future, he is determined to do what he sets out to do."
             },
             "rating": 5,
-            "project": "MVP SaaS",
+            "project": "",
             "gradient": "from-indigo-500 to-cyan-500"
           }
         ],

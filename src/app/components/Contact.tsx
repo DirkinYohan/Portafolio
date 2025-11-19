@@ -147,11 +147,11 @@ export default function Contact({
     const infoData = {
       location: {
         label: currentContent.location,
-        value: contactInfo.location
+        value: contactInfo.location[lang]
       },
       availability: {
         label: currentContent.availability,
-        value: contactInfo.availability
+        value: contactInfo.availability[lang]
       }
     };
 

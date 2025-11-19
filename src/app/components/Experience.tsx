@@ -382,7 +382,7 @@ export default function Experience({
                                         : 'bg-gray-100 text-gray-600'
                                   }`}
                                 >
-                                  {achievement}
+                                  {achievement[lang]}
                                 </span>
                               ))}
                             </div>

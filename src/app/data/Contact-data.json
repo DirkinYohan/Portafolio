@@ -71,8 +71,14 @@
           "email": "dirkinojedarodriguez@gmail.com",
           "linkedin": "https://www.linkedin.com/in/johan-ojeda-rodr%C3%ADguez-987625368/",
           "github": "https://github.com/DirkinYohan/Portafolio.git",
-          "location": "Pasto, Colombia",
-          "availability": "Available for projects"
+          "location": {
+            "es": "Pasto, Colombia",
+            "en": "Pasto, Colombia"
+          },
+          "availability": {
+            "es": "Disponible para proyectos",
+            "en": "Available for projects"
+          }
         },
         "contactMethods": [
           {

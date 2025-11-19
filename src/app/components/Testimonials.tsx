@@ -17,18 +17,15 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
     onMouseEnter={() => setActiveCard(index)}
     onMouseLeave={() => setActiveCard(null)}
   >
-    {/* Lateral glow effects */}
-    <div className="absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-32 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-      <div className={`w-full h-full bg-gradient-to-r ${testimonial.gradient} rounded-full blur-lg animate-pulse`}></div>
-    </div>
-    <div className="absolute -right-4 top-1/2 transform -translate-y-1/2 w-4 h-32 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-      <div className={`w-full h-full bg-gradient-to-l ${testimonial.gradient} rounded-full blur-lg animate-pulse`}></div>
-    </div>
-    <div className="absolute left-1/2 transform -translate-x-1/2 -top-4 w-32 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-      <div className={`w-full h-full bg-gradient-to-b ${testimonial.gradient} rounded-full blur-lg animate-pulse`}></div>
-    </div>
-    <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-4 w-32 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-      <div className={`w-full h-full bg-gradient-to-t ${testimonial.gradient} rounded-full blur-lg animate-pulse`}></div>
+    {/* Contenedor principal para efectos hover */}
+    <div className="absolute inset-0 overflow-hidden rounded-3xl">
+      {/* Efectos laterales - SOLUCIÓN CORREGIDA */}
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 w-3 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
+        <div className={`w-full h-full bg-gradient-to-r ${testimonial.gradient} rounded-full blur-md`}></div>
+      </div>
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 w-3 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
+        <div className={`w-full h-full bg-gradient-to-l ${testimonial.gradient} rounded-full blur-md`}></div>
+      </div>
     </div>
 
     <div className={`relative p-8 rounded-3xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
@@ -42,14 +39,13 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
         <Quote size={32} />
       </div>
 
-      {/* Header with avatar - MODIFICADO PARA PERMITIR CLICK EN LA IMAGEN */}
+      {/* Header with avatar */}
       <div className="flex items-start mb-6 relative z-10">
         <div 
           className={`w-14 h-14 rounded-2xl flex items-center justify-center overflow-hidden bg-gradient-to-r ${testimonial.gradient} shadow-lg group-hover:rotate-6 transition-transform duration-300 cursor-pointer hover:scale-110`}
           onClick={() => onImageClick(testimonial)}
         >
           {testimonial.avatarImage ? (
-            // Si hay imagen, mostrarla
             <Image
               src={testimonial.avatarImage}
               alt={testimonial.name}
@@ -58,7 +54,6 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
               className="w-full h-full object-cover transition-transform duration-300"
             />
           ) : (
-            // Fallback a las iniciales si no hay imagen
             <span className="text-white font-bold text-lg">
               {testimonial.avatar}
             </span>
@@ -140,7 +135,7 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
   </div>
 );
 
-// Componente para el modal de imagen ampliada (SOLO LA FOTO)
+// Componente para el modal de imagen ampliada
 const ImageModal = ({ testimonial, isOpen, onClose, darkMode }: any) => {
   if (!isOpen) return null;
 
@@ -153,7 +148,6 @@ const ImageModal = ({ testimonial, isOpen, onClose, darkMode }: any) => {
         className="relative max-w-4xl max-h-full"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Botón de cerrar */}
         <button
           onClick={onClose}
           className={`absolute -top-12 -right-4 z-10 p-3 rounded-full transition-colors duration-300 ${
@@ -165,7 +159,6 @@ const ImageModal = ({ testimonial, isOpen, onClose, darkMode }: any) => {
           <X size={28} />
         </button>
         
-        {/* Contenedor de la imagen SOLO */}
         <div className={`rounded-3xl overflow-hidden shadow-2xl ${
           darkMode ? 'bg-gray-800' : 'bg-white'
         }`}>
@@ -213,13 +206,11 @@ export default function Testimonials({
   const currentContent = testimonialsSection.content[lang];
   const testimonialsData = testimonialsSection.testimonials;
 
-  // Función para manejar el clic en la imagen
   const handleImageClick = (testimonial: any) => {
     setSelectedImage(testimonial);
     setIsModalOpen(true);
   };
 
-  // Función para cerrar el modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setTimeout(() => setSelectedImage(null), 300);
@@ -259,7 +250,6 @@ export default function Testimonials({
     }
   }, []);
 
-  // Cerrar modal con tecla Escape
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -294,7 +284,6 @@ export default function Testimonials({
       >
         {/* Dynamic Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Animated grid */}
           <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-10' : 'opacity-5'}`}>
             <svg className="absolute inset-0 w-full h-full">
               <defs>
@@ -306,7 +295,6 @@ export default function Testimonials({
             </svg>
           </div>
 
-          {/* Floating elements */}
           <div 
             className={`absolute top-1/5 left-1/6 w-36 h-36 rounded-full blur-3xl animate-pulse transition-all duration-1000 ${
               darkMode ? 'bg-purple-500/15' : 'bg-purple-500/10'
@@ -324,7 +312,6 @@ export default function Testimonials({
             }}
           />
 
-          {/* Geometric shapes */}
           <div className={`absolute top-1/4 right-1/5 w-20 h-20 border-2 rotate-45 animate-spin duration-[40s] ${
             darkMode ? 'border-purple-500/20' : 'border-purple-400/15'
           }`}></div>
@@ -340,7 +327,6 @@ export default function Testimonials({
             <div className={`text-center mb-16 transition-all duration-1000 ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}>
-              {/* Sparkle decorations */}
               <div className="flex items-center justify-center mb-6">
                 <Sparkles className={`mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
                 <span className={`text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -349,14 +335,12 @@ export default function Testimonials({
                 <Sparkles className={`ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
               </div>
 
-              {/* Main title */}
               <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
                 <span className="bg-gradient-to-r from-purple-400 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient bg-size-200">
                   {currentContent.title}
                 </span>
               </h2>
 
-              {/* Description */}
               <p className={`text-lg max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                 {currentContent.description}
               </p>
@@ -381,8 +365,7 @@ export default function Testimonials({
           </div>
         </div>
 
-        {/* Custom Styles */}
-        <style jsx>{`
+        <style jsx global>{`
           @keyframes gradient {
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -400,7 +383,6 @@ export default function Testimonials({
         `}</style>
       </section>
 
-      {/* Modal para imagen ampliada - SOLO LA FOTO */}
       <ImageModal
         testimonial={selectedImage}
         isOpen={isModalOpen}

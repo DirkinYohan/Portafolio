@@ -54,7 +54,7 @@
               "es": "Tienda en línea moderna y responsiva desarrollada con Next.js, TypeScript y Tailwind CSS, que permite mostrar productos, gestionar carritos de compra y ofrecer una experiencia rápida y elegante al usuario.",
               "en": "A modern and responsive online store developed with Next.js, TypeScript and Tailwind CSS, which allows you to display products, manage shopping carts and offer a fast and elegant user experience."
             },
-            "image": "/ecommerce.png",
+            "image": "/Ecommerce.png",
             "live": "https://ecommerce-jbjh.vercel.app/", 
             "code": "https://github.com/DirkinYohan/ecommerce.git",
             "gradient": "from-pink-500 to-purple-600",
@@ -75,7 +75,7 @@
             "category": "Frontend"
           },
           {
-            "title": "App Rastreo de Perros", 
+            "title": "Voleto De Avion", 
             "description": {
               "es": "Aplicación moderna desarrollada con Next.js y Tailwind CSS para generar y mostrar boletos de avión con un diseño limpio, responsivo y fácil de personalizar.",
               "en": "Modern application developed with Next.js and Tailwind CSS to generate and display airline tickets with a clean, responsive and easy-to-customize design."
@@ -88,30 +88,30 @@
             "category": "Frontend"
           },
           {
-            "title": "Ecommerce Fullstack", 
+            "title": "inicio de secion ", 
             "description": {
-              "es": "Plataforma de comercio electrónico completa con carrito de compras, pasarela de pago segura y panel de administración.",
-              "en": "Complete e-commerce platform with shopping cart, secure payment gateway and admin dashboard."
+              "es": "Sistema de autenticación desarrollado en Angular, con registro de usuarios, inicio de sesión, verificación en dos pasos mediante correo electrónico y recuperación de contraseña.",
+              "en": "Authentication system developed in Angular, with user registration, login, two-step verification via email, and password recovery."
             },
-            "image": "/projects/ecommerce.png", 
-            "live": "https://ecommerce-fullstack-demo.vercel.app",
-            "code": "https://github.com/tuusuario/ecommerce-fullstack",
+            "image": "/login.png", 
+            "live": "https://login-five-silk-58.vercel.app/login",
+            "code": "https://github.com/DirkinYohan/Login.git",
             "gradient": "from-indigo-400 to-cyan-500",
-            "technologies": ["React", "Node.js", "MongoDB"],
-            "category": "Ecommerce"
+            "technologies": ["Angular", "Node.js", "HTML", "Firebase"],
+            "category": "Frontend"
           },
           {
-            "title": "Dashboard Analytics", 
+            "title": "Unity 3D", 
             "description": {
-              "es": "Panel de análisis con visualización de datos en tiempo real y métricas avanzadas para negocios.",
-              "en": "Analytics dashboard with real-time data visualization and advanced business metrics."
+              "es": "Videojuego desarrollado en Unity compuesto por tres niveles, con programación en C#, diseño de mecánicas, animaciones, físicas y creación de escenarios. Proyecto universitario.",
+              "en": "Video game developed in Unity consisting of three levels, with programming in C#, mechanics design, animations, physics and scenario creation. University project."
             },
-            "image": "/projects/analytics.png", 
-            "live": "https://dashboard-analytics-demo.vercel.app",
-            "code": "https://github.com/tuusuario/dashboard-analytics",
+            "image": "/Unity.png", 
+            "live": "",
+            "code": "https://github.com/DirkinYohan/UnityFinal.git",
             "gradient": "from-rose-400 to-orange-500",
-            "technologies": ["Vue.js", "D3.js", "Firebase"],
-            "category": "Analytics"
+            "technologies": ["Unity", "C#"],
+            "category": "Unity"
           }
         ],
         "animations": {
