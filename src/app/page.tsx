@@ -14,13 +14,50 @@ import Footer from './components/Footer';
 export default function Page() {
   const [showContent, setShowContent] = useState(false);
   const [lang, setLang] = useState<"es" | "en">("es");
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // ⏳ Mostrar contenido después de la animación
   useEffect(() => {
-    const timer = setTimeout(() => setShowContent(true), 3500); // dura 3.5s aprox
+    setMounted(true);
+    
+
+    const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setDarkMode(prefersDarkMode);
+
+    const timer = setTimeout(() => setShowContent(true), 3500); 
     return () => clearTimeout(timer);
   }, []);
+
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      setDarkMode(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, [mounted]);
+
+  if (!mounted) {
+    return (
+      <main className="bg-white text-black">
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="flex space-x-2">
+            {"DIRKIN".split("").map((letter, index) => (
+              <div key={index} className="w-8 h-12 bg-gray-200 animate-pulse rounded"></div>
+            ))}
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main
@@ -29,7 +66,6 @@ export default function Page() {
       }`}
     >
       {!showContent ? (
-       
         <div className="flex items-center justify-center min-h-screen">
           <div className="flex space-x-2">
             {"DIRKIN".split("").map((letter, index) => (

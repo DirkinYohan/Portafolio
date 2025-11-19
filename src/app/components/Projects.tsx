@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { Github, Sparkles, ChevronLeft, ChevronRight, Globe, Play } from "lucide-react";
 
-// Import JSON data
 import portfolioData from '../data/Projects-data.json';
 
 type Lang = "es" | "en";
@@ -67,7 +66,7 @@ export default function ProjectsCarousel({
   const next = () => setCurrent((prev) => (prev + 1) % projects.length);
   const prev = () => setCurrent((prev) => (prev - 1 + projects.length) % projects.length);
 
-  // Touch handlers for swipe functionality
+
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
@@ -78,12 +77,11 @@ export default function ProjectsCarousel({
 
   const handleTouchEnd = () => {
     if (touchStart - touchEnd > 75) {
-      // Swipe left
       next();
     }
 
     if (touchStart - touchEnd < -75) {
-      // Swipe right
+
       prev();
     }
   };
@@ -99,9 +97,9 @@ export default function ProjectsCarousel({
       }`}
       style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
     >
-      {/* Dynamic Background Elements */}
+    
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Animated grid */}
+    
         <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-10' : 'opacity-5'}`}>
           <svg className="absolute inset-0 w-full h-full">
             <defs>
@@ -113,7 +111,7 @@ export default function ProjectsCarousel({
           </svg>
         </div>
 
-        {/* Floating elements */}
+
         <div 
           className={`absolute top-1/5 left-1/6 w-40 h-40 rounded-full blur-3xl animate-pulse transition-all duration-1000 ${
             darkMode ? 'bg-purple-500/20' : 'bg-purple-500/15'
@@ -131,7 +129,7 @@ export default function ProjectsCarousel({
           }}
         />
 
-        {/* Geometric shapes */}
+    
         <div className={`absolute top-1/3 right-1/6 w-20 h-20 border-2 rotate-45 animate-spin duration-[30s] ${
           darkMode ? 'border-pink-500/30' : 'border-pink-400/20'
         }`}></div>
@@ -143,11 +141,11 @@ export default function ProjectsCarousel({
       <div className="relative z-10 px-4 md:px-8 py-12 md:py-20">
         <div className="max-w-7xl mx-auto">
           
-          {/* Enhanced Header */}
+  
           <div className={`text-center mb-8 md:mb-16 transition-all duration-1000 ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}>
-            {/* Sparkle decorations */}
+          
             <div className="flex items-center justify-center mb-4 md:mb-6">
               <Sparkles className={`mr-2 md:mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={20} />
               <span className={`text-sm md:text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -156,23 +154,23 @@ export default function ProjectsCarousel({
               <Sparkles className={`ml-2 md:ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={20} />
             </div>
 
-            {/* Main title */}
+        
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight">
               <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient bg-size-200">
                 {currentContent.title}
               </span>
             </h2>
 
-            {/* Description */}
+      
             <p className={`text-base md:text-lg max-w-2xl mx-auto px-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               {currentContent.description}
             </p>
           </div>
 
-          {/* Enhanced Carousel */}
+      
           <div className="relative flex items-center justify-center">
             
-            {/* Navigation Buttons - Hidden on mobile */}
+        
             <button
               onClick={prev}
               className={`hidden md:block absolute left-4 z-30 p-4 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-110 group ${
@@ -195,7 +193,7 @@ export default function ProjectsCarousel({
               <ChevronRight className="group-hover:translate-x-1 transition-transform duration-300" size={24} />
             </button>
 
-            {/* Carousel Container with Touch Support */}
+           
             <div 
               className="flex items-center justify-center w-full h-[600px] md:h-[520px] overflow-hidden relative"
               onTouchStart={handleTouchStart}
@@ -238,19 +236,19 @@ export default function ProjectsCarousel({
                     onMouseEnter={() => setHoveredProject(index)}
                     onMouseLeave={() => setHoveredProject(null)}
                   >
-                    {/* Project Card */}
+               
                     <div className={`relative w-[340px] md:w-[400px] h-auto md:h-[520px] rounded-3xl overflow-hidden backdrop-blur-sm border group cursor-pointer ${
                       darkMode
                         ? "bg-gray-800/50 border-gray-700/50"
                         : "bg-white/80 border-gray-200/50"
                     } ${isActive ? 'hover:scale-105' : ''}`}>
                       
-                      {/* Glow effect for active card */}
+                      
                       {isActive && (
                         <div className={`absolute -inset-1 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl bg-gradient-to-r ${project.gradient}`}></div>
                       )}
 
-                      {/* Image Section */}
+                   
                       <div className="relative h-48 md:h-64 overflow-hidden">
                         <Image
                           src={project.image}
@@ -258,15 +256,15 @@ export default function ProjectsCarousel({
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
                         />
-                        {/* Gradient Overlay */}
+                    
                         <div className={`absolute inset-0 bg-gradient-to-t ${project.gradient}/70 opacity-80`} />
                         
-                        {/* Category Badge */}
+                   
                         <div className={`absolute top-3 md:top-4 left-3 md:left-4 px-2 md:px-3 py-1 rounded-full backdrop-blur-sm text-xs font-medium text-white border border-white/20`}>
                           {project.category}
                         </div>
                         
-                        {/* Play button overlay for active card */}
+                  
                         {isActive && (
                           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <div className="p-3 md:p-4 rounded-full bg-white/20 backdrop-blur-sm border border-white/30">
@@ -276,10 +274,9 @@ export default function ProjectsCarousel({
                         )}
                       </div>
 
-                      {/* Content Section */}
+               
                       <div className="p-4 md:p-6 flex flex-col justify-between relative">
-                        
-                        {/* Tech Stack */}
+                 
                         <div className="flex flex-wrap gap-1.5 md:gap-2 mb-2 md:mb-3">
                           {project.technologies.map((tech, techIndex) => (
                             <span
@@ -294,8 +291,7 @@ export default function ProjectsCarousel({
                             </span>
                           ))}
                         </div>
-
-                        {/* Title */}
+¿
                         <h3 className={`text-lg md:text-xl font-bold mb-2 md:mb-3 transition-colors duration-300 ${
                           isActive && hoveredProject === index
                             ? `text-transparent bg-gradient-to-r ${project.gradient} bg-clip-text`
@@ -304,18 +300,18 @@ export default function ProjectsCarousel({
                           {project.title}
                         </h3>
 
-                        {/* Description */}
+               
                         <p className={`text-xs md:text-sm leading-relaxed mb-3 md:mb-4 ${
                           darkMode ? 'text-gray-400' : 'text-gray-600'
                         }`}>
                           {project.description[lang]}
                         </p>
 
-                        {/* Action Buttons - Always show both buttons for all cards */}
+                     
                         <div className={`flex gap-2 md:gap-3 transition-all duration-300 ${
                           isActive ? 'opacity-100' : 'opacity-70'
                         }`}>
-                          {/* Demo Button */}
+                  
                           <a
                             href={project.live}
                             target="_blank"
@@ -328,7 +324,7 @@ export default function ProjectsCarousel({
                             {currentContent.viewDemo}
                           </a>
                           
-                          {/* Code Button */}
+              
                           <a
                             href={project.code}
                             target="_blank"
@@ -351,8 +347,7 @@ export default function ProjectsCarousel({
             </div>
           </div>
 
-          {/* Progress Indicators */}
-          <div className="flex justify-center gap-2 md:gap-3 mt-8 md:mt-12">
+          {/* Progress Indicators */}        <div className="flex justify-center gap-2 md:gap-3 mt-8 md:mt-12">
             {projects.map((_, index) => (
               <button
                 key={index}
@@ -370,7 +365,7 @@ export default function ProjectsCarousel({
         </div>
       </div>
 
-      {/* Custom Styles */}
+
       <style jsx>{`
         @keyframes gradient {
           0%, 100% { background-position: 0% 50%; }

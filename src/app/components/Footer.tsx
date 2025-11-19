@@ -19,7 +19,7 @@ export default function Footer({
       style={{ fontFamily: 'Aptos, sans-serif' }}
     >
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
-        {/* Información de derechos y autor */}
+    
         <div className="text-center md:text-left mb-4 md:mb-0">
           <p className="text-sm">
             Hecho por: <span className="font-semibold">Dirkin Yohan Ojeda Rodriguez</span>
@@ -29,7 +29,7 @@ export default function Footer({
           </p>
         </div>
         
-        {/* Iconos de contacto */}
+    
         <div className="flex space-x-4">
           <a
             href="https://www.linkedin.com/in/dirkin-ojeda-rodriguez-8a1b6b2b3/"

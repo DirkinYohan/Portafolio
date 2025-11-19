@@ -4,10 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import { Star, Quote, Sparkles, ThumbsUp, Heart, X } from "lucide-react";
 import Image from "next/image";
 
-// Import JSON data
 import portfolioData from '../data/Testimonials-data.json';
 
-// Componente para tarjeta de testimonio
+
 const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveCard, darkMode, lang, onImageClick }: any) => (
   <div
     className={`group relative transition-all duration-700 ${
@@ -17,9 +16,9 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
     onMouseEnter={() => setActiveCard(index)}
     onMouseLeave={() => setActiveCard(null)}
   >
-    {/* Contenedor principal para efectos hover */}
+
     <div className="absolute inset-0 overflow-hidden rounded-3xl">
-      {/* Efectos laterales - SOLUCIÓN CORREGIDA */}
+      
       <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 w-3 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
         <div className={`w-full h-full bg-gradient-to-r ${testimonial.gradient} rounded-full blur-md`}></div>
       </div>
@@ -34,12 +33,12 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
         : "bg-white/80 border-gray-200/50 hover:bg-white/90"
     }`}>
       
-      {/* Quote decoration */}
+    
       <div className={`absolute top-6 left-6 opacity-20 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
         <Quote size={32} />
       </div>
 
-      {/* Header with avatar */}
+  
       <div className="flex items-start mb-6 relative z-10">
         <div 
           className={`w-14 h-14 rounded-2xl flex items-center justify-center overflow-hidden bg-gradient-to-r ${testimonial.gradient} shadow-lg group-hover:rotate-6 transition-transform duration-300 cursor-pointer hover:scale-110`}
@@ -77,7 +76,7 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
               </p>
             </div>
             
-            {/* Project badge */}
+     
             <div className={`px-3 py-1 rounded-full text-xs font-medium self-start sm:self-auto whitespace-nowrap ${
               darkMode ? 'bg-gray-700/50 text-gray-300' : 'bg-gray-100 text-gray-600'
             }`}>
@@ -87,12 +86,12 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
         </div>
       </div>
 
-      {/* Message */}
+  
       <p className={`text-base leading-relaxed mb-6 relative z-10 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
         {testimonial.message[lang]}
       </p>
 
-      {/* Rating and actions */}
+  
       <div className="flex items-center justify-between relative z-10">
         <div className="flex items-center gap-1">
           {[...Array(testimonial.rating)].map((_, i) => (
@@ -135,7 +134,6 @@ const TestimonialCard = ({ testimonial, index, isVisible, activeCard, setActiveC
   </div>
 );
 
-// Componente para el modal de imagen ampliada
 const ImageModal = ({ testimonial, isOpen, onClose, darkMode }: any) => {
   if (!isOpen) return null;
 
@@ -282,7 +280,6 @@ export default function Testimonials({
         }`}
         style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
       >
-        {/* Dynamic Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-10' : 'opacity-5'}`}>
             <svg className="absolute inset-0 w-full h-full">
@@ -323,7 +320,6 @@ export default function Testimonials({
         <div className="relative z-10 px-8 py-20">
           <div className="max-w-7xl mx-auto">
             
-            {/* Enhanced Header */}
             <div className={`text-center mb-16 transition-all duration-1000 ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}>
@@ -346,7 +342,7 @@ export default function Testimonials({
               </p>
             </div>
 
-            {/* Testimonials Grid */}
+    
             <div className="grid lg:grid-cols-3 gap-8">
               {testimonialsData.map((testimonial, index) => (
                 <TestimonialCard

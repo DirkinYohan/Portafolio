@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Briefcase, Calendar, Building, GraduationCap, Sparkles, Trophy, MapPin, Clock, Award } from "lucide-react";
 
-// Import JSON data
 import portfolioData from '../data/Experience-data.json';
 
 export default function Experience({
@@ -18,7 +17,6 @@ export default function Experience({
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Extract data from JSON
   const { sections } = portfolioData.Experience;
   const experienceSection = sections.experience;
   const currentContent = experienceSection.content[lang];
@@ -71,9 +69,8 @@ export default function Experience({
       }`}
       style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
     >
-      {/* Dynamic Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Animated grid */}
+  
         <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-10' : 'opacity-5'}`}>
           <svg className="absolute inset-0 w-full h-full">
             <defs>
@@ -85,7 +82,6 @@ export default function Experience({
           </svg>
         </div>
 
-        {/* Floating elements */}
         <div 
           className={`absolute top-1/6 right-1/6 w-36 h-36 rounded-full blur-3xl animate-pulse transition-all duration-1000 ${
             darkMode ? 'bg-purple-500/15' : 'bg-purple-500/10'
@@ -103,7 +99,7 @@ export default function Experience({
           }}
         />
 
-        {/* Geometric shapes */}
+      
         <div className={`absolute top-1/4 left-1/5 w-20 h-20 border-2 rotate-45 animate-spin duration-[35s] ${
           darkMode ? 'border-purple-500/20' : 'border-purple-400/15'
         }`}></div>
@@ -115,11 +111,11 @@ export default function Experience({
       <div className="relative z-10 px-8 py-20">
         <div className="max-w-6xl mx-auto">
           
-          {/* Enhanced Header */}
+        
           <div className={`text-center mb-16 transition-all duration-1000 ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}>
-            {/* Sparkle decorations */}
+          
             <div className="flex items-center justify-center mb-6">
               <Sparkles className={`mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
               <span className={`text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -128,23 +124,23 @@ export default function Experience({
               <Sparkles className={`ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
             </div>
 
-            {/* Main title */}
+      
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
               <span className="bg-gradient-to-r from-purple-400 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient bg-size-200">
                 {currentContent.title}
               </span>
             </h2>
 
-            {/* Description */}
+      
             <p className={`text-lg max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               {currentContent.description}
             </p>
           </div>
 
-          {/* Two Column Layout */}
+      
           <div className="grid lg:grid-cols-2 gap-12">
             
-            {/* Left Column - Academic Experience */}
+          
             <div className={`transition-all duration-1000 delay-300 ${
               isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
             }`}>
@@ -173,7 +169,7 @@ export default function Experience({
                     onMouseEnter={() => setActiveCard(index)}
                     onMouseLeave={() => setActiveCard(null)}
                   >
-                    {/* Lateral glow effects - Solo en desktop */}
+                
                     <div className="hidden lg:block absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className={`w-full h-full bg-gradient-to-r ${gradients.academic.hover} rounded-full blur-lg animate-pulse`}></div>
                     </div>
@@ -181,7 +177,7 @@ export default function Experience({
                       <div className={`w-full h-full bg-gradient-to-l ${gradients.academic.hover} rounded-full blur-lg animate-pulse`}></div>
                     </div>
 
-                    {/* Card Container - Simplificado en móvil */}
+                    
                     <div className={`relative p-6 lg:p-8 rounded-3xl backdrop-blur-sm border transition-all duration-500 lg:hover:scale-105 ${
                       darkMode
                         ? "bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/70"
@@ -189,7 +185,7 @@ export default function Experience({
                     }`}>
                       
                       <div className="flex items-start gap-4 lg:gap-6">
-                        {/* Academic icon - Simplificado en móvil */}
+                       
                         <div className={`p-2 lg:p-3 rounded-xl transition-all duration-300 ${
                           activeCard === index
                             ? `bg-gradient-to-r ${gradients.academic.hover} text-white rotate-12 scale-110` 
@@ -201,7 +197,7 @@ export default function Experience({
                         </div>
                         
                         <div className="flex-1 min-w-0">
-                          {/* Header */}
+                        
                           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 lg:gap-4 mb-4">
                             <div className="flex-1 min-w-0">
                               <h4 className={`text-lg lg:text-xl font-bold mb-2 transition-colors duration-300 ${
@@ -212,7 +208,7 @@ export default function Experience({
                                 {exp.degree[lang]}
                               </h4>
                               
-                              {/* Institution and period */}
+                    
                               <div className="flex flex-col gap-2 text-sm">
                                 <span className={`flex items-center gap-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                                   <Building size={16} />
@@ -238,12 +234,11 @@ export default function Experience({
                             </div>
                           </div>
 
-                          {/* Description */}
+                  
                           <p className={`mb-4 leading-relaxed text-sm lg:text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                             {exp.description[lang]}
                           </p>
 
-                          {/* Skills */}
                           <div className="flex flex-wrap gap-2">
                             {exp.skills.map((skill, skillIndex) => (
                               <span
@@ -268,7 +263,6 @@ export default function Experience({
               </div>
             </div>
 
-            {/* Right Column - Work Experience */}
             <div className={`transition-all duration-1000 delay-500 ${
               isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
             }`}>
@@ -297,7 +291,7 @@ export default function Experience({
                     onMouseEnter={() => setActiveCard(index + 100)}
                     onMouseLeave={() => setActiveCard(null)}
                   >
-                    {/* Lateral glow effects - Solo en desktop */}
+        
                     <div className="hidden lg:block absolute -left-4 top-1/2 transform -translate-y-1/2 w-4 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       <div className={`w-full h-full bg-gradient-to-r ${gradients.work.hover} rounded-full blur-lg animate-pulse`}></div>
                     </div>
@@ -305,7 +299,7 @@ export default function Experience({
                       <div className={`w-full h-full bg-gradient-to-l ${gradients.work.hover} rounded-full blur-lg animate-pulse`}></div>
                     </div>
 
-                    {/* Card Container - Simplificado en móvil */}
+            
                     <div className={`relative p-6 lg:p-8 rounded-3xl backdrop-blur-sm border transition-all duration-500 lg:hover:scale-105 ${
                       darkMode
                         ? "bg-gray-800/50 border-gray-700/50 hover:bg-gray-800/70"
@@ -313,7 +307,7 @@ export default function Experience({
                     }`}>
                       
                       <div className="flex items-start gap-4 lg:gap-6">
-                        {/* Work icon - Simplificado en móvil */}
+                  
                         <div className={`p-2 lg:p-3 rounded-xl transition-all duration-300 ${
                           activeCard === index + 100
                             ? `bg-gradient-to-r ${gradients.work.hover} text-white rotate-12 scale-110`
@@ -325,7 +319,7 @@ export default function Experience({
                         </div>
                         
                         <div className="flex-1 min-w-0">
-                          {/* Header */}
+                       
                           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3 lg:gap-4 mb-4">
                             <div className="flex-1 min-w-0">
                               <h4 className={`text-lg lg:text-xl font-bold mb-2 transition-colors duration-300 ${
@@ -360,12 +354,12 @@ export default function Experience({
                             </div>
                           </div>
 
-                          {/* Description */}
+                      
                           <p className={`mb-4 leading-relaxed text-sm lg:text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                             {exp.description[lang]}
                           </p>
 
-                          {/* Achievements */}
+                        
                           <div className="space-y-2">
                             <h5 className={`text-sm font-semibold ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               {currentContent.achievements}:
@@ -397,8 +391,6 @@ export default function Experience({
           </div>
         </div>
       </div>
-
-      {/* Custom Styles */}
       <style jsx>{`
         @keyframes gradient {
           0%, 100% { background-position: 0% 50%; }

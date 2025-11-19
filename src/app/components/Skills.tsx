@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, JSX } from "react";
 import { Code2, Server, Wrench, Sparkles, Database, Palette, Terminal } from "lucide-react";
 
-// Import JSON data
+
 import portfolioData from '../data/Skills-data.json';
 
 type Lang = "es" | "en";
@@ -20,7 +20,7 @@ export default function Skills({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Extract data from JSON
+
   const { sections } = portfolioData.Skills;
   const skillsSection = sections.skills;
   const currentContent = skillsSection.content[lang];
@@ -59,7 +59,7 @@ export default function Skills({
     }
   }, []);
 
-  // Icon mapping function
+
   const getIcon = (iconName: string) => {
     const iconMap: { [key: string]: JSX.Element } = {
       Code2: <Code2 size={20} />,
@@ -73,7 +73,6 @@ export default function Skills({
     return iconMap[iconName] || <Code2 size={20} />;
   };
 
-  // Prepare skill categories with titles
   const skillCategories = skillsSection.skillCategories.map(category => ({
     ...category,
     icon: getIcon(category.icon),
@@ -91,9 +90,9 @@ export default function Skills({
       }`}
       style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
     >
-      {/* Dynamic Background Elements */}
+
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Animated grid */}
+
         <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-10' : 'opacity-5'}`}>
           <svg className="absolute inset-0 w-full h-full">
             <defs>
@@ -105,7 +104,6 @@ export default function Skills({
           </svg>
         </div>
 
-        {/* Floating elements */}
         <div 
           className={`absolute top-1/6 right-1/6 w-32 h-32 rounded-full blur-3xl animate-pulse transition-all duration-1000 ${
             darkMode ? 'bg-blue-500/20' : 'bg-blue-500/15'
@@ -123,7 +121,7 @@ export default function Skills({
           }}
         />
 
-        {/* Geometric shapes */}
+    
         <div className={`absolute top-1/4 left-1/5 w-16 h-16 border-2 rotate-45 animate-spin duration-[25s] ${
           darkMode ? 'border-purple-500/30' : 'border-purple-400/20'
         }`}></div>
@@ -134,12 +132,11 @@ export default function Skills({
 
       <div className="relative z-10 px-4 sm:px-8 py-20">
         <div className="max-w-7xl mx-auto">
-          
-          {/* Enhanced Header */}
+      
           <div className={`text-center mb-16 transition-all duration-1000 ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
           }`}>
-            {/* Sparkle decorations */}
+
             <div className="flex items-center justify-center mb-6">
               <Sparkles className={`mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
               <span className={`text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -148,20 +145,18 @@ export default function Skills({
               <Sparkles className={`ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
             </div>
 
-            {/* Main title */}
+  
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
               <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient bg-size-200">
                 {currentContent.title}
               </span>
             </h2>
 
-            {/* Description */}
             <p className={`text-lg max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               {currentContent.description}
             </p>
           </div>
 
-          {/* Skills Grid - MODIFICADO: 1 columna en móvil, 2 en tablet, 3 en desktop */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
             {skillCategories.map((category, categoryIndex) => (
               <SkillCard
@@ -181,8 +176,6 @@ export default function Skills({
           </div>
         </div>
       </div>
-
-      {/* Custom Styles */}
       <style jsx>{`
         @keyframes gradient {
           0%, 100% { background-position: 0% 50%; }
@@ -266,7 +259,7 @@ function SkillCard({
       onMouseEnter={() => setActiveCard(categoryIndex)}
       onMouseLeave={() => setActiveCard(null)}
     >
-      {/* Card container con box-shadow para el glow */}
+
       <div 
         className={`rounded-3xl p-4 sm:p-6 md:p-8 backdrop-blur-sm border transition-all duration-500 ${
           darkMode
@@ -280,7 +273,7 @@ function SkillCard({
         }}
       >
         
-        {/* Card header */}
+  
         <div className="flex flex-col items-center text-center mb-4 sm:mb-6 md:mb-8">
           <div className={`p-2 sm:p-3 md:p-4 rounded-2xl bg-gradient-to-r ${category.gradient} text-white group-hover:rotate-12 transition-transform duration-300 shadow-lg mb-3`}>
             {category.icon}
@@ -299,7 +292,7 @@ function SkillCard({
           </div>
         </div>
 
-        {/* Skills list */}
+
         <div className="space-y-2 sm:space-y-3 md:space-y-4">
           {skills.map((skill, skillIndex) => {
             const skillGlowColor = getGradientColors(skill.gradient);

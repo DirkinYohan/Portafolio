@@ -6,7 +6,6 @@ import { useState, useEffect, JSX } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// Import JSON data
 import portfolioData from '../data/Hero-data.json';
 
 export default function Hero({
@@ -25,7 +24,6 @@ export default function Hero({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  // Extract data from JSON
   const { metadata, sections } = portfolioData.Hero;
   const heroSection = sections.hero;
   const currentContent = heroSection.content[lang];
@@ -45,7 +43,6 @@ export default function Hero({
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Function to handle smooth scroll to sections
   const scrollToSection = (sectionId: string) => {
     if (sectionId === "hero") {
       window.scrollTo({
@@ -55,7 +52,7 @@ export default function Hero({
     } else {
       const element = document.getElementById(sectionId);
       if (element) {
-        const offset = 80; // Adjustment for fixed navbar
+        const offset = 80; 
         const elementPosition = element.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - offset;
 
@@ -68,12 +65,9 @@ export default function Hero({
     setMobileMenuOpen(false);
   };
 
-  // Function to handle CV download
   const handleDownloadCV = () => {
-    // Usar la ruta del JSON o una por defecto
     const cvUrl = currentContent.cvUrl || '/documents/cv.pdf';
     
-    // Crear un enlace temporal para descargar
     const link = document.createElement('a');
     link.href = cvUrl;
     link.download = `CV_${metadata.name.replace(' ', '_')}.pdf`;
@@ -83,7 +77,6 @@ export default function Hero({
     document.body.removeChild(link);
   };
 
-  // Icon mapping function
   const getNavIcon = (iconName: string) => {
     const iconMap: { [key: string]: JSX.Element } = {
       User: <User size={18} />,
@@ -105,7 +98,6 @@ export default function Hero({
       }`}
     >
       
-      {/* Dynamic Background Grid */}
       <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-20' : 'opacity-10'}`}>
         <div 
           className="absolute inset-0 transition-all duration-1000 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10"
@@ -123,7 +115,6 @@ export default function Hero({
         </svg>
       </div>
 
-      {/* Floating Geometric Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className={`absolute top-1/4 left-1/6 w-32 h-32 border rounded-full animate-spin duration-[20s] ${
           darkMode ? 'border-green-500/30' : 'border-blue-500/30'
@@ -139,7 +130,7 @@ export default function Hero({
         }`}></div>
       </div>
 
-      {/* Floating Tech Logos */}
+      
       <div className="absolute inset-0 pointer-events-none">
         {heroSection.techLogos.map((logo, index) => (
           <div
@@ -161,14 +152,14 @@ export default function Hero({
         ))}
       </div>
 
-      {/* NAVBAR */}
+    
       <nav className={`flex items-center justify-between px-8 py-6 border-b fixed w-full top-0 left-0 z-50 backdrop-blur-2xl transition-all duration-700 ${
         darkMode 
           ? 'border-gray-800/50 bg-gray-900/70' 
           : 'border-gray-200/50 bg-white/70'
       } ${isLoaded ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
         
-        {/* Enhanced Logo */}
+    
         <div className="relative group">
           <div className="absolute transition-all duration-500 rounded-lg opacity-0 -inset-2 bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 group-hover:opacity-100 blur-lg"></div>
           <span className={`relative text-3xl font-black bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent cursor-pointer`}>
@@ -177,7 +168,7 @@ export default function Hero({
           <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-green-400 to-purple-400 group-hover:w-full transition-all duration-500"></div>
         </div>
 
-        {/* Premium Navigation */}
+        
         <ul className="hidden space-x-2 lg:flex">
           {currentContent.navigation.map((item, i) => (
             <li
@@ -200,20 +191,20 @@ export default function Hero({
                 </span>
               </button>
               
-              {/* Animated background */}
+            
               <div className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 blur-sm ${
                 darkMode ? 'bg-gradient-to-r from-green-500/10 to-blue-500/10' : 'bg-gradient-to-r from-green-400/20 to-blue-400/20'
               }`}></div>
               
-              {/* Bottom indicator */}
+        
               <div className={`absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-green-400 to-blue-400 rounded-full transition-all duration-300 ${activeNav === i ? 'w-full' : 'group-hover:w-3/4'}`}></div>
             </li>
           ))}
         </ul>
 
-        {/* Enhanced Controls */}
+    
         <div className="flex items-center space-x-3">
-          {/* 🌙/☀️ Theme Toggle Button */}
+  
           <button 
             onClick={() => setDarkMode(!darkMode)}
             className={`relative p-3 rounded-full backdrop-blur-sm border transition-all duration-300 hover:scale-110 hover:rotate-180 group ${
@@ -230,7 +221,7 @@ export default function Hero({
             )}
           </button>
 
-          {/* 🌍 Language Toggle Button */}
+        
           <button 
             onClick={() => setLang(lang === "es" ? "en" : "es")}
             className={`relative p-3 rounded-full backdrop-blur-sm border transition-all duration-300 hover:scale-110 group ${
@@ -243,7 +234,7 @@ export default function Hero({
             <Globe size={20} className={`group-hover:rotate-180 transition-transform duration-500 relative z-10 ${darkMode ? 'text-blue-400' : 'text-blue-600'}`} />
           </button>
 
-          {/* 🍔 Mobile Menu Button */}
+  
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className={`lg:hidden relative p-3 rounded-full backdrop-blur-sm border transition-all duration-300 hover:scale-110 ${
@@ -261,11 +252,11 @@ export default function Hero({
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+    
       <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
         mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}>
-        {/* Backdrop */}
+      
         <div 
           className={`absolute inset-0 backdrop-blur-xl transition-all duration-300 ${
             darkMode ? 'bg-gray-900/90' : 'bg-white/90'
@@ -273,7 +264,7 @@ export default function Hero({
           onClick={() => setMobileMenuOpen(false)}
         />
         
-        {/* Mobile Menu */}
+      
         <div className={`absolute top-24 left-4 right-4 rounded-2xl border backdrop-blur-xl transition-all duration-300 transform ${
           mobileMenuOpen ? 'translate-y-0 scale-100' : '-translate-y-10 scale-95'
         } ${darkMode ? 'bg-gray-800/90 border-gray-700/50' : 'bg-white/90 border-gray-300/50'}`}>
@@ -300,7 +291,7 @@ export default function Hero({
               ))}
             </ul>
             
-            {/* Mobile Menu Footer */}
+          
             <div className={`mt-6 pt-6 border-t flex justify-center space-x-4 ${
               darkMode ? 'border-gray-700/50' : 'border-gray-300/50'
             }`}>
@@ -340,13 +331,13 @@ export default function Hero({
         </div>
       </div>
 
-      {/* HERO CONTENT */}
+    
       <div className="relative z-10 flex flex-col items-center justify-center flex-grow px-8 pt-40 space-y-12 text-center lg:flex-row lg:text-left lg:pt-48 lg:space-y-0 lg:space-x-16">
         
-        {/* Enhanced Profile Section */}
+      
         <div className={`relative transition-all duration-1200 ${isLoaded ? 'translate-x-0 opacity-100' : '-translate-x-32 opacity-0'}`}>
           
-          {/* Main Profile Image */}
+        
           <div className="relative group">
             <div className={`absolute -inset-8 rounded-full border-2 animate-spin duration-[8s] ${
               darkMode ? 'border-green-500/30' : 'border-blue-500/40'
@@ -358,16 +349,16 @@ export default function Hero({
               darkMode ? 'border-purple-500/10' : 'border-purple-500/20'
             }`}></div>
             
-            {/* Profile container */}
+        
             <div className="relative w-56 h-56 lg:w-72 lg:h-72">
-              {/* Glow effect */}
+        
               <div className={`absolute inset-0 rounded-full blur-xl animate-pulse ${
                 darkMode 
                   ? 'bg-gradient-to-r from-green-500/30 via-blue-500/30 to-purple-500/30' 
                   : 'bg-gradient-to-r from-green-400/20 via-blue-400/20 to-purple-400/20'
               }`}></div>
               
-              {/* Image container */}
+      
               <div className={`relative w-full h-full rounded-full overflow-hidden border-4 border-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 p-1 group-hover:scale-105 transition-transform duration-500`}>
                 <div className={`w-full h-full rounded-full overflow-hidden ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
                   <Image 
@@ -380,7 +371,7 @@ export default function Hero({
               </div>
             </div>
             
-            {/* Floating particles */}
+      
             <div className={`absolute -top-6 -right-6 w-4 h-4 rounded-full animate-bounce delay-100 ${
               darkMode ? 'bg-green-400' : 'bg-green-500'
             }`}></div>
@@ -393,10 +384,10 @@ export default function Hero({
           </div>
         </div>
 
-        {/* Enhanced Text Content */}
+
         <div className={`max-w-3xl transition-all duration-1200 delay-400 ${isLoaded ? 'translate-x-0 opacity-100' : 'translate-x-32 opacity-0'}`}>
           
-          {/* Animated greeting */}
+
           <div className="flex items-center justify-center mb-6 lg:justify-start">
             <Sparkles className={`mr-3 animate-pulse ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
             <span className={`text-lg font-light tracking-wide ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -404,7 +395,7 @@ export default function Hero({
             </span>
           </div>
 
-          {/* Main title */}
+      
           <h1 className="mb-8 text-6xl font-black leading-none lg:text-8xl">
             <span className={`bg-clip-text text-transparent animate-pulse ${
               darkMode 
@@ -419,7 +410,7 @@ export default function Hero({
             </span>
           </h1>
           
-          {/* Subtitle with typewriter effect */}
+        
           <h2 className="relative mb-8 text-2xl font-bold lg:text-4xl">
             <span className="text-transparent bg-gradient-to-r from-green-400 via-cyan-400 to-blue-400 bg-clip-text">
               {currentContent.subtitle}
@@ -427,12 +418,12 @@ export default function Hero({
             <span className={`animate-pulse ml-2 ${darkMode ? 'text-green-400' : 'text-blue-500'}`}>|</span>
           </h2>
           
-          {/* Description */}
+        
           <p className={`text-xl leading-relaxed mb-12 max-w-2xl opacity-90 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
             {currentContent.description}
           </p>
 
-          {/* Premium CTA Buttons */}
+  
           <div className="flex flex-col justify-center gap-6 sm:flex-row lg:justify-start">
             <button 
               onClick={() => scrollToSection('projects')}
@@ -463,7 +454,7 @@ export default function Hero({
             </button>
           </div>
 
-          {/* Stats or achievements */}
+      
           <div className={`grid grid-cols-3 gap-8 mt-16 pt-8 border-t transition-colors duration-500 ${
             darkMode ? 'border-gray-800/50' : 'border-gray-300/50'
           }`}>
@@ -481,7 +472,7 @@ export default function Hero({
         </div>
       </div>
 
-      {/* Enhanced Scroll Indicator */}
+  
       <div className="absolute flex flex-col items-center transform -translate-x-1/2 bottom-8 left-1/2 animate-bounce">
         <div className={`text-xs mb-2 tracking-wider ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
           {currentContent.scroll}
@@ -494,7 +485,7 @@ export default function Hero({
         <ChevronDown className={`mt-2 animate-pulse ${darkMode ? 'text-gray-600' : 'text-gray-500'}`} size={16} />
       </div>
 
-      {/* Custom CSS for animations */}
+
       <style jsx>{`
         @keyframes gradient {
           0%, 100% { background-position: 0% 50%; }

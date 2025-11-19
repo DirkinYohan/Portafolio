@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Code2, Target, Heart, Sparkles, Award } from "lucide-react";
 import { useState, useEffect, useRef, JSX } from "react";
 
-// Import JSON data
 import portfolioData from '../data/About-data.json';
 
 export default function About({
@@ -17,13 +16,11 @@ export default function About({
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Extract data from JSON
   const { metadata, sections } = portfolioData.About;
   const aboutSection = sections.about;
   const currentContent = aboutSection.content[lang];
 
   useEffect(() => {
-    // Handle scroll when page loads with #about in URL
     const handleHashScroll = () => {
       if (window.location.hash === '#about' && sectionRef.current) {
         setTimeout(() => {
@@ -35,7 +32,6 @@ export default function About({
       }
     };
 
-    // Execute immediately and also after a small delay
     handleHashScroll();
     window.addEventListener('load', handleHashScroll);
 
@@ -58,7 +54,7 @@ export default function About({
     }
   }, []);
 
-  // Icon mapping function
+
   const getIcon = (iconName: string) => {
     const iconMap: { [key: string]: JSX.Element } = {
       Code2: <Code2 size={28} />,
@@ -80,11 +76,11 @@ export default function About({
           : aboutSection.colors.lightMode.background
       }`}
       style={{ 
-        scrollMarginTop: '80px' // Compensation for fixed navbar
+        scrollMarginTop: '80px' 
       }}
     >
       
-      {/* Dynamic Background Grid - Hero Style */}
+
       <div className={`absolute inset-0 ${darkMode ? 'opacity-20' : 'opacity-10'}`}>
         <div 
           className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10"
@@ -102,7 +98,6 @@ export default function About({
         </svg>
       </div>
 
-      {/* Floating Tech Logos - Hero Style */}
       <div className="absolute inset-0 pointer-events-none">
         {aboutSection.techLogos.map((logo, index) => (
           <div
@@ -124,7 +119,6 @@ export default function About({
         ))}
       </div>
 
-      {/* Floating Geometric Shapes - Hero Style */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className={`absolute top-1/4 left-1/6 w-32 h-32 border rounded-full animate-spin duration-[20s] ${
           darkMode ? 'border-green-500/30' : 'border-blue-500/30'
@@ -142,10 +136,10 @@ export default function About({
 
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 py-20">
         
-        {/* Enhanced Header */}
+   
         <div className="max-w-6xl w-full text-center mb-16">
           
-          {/* Sparkle icon - Hero Style */}
+   
           <div className="flex items-center justify-center mb-6">
             <Sparkles className={`mr-3 animate-pulse ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
             <span className={`text-lg font-normal tracking-normal ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -154,7 +148,7 @@ export default function About({
             <Sparkles className={`ml-3 animate-pulse ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={24} />
           </div>
 
-          {/* Main title with Hero styling */}
+  
           <h2 className="mb-8 text-5xl font-semibold leading-tight lg:text-6xl">
             <span className="text-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text bg-size-200 animate-gradient">
               {currentContent.title}
@@ -162,14 +156,11 @@ export default function About({
           </h2>
         </div>
 
-        {/* Main Content */}
         <div className="flex flex-col lg:flex-row items-center gap-16 max-w-6xl w-full">
-          
-          {/* Enhanced Image Section */}
+    
           <div className="flex-1 flex justify-center">
             <div className="relative group">
               
-              {/* Animated rings - Hero Style */}
               <div className={`absolute -inset-8 rounded-full border-2 animate-spin duration-[15s] ${
                 darkMode ? 'border-green-500/30' : 'border-blue-500/40'
               }`}></div>
@@ -180,16 +171,15 @@ export default function About({
                 darkMode ? 'border-purple-500/10' : 'border-purple-500/20'
               }`}></div>
               
-              {/* Main image container */}
               <div className="relative w-64 h-64 lg:w-80 lg:h-80">
-                {/* Glow effect */}
+
                 <div className={`absolute inset-0 rounded-full blur-xl animate-pulse ${
                   darkMode 
                     ? 'bg-gradient-to-r from-green-500/30 via-blue-500/30 to-purple-500/30' 
                     : 'bg-gradient-to-r from-green-400/20 via-blue-400/20 to-purple-400/20'
                 }`}></div>
                 
-                {/* Image wrapper - Hero Style */}
+  
                 <div className={`relative w-full h-full rounded-full overflow-hidden border-4 border-transparent bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 p-1 group-hover:scale-105 transition-transform duration-500`}>
                   <div className={`w-full h-full rounded-full overflow-hidden ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
                     <Image
@@ -201,7 +191,6 @@ export default function About({
                   </div>
                 </div>
                 
-                {/* Floating elements around image - Hero Style */}
                 <div className={`absolute -top-6 -right-6 w-4 h-4 rounded-full animate-bounce delay-100 ${
                   darkMode ? 'bg-green-400' : 'bg-green-500'
                 }`}></div>
@@ -212,7 +201,6 @@ export default function About({
                   darkMode ? 'bg-purple-400' : 'bg-purple-500'
                 }`}></div>
                 
-                {/* Achievement badges - Hero Style */}
                 <div className={`absolute -top-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-full backdrop-blur-sm border transition-all duration-500 hover:scale-110 ${
                   darkMode ? 'bg-gray-800/80 border-gray-700/50 text-yellow-400' : 'bg-white/80 border-gray-300/50 text-yellow-500'
                 }`}>
@@ -225,22 +213,21 @@ export default function About({
             </div>
           </div>
 
-          {/* Enhanced Text Content */}
+
           <div className="flex-1 space-y-8">
             
-            {/* Main description with Hero typography */}
+  
             <div className="relative">
               <p className={`text-lg leading-relaxed mb-8 font-normal ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                 {currentContent.description}
               </p>
               
-              {/* Quote mark decoration */}
+
               <div className={`absolute -top-4 -left-4 text-4xl opacity-20 ${
                 darkMode ? 'text-green-400' : 'text-blue-500'
               }`}>"</div>
             </div>
 
-            {/* Enhanced Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {currentContent.cards.map((card, i) => (
                 <div
@@ -253,12 +240,9 @@ export default function About({
                   onMouseEnter={() => setActiveCard(i)}
                   onMouseLeave={() => setActiveCard(null)}
                 >
-                  {/* Glow effect - Hero Style */}
                   <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl bg-gradient-to-r ${card.gradient}`}></div>
-                  
-                  {/* Card content */}
+
                   <div className="relative z-10">
-                    {/* Centered icon at top */}
                     <div className={`flex justify-center mb-4 transition-all duration-300 ${
                       activeCard === i ? 'scale-110' : ''
                     }`}>
@@ -267,18 +251,17 @@ export default function About({
                       </div>
                     </div>
                     
-                    {/* Centered title - MODIFIED */}
+            
                     <h3 className={`text-lg font-medium text-center mb-4 transition-colors duration-300 ${
                       activeCard === i 
                         ? darkMode 
-                          ? "text-white"  // In dark mode, keep white on hover
-                          : "text-black"  // In light mode, keep black on hover
+                          ? "text-white"  
+                          : "text-black" 
                         : darkMode ? 'text-white' : 'text-gray-800'
                     }`}>
                       {card.title}
                     </h3>
                     
-                    {/* Descriptive text */}
                     <p className={`text-sm leading-relaxed font-normal text-center transition-colors duration-300 ${
                       darkMode ? 'text-gray-400 group-hover:text-gray-300' : 'text-gray-600 group-hover:text-gray-700'
                     }`}>
@@ -292,7 +275,6 @@ export default function About({
         </div>
       </div>
 
-      {/* Custom Styles */}
       <style jsx>{`
         @keyframes gradient {
           0%, 100% { background-position: 0% 50%; }
@@ -306,8 +288,6 @@ export default function About({
           background-size: 200% 200%;
         }
       `}</style>
-
-      {/* Font family styles for Aptos */}
       <style jsx global>{`
         .font-sans {
           font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;

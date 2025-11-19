@@ -15,10 +15,7 @@ import {
   Check
 } from "lucide-react";
 
-// Import JSON data
 import portfolioData from '../data/Contact-data.json';
-
-// Icon mapping function
 const getIcon = (iconName: string) => {
   const iconMap: { [key: string]: React.ComponentType<any> } = {
     Mail,
@@ -49,7 +46,6 @@ export default function Contact({
   const [copiedEmail, setCopiedEmail] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Extract data from JSON
   const { sections, functionalities } = portfolioData.Contact;
   const contactSection = sections.contact;
   const currentContent = contactSection.content[lang];
@@ -104,7 +100,6 @@ export default function Contact({
     }
   };
 
-  // Prepare contact methods with actual data
   const preparedContactMethods = contactMethods.map(method => {
     const IconComponent = getIcon(method.icon);
     const methodData = {
@@ -141,7 +136,6 @@ export default function Contact({
     };
   });
 
-  // Prepare additional info with actual data
   const preparedAdditionalInfo = additionalInfo.map(info => {
     const IconComponent = getIcon(info.icon);
     const infoData = {
@@ -173,9 +167,9 @@ export default function Contact({
       }`}
       style={{ fontFamily: 'Aptos, -apple-system, BlinkMacSystemFont, sans-serif' }}
     >
-      {/* Dynamic Background Elements */}
+
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Animated grid */}
+  
         <div className={`absolute inset-0 transition-opacity duration-500 ${darkMode ? 'opacity-10' : 'opacity-5'}`}>
           <svg className="absolute inset-0 w-full h-full">
             <defs>
@@ -187,7 +181,7 @@ export default function Contact({
           </svg>
         </div>
 
-        {/* Floating elements with mouse interaction */}
+  
         <div 
           className={`absolute top-1/6 right-1/6 w-20 h-20 md:w-32 md:h-32 rounded-full blur-3xl animate-pulse transition-all duration-1000 ${
             darkMode ? 'bg-green-500/20' : 'bg-green-500/15'
@@ -204,8 +198,7 @@ export default function Contact({
             transform: `translate(${mousePosition.x * -0.01}px, ${mousePosition.y * -0.01}px)`,
           }}
         />
-
-        {/* Geometric shapes */}
+        
         <div className={`hidden sm:block absolute top-1/4 left-1/5 w-12 h-12 md:w-16 md:h-16 border-2 rotate-45 animate-spin duration-[20s] ${
           darkMode ? 'border-green-500/30' : 'border-green-400/20'
         }`}></div>
@@ -216,11 +209,10 @@ export default function Contact({
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         
-        {/* Enhanced Header */}
         <div className={`text-center mb-8 md:mb-12 lg:mb-20 transition-all duration-1000 ${
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
         }`}>
-          {/* Sparkle decorations */}
+    
           <div className="flex items-center justify-center mb-3 md:mb-4 lg:mb-6">
             <Sparkles className={`mr-2 md:mr-3 animate-spin duration-[3s] ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={18} />
             <span className={`text-xs md:text-sm lg:text-base font-medium tracking-wider ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -229,28 +221,25 @@ export default function Contact({
             <Sparkles className={`ml-2 md:ml-3 animate-spin duration-[3s] animation-delay-1000 ${darkMode ? 'text-yellow-400' : 'text-yellow-500'}`} size={18} />
           </div>
 
-          {/* Main title */}
+        
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 md:mb-6 lg:mb-8 leading-tight">
             <span className="bg-gradient-to-r from-green-400 via-blue-500 to-purple-500 bg-clip-text text-transparent animate-gradient bg-size-200">
               {currentContent.title}
             </span>
           </h2>
 
-          {/* Description */}
           <p className={`text-sm sm:text-base md:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed px-4 ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
             {currentContent.description}
           </p>
         </div>
 
-        {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-16 items-start lg:items-center">
-          
-          {/* Left Column - Contact Methods */}
+        
           <div className={`transition-all duration-1000 delay-300 ${
             isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
           }`}>
             
-            {/* Contact Methods Cards */}
+    
             <div className="space-y-3 md:space-y-4 lg:space-y-6 mb-6 md:mb-8 lg:mb-12">
               {preparedContactMethods.map((method, index) => (
                 <div
@@ -262,7 +251,7 @@ export default function Contact({
                   onMouseEnter={() => setHoveredCard(index)}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
-                  {/* Card glow effect */}
+              
                   <div className={`absolute -inset-1 bg-gradient-to-r ${method.color} rounded-2xl md:rounded-3xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500`}></div>
                   
                   <div className={`relative p-3 sm:p-4 md:p-6 lg:p-8 rounded-xl md:rounded-2xl lg:rounded-3xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 hover:shadow-2xl ${
@@ -272,7 +261,7 @@ export default function Contact({
                   }`}>
                     
                     <div className="flex items-center gap-3 md:gap-4 lg:gap-6">
-                      {/* Icon */}
+                  
                       <div className={`relative p-2 md:p-3 lg:p-4 rounded-lg md:rounded-xl lg:rounded-2xl transition-all duration-300 flex-shrink-0 ${
                         hoveredCard === index 
                           ? `bg-gradient-to-r ${method.color} text-white rotate-12 scale-110` 
@@ -280,13 +269,13 @@ export default function Contact({
                       }`}>
                         <method.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
                         
-                        {/* Icon pulse effect */}
+              
                         {hoveredCard === index && (
                           <div className={`absolute inset-0 rounded-lg md:rounded-xl lg:rounded-2xl bg-gradient-to-r ${method.color} animate-ping opacity-20`}></div>
                         )}
                       </div>
                       
-                      {/* Content */}
+      
                       <div className="flex-1 min-w-0">
                         <h3 className={`text-sm sm:text-base md:text-lg font-bold mb-0.5 md:mb-1 lg:mb-2 transition-colors duration-300 ${
                           hoveredCard === index
@@ -300,7 +289,7 @@ export default function Contact({
                         </p>
                       </div>
                       
-                      {/* Action buttons */}
+                    
                       <div className="flex items-center gap-1.5 md:gap-2 lg:gap-3 flex-shrink-0">
                         {method.action && (
                           <button
@@ -335,7 +324,7 @@ export default function Contact({
               ))}
             </div>
 
-            {/* Additional Info */}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 lg:gap-6">
               {preparedAdditionalInfo.map((info, index) => (
                 <div
@@ -364,14 +353,12 @@ export default function Contact({
             </div>
           </div>
 
-          {/* Right Column - CTA and Visual */}
+        
           <div className={`transition-all duration-1000 delay-500 ${
             isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
           }`}>
             
-            {/* Main CTA Card */}
             <div className="relative group">
-              {/* Background glow */}
               <div className="absolute -inset-2 md:-inset-4 bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 rounded-xl md:rounded-2xl lg:rounded-3xl blur-xl md:blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
               
               <div className={`relative p-6 sm:p-8 md:p-10 lg:p-12 rounded-xl md:rounded-2xl lg:rounded-3xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 ${
@@ -380,7 +367,7 @@ export default function Contact({
                   : "bg-white/90 border-gray-200/50"
               }`}>
                 
-                {/* Decorative elements */}
+    
                 <div className="absolute top-3 right-3 sm:top-4 sm:right-4 md:top-6 md:right-6">
                   <div className={`w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full animate-pulse ${
                     darkMode ? 'bg-gradient-to-r from-green-400/20 to-blue-400/20' : 'bg-gradient-to-r from-green-400/30 to-blue-400/30'
@@ -402,7 +389,7 @@ export default function Contact({
                     </p>
                   </div>
                   
-                  {/* Premium CTA Button */}
+
                   <a
                     href={`mailto:${contactInfo.email}?subject=Contacto%20desde%20tu%20portafolio&body=Hola%20Dirkin,%20vi%20tu%20portafolio%20y%20me%20gustaría%20ponerme%20en%20contacto.`}
                     className="group relative inline-flex items-center gap-2 md:gap-3 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 overflow-hidden font-bold text-white transition-all duration-500 bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 rounded-xl md:rounded-2xl hover:shadow-2xl hover:shadow-blue-500/25 hover:scale-110 text-xs sm:text-sm md:text-base"
@@ -416,8 +403,7 @@ export default function Contact({
                     <div className="absolute transition-opacity duration-300 opacity-0 -inset-1 bg-gradient-to-r from-green-500 via-blue-500 to-purple-500 rounded-xl md:rounded-2xl blur-lg group-hover:opacity-100 -z-10"></div>
                   </a>
                 </div>
-                
-                {/* Stats */}
+
                 <div className={`grid grid-cols-2 gap-4 sm:gap-6 md:gap-8 mt-6 sm:mt-8 md:mt-12 pt-4 sm:pt-6 md:pt-8 border-t ${
                   darkMode ? 'border-gray-700/50' : 'border-gray-300/50'
                 }`}>
